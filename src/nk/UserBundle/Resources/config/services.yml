@@ -1,0 +1,7 @@
+parameters:
+#    nk_user.example.class: nk\UserBundle\Example
+
+services:
+#    nk_user.example:
+#        class: %nk_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

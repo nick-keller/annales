@@ -7,11 +7,8 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        fos_userbundle:
+            id: fos_user.user_provider.username
 
     firewalls:
         dev:
@@ -21,18 +18,19 @@ security:
         main:
             pattern: ^/
             anonymous:      true
-#            provider:       fos_userbundle
-            provider: in_memory
-#            form_login:
-#                csrf_provider: form.csrf_provider
-#                login_path: fos_user_security_login
-#                check_path: fos_user_security_check
-#            logout:
-#                path:       fos_user_security_logout
-#                target:     /
-#                invalidate_session: false
-#            remember_me:
-#                key:        %secret%
+            provider:       fos_userbundle
+            form_login:
+                csrf_provider: form.csrf_provider
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+            logout:
+                path:       fos_user_security_logout
+                target:     /
+                invalidate_session: false
+            remember_me:
+                key:        %secret%
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

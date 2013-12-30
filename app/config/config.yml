@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -28,15 +28,21 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - ':Form:form_div_layout.html.twig'
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ ]
-    #java: /usr/bin/java
+    read_from:      "%kernel.root_dir%/../www"
     filters:
         cssrewrite: ~
+        lessphp:
+            apply_to: "\.less$"
+            file:     %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
         #closure:
         #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
         #yui_css:
@@ -67,3 +73,46 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# FOS UserBundle configuration
+fos_user:
+    db_driver:      orm
+    firewall_name:  main
+    user_class:     nk\UserBundle\Entity\User
+
+
+# Stof\DoctrineExtensionBundle configuration
+stof_doctrine_extensions:
+    uploadable:
+        default_file_path:       %kernel.root_dir%/../www/uploads
+        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
+        validate_writable_directory: false
+    orm:
+        default:
+            sluggable: true
+            timestampable: true
+            blameable: true
+            uploadable: true
+            sortable: true
+
+jms_di_extra:
+    automatic_controller_injections:
+        properties:
+            request: @request
+            em: @doctrine.orm.entity_manager
+            um: @fos_user.user_manager
+            paginator: @knp_paginator
+            uploadableManager: @stof_doctrine_extensions.uploadable.manager
+            mailer: @mailer
+            session: @session
+
+jms_security_extra:
+    expressions: true
+
+knp_paginator:
+    page_range: 5
+    default_options:
+        page_name: page
+    template:
+        pagination: ::pagination.html.twig
