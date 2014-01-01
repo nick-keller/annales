@@ -1,13 +1,87 @@
+{% macro active(route) %}
+    {% spaceless %}
+        {% if route in app.request.get('_route') %}
+            class="active"
+        {% endif %}
+    {% endspaceless %}
+{% endmacro %}
+{% import _self as page %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>{% block title %}Annales ESIEE{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+            {% stylesheets
+                'less/layout.less'
+                'less/form.less'
+                filter='cssrewrite'
+                output='css/main.css'
+            %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <aside id="left-menu">
+            <form method="get" class="search-form">
+                <input type="search" name="s" placeholder="Rechercher">
+            </form>
+            {% if app.user %}
+                <ul class="menu">
+                    <li {{ page.active('fos_user') }}>
+                        <a href="fos_user_profile_show">
+                            <i class="fa fa-cogs"></i>
+                            Mon compte
+                        </a>
+                    </li>
+                    <li {{ page.active('nk_document_new') }}>
+                        <a href="{{ path('nk_document_new') }}">
+                            <i class="fa fa-cloud-upload green"></i>
+                            Uploader
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-copy blue"></i>
+                            Fichiers
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-folder-open yellow"></i>
+                            Compils
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('fos_user_security_logout') }}">
+                            <i class="fa fa-power-off red"></i>
+                            Déconnexion
+                        </a>
+                    </li>
+                </ul>
+            {% else %}
+            {% endif %}
+        </aside>
+        <nav id="nav-bar">
+            <div class="page-title">
+                {% block pageTitle %}
+                    {% if app.user %}
+                        Bonjour {{ app.user }} !
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </nav>
+        <article id="main-content">
+            {% block submenu %}{% endblock %}
+            <div class="content">
+                {% block body %}{% endblock %}
+            </div>
+        </article>
+        {% block javascripts %}
+        {% endblock %}
     </body>
 </html>

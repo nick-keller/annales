@@ -1,0 +1,233 @@
+@import "mixins";
+
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+@body-color: #ececec;
+
+body{
+    background: @body-color;
+    font-family: "Calibri", "Arial";
+    font-size: 16px;
+    color: #333;
+}
+
+@left-menu-color: #2f2f2f;
+@left-menu-width: 260px;
+
+@nav-bar-color: #4386ba;
+@nav-bar-height: 45px;
+
+#left-menu{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: @left-menu-width;
+    overflow-y: auto;
+
+    background: @left-menu-color;
+    color: #eaeaea;
+
+    .search-form{
+        height: @nav-bar-height;
+        padding: 7px;
+        .box-sizing();
+
+        input{
+            width: 100%;
+            height: 100%;
+            padding: 0 10px;
+            .box-sizing();
+
+            background: darken(@left-menu-color, 6%);
+            color: #ababab;
+            border: none;
+        }
+    }
+
+    .menu{
+        list-style: none;
+        margin: 10px 0 0 0;
+        padding: 0;
+
+        li{
+            position: relative;
+
+            &.active{
+                margin: 1px 0;
+                background: lighten(@left-menu-color, 4%);
+
+                &:after{
+                    @size : 6px;
+
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    border: solid transparent @size;
+                    border-left: none;
+                    border-right-color: @body-color;
+                    margin-top: -@size;
+                }
+            }
+
+            a{
+                display: block;
+                height: @nav-bar-height;
+                padding: 0 10px;
+                line-height: @nav-bar-height;
+                cursor: pointer;
+
+                color: #eaeaea;
+                text-decoration: none;
+
+                &:hover{
+                    background: lighten(@left-menu-color, 5%);
+
+                    i{
+                        color: #c5c5c5;
+
+                        &.red{
+                            color: #d64242;
+                        }
+
+                        &.yellow{
+                            color: #f2c841;
+                        }
+
+                        &.blue{
+                            color: #7db1d1;
+                        }
+
+                        &.green{
+                            color: #8bdb4e;
+                        }
+                    }
+                }
+
+                i{
+                    width: 40px;
+                    font-size: 20px;
+                    color: #a3a3a3;
+                }
+            }
+        }
+    }
+}
+
+
+#nav-bar{
+    position: absolute;
+    left: @left-menu-width;
+    top: 0;
+    right: 0;
+    height: @nav-bar-height;
+    line-height: @nav-bar-height;
+    color: white;
+    font-size: 18px;
+
+    background: @nav-bar-color;
+
+    .page-title{
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+}
+
+#main-content{
+    position: absolute;
+    left: @left-menu-width;
+    top: @nav-bar-height;
+    bottom: 0;
+    right: 0;
+
+    .content{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 10px;
+        overflow-y: auto;
+    }
+
+    .submenu{
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: @left-menu-width;
+        border-right: solid 1px #b5b5b5;
+
+        ~ .content{
+            left: @left-menu-width;
+        }
+
+        ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            margin-top: 10px;
+
+            li{
+                position: relative;
+                height: @nav-bar-height;
+
+                &.active{
+                    background: lighten(@nav-bar-color, 4%);
+                    margin: 1px 0;
+
+                    a, a i {
+                        color: white;
+                    }
+
+                    &:after{
+                        @size : 6px;
+
+                        content: "";
+                        position: absolute;
+                        right: -1px;
+                        top: 50%;
+                        border: solid transparent @size;
+                        border-left: none;
+                        border-right-color: @body-color;
+                        margin-top: -@size;
+                    }
+                }
+
+                a{
+                    display: block;
+                    height: @nav-bar-height;
+                    line-height: @nav-bar-height;
+                    .box-sizing();
+                    padding: 0 10px;
+
+                    color: #333;
+                    text-decoration: none;
+
+                    &:hover{
+                        background: @nav-bar-color;
+                        color: white;
+
+                        i{
+                            color: white;
+                        }
+                    }
+
+                    i{
+                        width: 30px;
+                        font-size: 20px;
+                        text-align: center;
+                        color: #3e3e3e;
+                    }
+                }
+            }
+        }
+    }
+}

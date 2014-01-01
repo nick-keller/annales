@@ -1,0 +1,45 @@
+@import "mixins";
+
+@input-height: 30px;
+@input-width: 300px;
+@label-width: 220px;
+
+input{
+    width: @input-width;
+    height: @input-height;
+    line-height: @input-height;
+    padding: 0 10px;
+    .box-sizing();
+
+    border: none;
+    background: white;
+
+    .transition(box-shadow .2s);
+
+    &:focus{
+        box-shadow: 3px 0 rgba(0,0,0,.3) inset;
+    }
+}
+
+.control-group{
+    min-height: @input-height;
+    padding: 10px;
+    margin-bottom: 2px;
+    line-height: @input-height;
+
+    background: rgba(0,0,0,.025);
+
+    .control-label{
+        width: @label-width;
+        display: inline-block;
+        vertical-align: top;
+        padding-right: 10px;
+
+        text-align: right;
+    }
+
+    .controls{
+        display: inline-block;
+        vertical-align: top;
+    }
+}

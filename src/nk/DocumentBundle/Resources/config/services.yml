@@ -1,0 +1,7 @@
+parameters:
+#    nk_document.example.class: nk\DocumentBundle\Example
+
+services:
+#    nk_document.example:
+#        class: %nk_document.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

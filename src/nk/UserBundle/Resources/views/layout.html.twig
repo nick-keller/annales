@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block submenu %}
+    <nav class="submenu">
+        <ul>
+            <li {{ page.active('fos_user_profile_show') }}>
+                <a href="{{ path('fos_user_profile_show') }}">
+                    <i class="fa fa-user"></i>
+                    Profil
+                </a>
+            </li>
+            <li {{ page.active('fos_user_profile_edit') }}>
+                <a href="{{ path('fos_user_profile_edit') }}">
+                    <i class="fa fa-pencil"></i>
+                    Modifier
+                </a>
+            </li>
+            <li {{ page.active('fos_user_change_password') }}>
+                <a href="{{ path('fos_user_change_password') }}">
+                    <i class="fa fa-key"></i>
+                    Mot de passe
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block body %}
+
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="flash-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+
+{% endblock %}
