@@ -17,6 +17,7 @@
             {% stylesheets
                 'less/layout.less'
                 'less/form.less'
+                'css/custom-theme/jquery-ui-1.10.3.custom.min.css'
                 filter='cssrewrite'
                 output='css/main.css'
             %}
@@ -82,6 +83,15 @@
             </div>
         </article>
         {% block javascripts %}
+            <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+            <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+            {% javascripts
+                'js/caret.js'
+                'js/autocomplete.js'
+                output='/js/script.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
     </body>
 </html>

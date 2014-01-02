@@ -4,7 +4,7 @@
 @input-width: 300px;
 @label-width: 220px;
 
-input{
+input, select{
     width: @input-width;
     height: @input-height;
     line-height: @input-height;
@@ -21,6 +21,18 @@ input{
     }
 }
 
+.btn{
+    height: @input-height;
+    line-height: @input-height;
+    padding: 0 10px;
+    .box-sizing();
+
+    border: none;
+    background: #4386ba;
+    color: white;
+    cursor: pointer;
+}
+
 .control-group{
     min-height: @input-height;
     padding: 10px;
@@ -28,6 +40,10 @@ input{
     line-height: @input-height;
 
     background: rgba(0,0,0,.025);
+
+    &.actions{
+        padding-left: @label-width + 20px;
+    }
 
     .control-label{
         width: @label-width;
