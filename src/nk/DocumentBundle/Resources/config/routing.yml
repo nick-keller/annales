@@ -1,3 +1,9 @@
 nk_document_new:
     pattern:  /new
     defaults: { _controller: nkDocumentBundle:Document:new }
+
+nk_document_show:
+    pattern:  /{id}-{slug}
+    defaults: { _controller: nkDocumentBundle:Document:show }
+    requirements:
+        id: \d+

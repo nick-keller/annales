@@ -1,0 +1,369 @@
+<?php
+
+namespace nk\DocumentBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use nk\UserBundle\Entity\User as User;
+
+/**
+ * Document
+ *
+ * @ORM\Table(name="nk_document")
+ * @ORM\Entity(repositoryClass="nk\DocumentBundle\Entity\DocumentRepository")
+ */
+class Document
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=10)
+     * @Assert\NotBlank()
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="class", type="string", length=10)
+     * @Assert\NotBlank()
+     */
+    private $class;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="field", type="string", length=30)
+     * @Assert\NotBlank()
+     */
+    private $field;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="year", type="string", length=10)
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^20[0-9]{2}([ -]20[0-9]{2})?$/")
+     */
+    private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="teacher", type="string", length=100)
+     * @Assert\NotBlank()
+     */
+    private $teacher;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subject", type="string", length=200)
+     * @Assert\NotBlank()
+     */
+    private $subject;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=204)
+     * @Gedmo\Slug(fields={"subject"})
+     */
+    private $slug;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $createdAt;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="nk\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     * @Gedmo\Blameable(on="create")
+     */
+    private $author;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="downloaded", type="integer")
+     */
+    private $downloaded = 0;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="viewed", type="integer")
+     */
+    private $viewed = 0;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Document
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set promo
+     *
+     * @param string $class
+     * @return Document
+     */
+    public function setClass($class)
+    {
+        $this->class = strtoupper($class);
+
+        return $this;
+    }
+
+    /**
+     * Get promo
+     *
+     * @return string 
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
+     * Set field
+     *
+     * @param string $field
+     * @return Document
+     */
+    public function setField($field)
+    {
+        $this->field = ucfirst(strtolower(strip_accents($field)));
+
+        return $this;
+    }
+
+    /**
+     * Get field
+     *
+     * @return string 
+     */
+    public function getField()
+    {
+        return $this->field;
+    }
+
+    /**
+     * Set year
+     *
+     * @param string $year
+     * @return Document
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return string 
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set teacher
+     *
+     * @param string $teacher
+     * @return Document
+     */
+    public function setTeacher($teacher)
+    {
+        $this->teacher = ucfirst(strtolower(strip_accents($teacher)));
+
+        return $this;
+    }
+
+    /**
+     * Get teacher
+     *
+     * @return string 
+     */
+    public function getTeacher()
+    {
+        return $this->teacher;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     * @return Document
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Document
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param User $author
+     */
+    public function setAuthor(User $author)
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set downloaded
+     *
+     * @param integer $downloaded
+     * @return Document
+     */
+    public function setDownloaded($downloaded)
+    {
+        $this->downloaded = $downloaded;
+
+        return $this;
+    }
+
+    /**
+     * Get downloaded
+     *
+     * @return integer 
+     */
+    public function getDownloaded()
+    {
+        return $this->downloaded;
+    }
+
+    /**
+     * Set viewed
+     *
+     * @param integer $viewed
+     * @return Document
+     */
+    public function setViewed($viewed)
+    {
+        $this->viewed = $viewed;
+
+        return $this;
+    }
+
+    /**
+     * Get viewed
+     *
+     * @return integer 
+     */
+    public function getViewed()
+    {
+        return $this->viewed;
+    }
+}
+
+function strip_accents($string){
+    return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
+        'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+}
