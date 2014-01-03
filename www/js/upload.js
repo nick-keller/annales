@@ -23,6 +23,12 @@ $(function(){
             var $file = $('#file' + i);
             var $loadingBar = $file.find('.loading-bar');
             var $statusBar = $file.find('.status');
+            // Time when last sample started
+            var mesuredAt = new Date().getTime();
+            // How much was sent when sample started
+            var loadedWhenMesured = 0;
+            // Upload speed in s/o
+            var speed = 0;
 
             // Make sure we have a pdf
             if(file.type != 'application/pdf' && file.type != 'application/x-pdf'){
@@ -58,16 +64,37 @@ $(function(){
 
             xhr.upload.onprogress = function(e) {
                 $loadingBar.css('bottom', e.loaded / e.total * 100 + '%');
+
+                var elapsed = new Date().getTime() - mesuredAt;
+
+                // Recompute transfer speed every second
+                if(elapsed > 1000){
+                    speed = (1-0.05) * speed + (0.05) * elapsed / (e.loaded - loadedWhenMesured);
+
+                    mesuredAt = new Date().getTime();
+                    loadedWhenMesured = e.loaded;
+                }
+
+                var remaining = Math.round((speed  * (e.total - e.loaded))/1000);
+
+                var minutes = Math.floor(remaining/60);
+                var secondes = remaining - 60 * minutes;
+
+                if(speed > 0)
+                    $statusBar.html((minutes ? minutes + 'm ':'') + secondes + 's restantes');
+
             };
 
             xhr.onload = function() {
                 $loadingBar.remove();
-                var response = JSON.parse(xhr.response);
+                var response = xhr.status == 200 ? JSON.parse(xhr.response): false;
 
+                // An error occured
                 if(xhr.status != 200 || !response.success){
                     $file.find('.fa-file-text').css('color', '#ca6060');
                     $statusBar.html("Une erreur est survenue");
                 }
+                // Everything is good =)
                 else{
                     $statusBar.html("Réussi");
                     $.get(response.template, function(data){
