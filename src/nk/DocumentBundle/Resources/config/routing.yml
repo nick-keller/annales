@@ -7,3 +7,15 @@ nk_document_show:
     defaults: { _controller: nkDocumentBundle:Document:show }
     requirements:
         id: \d+
+
+nk_document_upload:
+    pattern:  /{id}/upload
+    defaults: { _controller: nkDocumentBundle:File:upload }
+    requirements:
+        id: \d+
+
+nk_document_file:
+    pattern:  /file/{id}
+    defaults: { _controller: nkDocumentBundle:File:show }
+    requirements:
+        id: \d+

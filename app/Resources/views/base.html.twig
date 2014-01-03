@@ -17,6 +17,7 @@
             {% stylesheets
                 'less/layout.less'
                 'less/form.less'
+                'less/upload.less'
                 'css/custom-theme/jquery-ui-1.10.3.custom.min.css'
                 filter='cssrewrite'
                 output='css/main.css'
@@ -28,8 +29,8 @@
     </head>
     <body>
         <aside id="left-menu">
-            <form method="get" class="search-form">
-                <input type="search" name="s" placeholder="Rechercher">
+            <form method="get" class="search-form" autocomplete="off">
+                <input type="search" name="s" placeholder="Rechercher" autocomplete="off">
             </form>
             {% if app.user %}
                 <ul class="menu">
@@ -75,6 +76,9 @@
                     {% endif %}
                 {% endblock %}
             </div>
+            <ul class="tools">
+                {% block tools %}{% endblock %}
+            </ul>
         </nav>
         <article id="main-content">
             {% block submenu %}{% endblock %}

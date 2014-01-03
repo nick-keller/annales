@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+{% block title %}Gérer les fichiers - {{ parent() }}{% endblock %}
+{% block pageTitle %}Gérer les fichiers de "{{ document.subject }}"{% endblock %}
+
+{% block tools %}
+    <li>
+        <label for="{{ form.file.vars.id }}">
+            <i class="fa fa-cloud-upload"></i>
+            Ajouter des fichiers
+        </label>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <div id="upload-manager"
+         data-file-id="{{ form.file.vars.id }}"
+         data-file-name="{{ form.file.vars.full_name }}"
+         data-name-name="{{ form.name.vars.full_name }}"
+         data-token-name="{{ form._token.vars.full_name }}"
+         data-token-value="{{ form._token.vars.value }}"
+            >
+        <div class="template">
+            <div class="file" id="__id__">
+                <i class="fa fa-file-text">
+                    <i class="fa fa-file-text loading-bar"></i>
+                </i>
+                <div class="name">__name__</div>
+                <div class="size">__size__</div>
+                <div class="status">En attente</div>
+            </div>
+        </div>
+        <div class="form">
+            {{ form_widget(form.file) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/upload.js') }}"></script>
+{% endblock %}

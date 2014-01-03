@@ -1,0 +1,71 @@
+#upload-manager{
+
+    .template, .form{
+        display: none;
+    }
+
+    .file{
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 150px;
+        height: 200px;
+        text-align: center;
+
+        .fa-file-text{
+            position: relative;
+            display: block;
+            font-size: 100px;
+            color: #4386ba;
+
+            &.loading-bar{
+                position: absolute;
+                color: red;
+                left: 0;
+                right: 0;
+                top: 0;
+                color: rgba(255,255,255,.5);
+                overflow: hidden;
+
+                &.loading{
+                    -moz-animation: blink 2s infinite;
+                    -webkit-animation: blink 2s infinite;
+                }
+            }
+        }
+
+        .name{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+}
+
+@-moz-keyframes blink {
+    0% {
+        color: rgba(255,255,255,.5);
+    }
+
+    50% {
+        color: rgba(255,255,255,.3);
+    }
+
+    100% {
+        color: rgba(255,255,255,.5);
+    }
+}
+
+@-webkit-keyframes blink {
+    0% {
+        color: rgba(255,255,255,.5);
+    }
+
+    50% {
+        color: rgba(255,255,255,.3);
+    }
+
+    100% {
+        color: rgba(255,255,255,.5);
+    }
+}

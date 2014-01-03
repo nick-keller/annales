@@ -2,6 +2,7 @@
 
 namespace nk\DocumentBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -111,6 +112,17 @@ class Document
      * @ORM\Column(name="viewed", type="integer")
      */
     private $viewed = 0;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="File", mappedBy="document", cascade={"remove"})
+     */
+    protected $files;
+
+    public function __construct()
+    {
+        $this->files = new ArrayCollection();
+    }
 
 
     /**
@@ -361,9 +373,43 @@ class Document
     {
         return $this->viewed;
     }
-}
 
-function strip_accents($string){
-    return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
-        'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+    /**
+     * Add files
+     *
+     * @param File $files
+     * @return Document
+     */
+    public function addFile(File $files)
+    {
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param File $files
+     */
+    public function removeFile(File $files)
+    {
+        $this->files->removeElement($files);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    function strip_accents($string)
+    {
+        return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
+            'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+    }
 }
