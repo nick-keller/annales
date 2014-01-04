@@ -160,6 +160,11 @@ body{
                 position: relative;
                 padding: 0 10px;
                 cursor: pointer;
+                min-width: @nav-bar-height;
+                text-align: center;
+                color: white;
+                text-decoration: none;
+                .box-sizing();
 
                 &:after{
                     content: "";
@@ -169,7 +174,7 @@ body{
                     top: 10px;
                     bottom: 10px;
                     width: 1px;
-                    background: white;
+                    background: rgba(255,255,255,.5);
                 }
 
                 &:hover{
