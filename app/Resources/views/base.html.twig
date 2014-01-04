@@ -35,7 +35,7 @@
             {% if app.user %}
                 <ul class="menu">
                     <li {{ page.active('fos_user') }}>
-                        <a href="fos_user_profile_show">
+                        <a href="{{ path('fos_user_profile_show') }}">
                             <i class="fa fa-cogs"></i>
                             Mon compte
                         </a>

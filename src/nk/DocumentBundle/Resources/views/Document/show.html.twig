@@ -2,5 +2,19 @@
 {% block title %}{{ document.subject }} - {{ parent() }}{% endblock %}
 {% block pageTitle %}{{ document.subject }}{% endblock %}
 
+{% block tools %}
+    <li>
+        <a href="{{ path('nk_document_edit', {id:document.id}) }}">
+            <i class="fa fa-pencil"></i>
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('nk_document_upload', {id:document.id}) }}">
+            <i class="fa fa-cloud-upload"></i>
+            Upload
+        </a>
+    </li>
+{% endblock %}
+
 {% block body %}
 {% endblock %}
