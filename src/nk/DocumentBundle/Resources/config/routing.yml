@@ -25,3 +25,9 @@ nk_document_file:
     defaults: { _controller: nkDocumentBundle:File:show }
     requirements:
         id: \d+
+
+nk_document_file_rename:
+    pattern:  /file/{id}/rename
+    defaults: { _controller: nkDocumentBundle:File:rename }
+    requirements:
+        id: \d+

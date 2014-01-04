@@ -70,6 +70,23 @@ class FileController extends Controller
     }
 
     /**
+     * @Secure(roles="ROLE_USER")
+     */
+    public function renameAction(File $file)
+    {
+        $response = array('success' => 1);
+
+        $file->setName($this->request->query->get('name'));
+        $this->em->persist($file);
+        $this->em->flush();
+
+        $response = new Response(json_encode( $response ));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
      * @Template
      */
     public function showAction(File $file)

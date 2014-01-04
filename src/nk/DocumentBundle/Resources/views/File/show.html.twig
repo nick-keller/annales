@@ -1,7 +1,7 @@
 {% spaceless %}
     <div class="file" data-id="{{ file.id }}" data-path="{{ asset(file.webPath) }}">
         <i class="fa fa-file-text" title="{{ file.name }}"></i>
-        <div class="name" title="{{ file.name }}">{{ file.name }}</div>
+        <div class="name" title="{{ file.name }}" data-rename="{{ path('nk_document_file_rename', {id:file.id}) }}">{{ file.name }}</div>
         <div class="size">{{ file.size }}</div>
     </div>
 {% endspaceless %}

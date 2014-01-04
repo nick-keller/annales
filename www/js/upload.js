@@ -1,5 +1,44 @@
 $(function(){
+
+    var rename = function(){
+        var $name = $(this);
+        var $input = $('<input>');
+        $name.hide();
+        $name.after($input);
+        $input.val($name.text());
+        $input.focus();
+        $input.select();
+
+        var done = function(){
+            var newName = $input.val();
+            if(newName.indexOf('.pdf', newName.length - 4) === -1)
+                newName += '.pdf';
+
+            $input.remove();
+            $name.show();
+
+            if(newName != $name.text()){
+                $name.html(newName);
+                $name.attr('title', newName);
+                $name.prev().attr('title', newName);
+
+                $.get($name.data('rename'), {name:newName});
+            }
+        };
+
+        $input.blur(function(){
+            done();
+        });
+
+        $input.keypress(function(e){
+            if(e.which == 13) done();
+        });
+    };
+
+    $('.file .name').click(rename);
+
     var id = '#' + $('#upload-manager').data('file-id');
+
     $(id).change(function(){
         var $this = $(this);
         var $manager = $('#upload-manager');
@@ -8,7 +47,7 @@ $(function(){
             var html = $manager.find('.template').html();
             var size = file.size > 1000000 ? Math.round(file.size / 100000)/10 + 'Mo':Math.round(file.size / 1000) + 'ko';
 
-            html = html.replace('__name__', file.name);
+            html = html.replace(new RegExp('__name__', 'g'), file.name);
             html = html.replace('__size__', size);
             html = html.replace('__id__', "file" + i);
             html = html.replace(/^\s+|\s+$/g, '');
@@ -103,6 +142,7 @@ $(function(){
                     $statusBar.html("Réussi");
                     $.get(response.template, function(data){
                         $file.before(data);
+                        $file.prev().find('.name').click(rename);
                         $file.remove();
                     });
                 }
