@@ -1,0 +1,8 @@
+{% extends '::base.html.twig' %}
+{% block title %}Editer un document - {{ parent() }}{% endblock %}
+{% block pageTitle %}Editer "{{ document.subject }}"{% endblock %}
+
+{% block body %}
+    {{ form_errors(form) }}
+    {% include 'nkDocumentBundle:Document:form.html.twig' %}
+{% endblock %}

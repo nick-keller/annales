@@ -8,6 +8,12 @@ nk_document_show:
     requirements:
         id: \d+
 
+nk_document_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: nkDocumentBundle:Document:edit }
+    requirements:
+        id: \d+
+
 nk_document_upload:
     pattern:  /{id}/upload
     defaults: { _controller: nkDocumentBundle:File:upload }

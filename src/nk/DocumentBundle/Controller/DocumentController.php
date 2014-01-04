@@ -30,7 +30,16 @@ class DocumentController extends Controller
     {
         $document = new Document;
 
-        return $this->handleForm($document);
+        return $this->handleForm($document, 'nk_document_upload');
+    }
+
+    /**
+     * @Secure(roles="ROLE_USER")
+     * @Template
+     */
+    public function editAction(Document $document)
+    {
+        return $this->handleForm($document, 'nk_document_show');
     }
 
     /**
@@ -50,7 +59,7 @@ class DocumentController extends Controller
         );
     }
 
-    private function handleForm(Document $document)
+    private function handleForm(Document $document, $route)
     {
         $form = $this->createForm(new DocumentType, $document);
 
@@ -60,11 +69,14 @@ class DocumentController extends Controller
             if($form->isValid()){
                 $this->em->persist($document);
                 $this->em->flush();
+
+                return $this->redirect($this->generateUrl($route, array('id' => $document->getId(), 'slug' => $document->getSlug())));
             }
         }
 
         return array(
             'form' => $form->createView(),
+            'document' => $document,
         );
     }
 }
