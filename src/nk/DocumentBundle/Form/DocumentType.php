@@ -45,6 +45,13 @@ class DocumentType extends AbstractType
                     'data-autocomplete' => implode(',', $this->metadata['fields']),
                 )
             ))
+            ->add('unit', 'text', array(
+                'label' => 'Unité',
+                'attr' => array(
+                    'placeholder' => 'IGI-3003, ...',
+                    'data-autocomplete' => implode(',', $this->metadata['units']),
+                )
+            ))
             ->add('teacher', 'text', array(
                 'label' => 'Professeur',
                 'attr' => array(

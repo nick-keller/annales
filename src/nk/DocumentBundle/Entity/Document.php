@@ -53,6 +53,14 @@ class Document
     /**
      * @var string
      *
+     * @ORM\Column(name="unit", type="string", length=10)
+     * @Assert\NotBlank()
+     */
+    private $unit;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="year", type="string", length=10)
      * @Assert\NotBlank()
      * @Assert\Regex("/^20[0-9]{2}([ -]20[0-9]{2})?$/")
@@ -167,7 +175,7 @@ class Document
      */
     public function setClass($class)
     {
-        $this->class = strtoupper($class);
+        $this->class = strtoupper($this->strip_accents($class));
 
         return $this;
     }
@@ -203,6 +211,22 @@ class Document
     public function getField()
     {
         return $this->field;
+    }
+
+    /**
+     * @param string $unit
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = strtoupper($this->strip_accents($unit));
+    }
+
+    /**
+     * @return string
+     */
+    public function getUnit()
+    {
+        return $this->unit;
     }
 
     /**

@@ -33,6 +33,7 @@ class MetadataFinder
                 'types' => array('Annale', 'Cour', 'TD', 'TP'),
                 'classes' => $this->docRepo->findDistinct('class'),
                 'fields' => $this->docRepo->findDistinct('field'),
+                'units' => $this->docRepo->findDistinct('unit'),
                 'teachers' => $this->docRepo->findDistinct('teacher'),
             );
 
