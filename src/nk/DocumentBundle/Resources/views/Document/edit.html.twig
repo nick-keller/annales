@@ -1,5 +1,5 @@
 {% extends 'nkDocumentBundle:Document:layout.html.twig' %}
-{% block title %}Editer un document - {{ parent() }}{% endblock %}
+{% block title %}Editer le document - {{ parent() }}{% endblock %}
 
 {% block tools %}
     <li>
@@ -11,6 +11,6 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Editer "{{ document.subject }}"</h1>
+    <h1>Editer le document</h1>
     {% include 'nkDocumentBundle:Document:form.html.twig' %}
 {% endblock %}
