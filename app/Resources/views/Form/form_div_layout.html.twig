@@ -38,3 +38,37 @@
         {% endif %}
     {% endspaceless %}
 {% endblock form_errors %}
+
+{% block choice_widget_collapsed %}
+    {% spaceless %}
+        {% if required and empty_value is none and not empty_value_in_choices %}
+            {% set required = false %}
+        {% endif %}
+        <div class="select">
+            <input {{ block('widget_attributes') }} type="hidden">
+            <i class="fa fa-angle-down"></i>
+            <span class="selected-value"></span>
+            <div class="menu">
+                {% if empty_value is not none %}
+                    <div class="option{% if required and value is empty %} active{% endif %}" data-value="">{{ empty_value|trans({}, translation_domain) }}</div>
+                {% endif %}
+                {% set options = choices %}
+                {{ block('choice_widget_options') }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock choice_widget_collapsed %}
+
+{% block choice_widget_options %}
+    {% spaceless %}
+        {% for group_label, choice in options %}
+            {% if choice is iterable %}
+                <div class="label">{{ group_label|trans({}, translation_domain) }}</div>
+                    {% set options = choice %}
+                    {{ block('choice_widget_options') }}
+            {% else %}
+                <div class="option{% if choice is selectedchoice(value) %} active{% endif %}" data-value="{{ choice.value }}">{{ choice.label|trans({}, translation_domain) }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endspaceless %}
+{% endblock choice_widget_options %}

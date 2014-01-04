@@ -4,7 +4,7 @@
 @input-width: 300px;
 @label-width: 220px;
 
-input, select{
+input, .select{
     width: @input-width;
     height: @input-height;
     line-height: @input-height;
@@ -14,10 +14,64 @@ input, select{
     border: none;
     background: white;
 
-    .transition(box-shadow .2s);
+    .transition(box-shadow .3s);
 
     &:focus{
-        box-shadow: 3px 0 rgba(0,0,0,.3) inset;
+        box-shadow: 0 0 0 3px rgba(0,0,0,.3);
+    }
+}
+
+.select{
+    position: relative;
+    cursor: default;
+    padding-right: 20px;
+
+    .selected-value{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        .not-selectable();
+    }
+
+    i.fa-angle-down{
+        position: absolute;
+        right: 10px;
+        top: 0;
+        bottom: 0;
+        line-height: @input-height;
+    }
+
+    .menu{
+        position: absolute;
+        top: 100%;
+        left: -3px;
+        right: -3px;
+        background: white;
+        z-index: 1000;
+        visibility: hidden;
+        border: solid 3px rgba(0,0,0,.3);
+        border-top: none;
+        opacity: 0;
+        .transition(opacity .3s);
+
+        .option{
+            padding: 0 10px;
+            line-height: 25px;
+
+            &:hover, &.active{
+                background: #4386ba;
+                color: white;
+            }
+        }
+    }
+
+    &.active{
+        box-shadow: 0 0 0 3px rgba(0,0,0,.3);
+        .menu{
+            visibility: visible;
+            opacity: 1;
+        }
     }
 }
 
