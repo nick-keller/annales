@@ -61,7 +61,7 @@ class DocumentController extends Controller
 
     private function handleForm(Document $document, $route)
     {
-        $form = $this->createForm(new DocumentType, $document);
+        $form = $this->createForm(new DocumentType($this->get('nk.metadata_finder')->findAll()), $document);
 
         if($this->request->isMethod('POST')){
             $form->handleRequest($this->request);

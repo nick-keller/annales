@@ -1,20 +1,21 @@
 {% extends '::base.html.twig' %}
 {% block title %}{{ document.subject }} - {{ parent() }}{% endblock %}
-{% block pageTitle %}{{ document.subject }}{% endblock %}
 
 {% block tools %}
     <li>
         <a href="{{ path('nk_document_edit', {id:document.id}) }}">
             <i class="fa fa-pencil"></i>
+            Editer
         </a>
     </li>
     <li>
         <a href="{{ path('nk_document_upload', {id:document.id}) }}">
-            <i class="fa fa-cloud-upload"></i>
-            Upload
+            <i class="fa fa-copy"></i>
+            Fichiers
         </a>
     </li>
 {% endblock %}
 
 {% block body %}
+    <h1>{{ document.subject }}</h1>
 {% endblock %}

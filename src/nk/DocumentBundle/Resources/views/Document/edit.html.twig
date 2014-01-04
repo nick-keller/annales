@@ -1,8 +1,16 @@
-{% extends '::base.html.twig' %}
+{% extends 'nkDocumentBundle:Document:layout.html.twig' %}
 {% block title %}Editer un document - {{ parent() }}{% endblock %}
-{% block pageTitle %}Editer "{{ document.subject }}"{% endblock %}
+
+{% block tools %}
+    <li>
+        <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug}) }}">
+            <i class="fa fa-chevron-left"></i>
+            Annuler
+        </a>
+    </li>
+{% endblock %}
 
 {% block body %}
-    {{ form_errors(form) }}
+    <h1>Editer "{{ document.subject }}"</h1>
     {% include 'nkDocumentBundle:Document:form.html.twig' %}
 {% endblock %}

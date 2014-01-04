@@ -3,6 +3,7 @@
 namespace nk\DocumentBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * DocumentRepository
@@ -12,4 +13,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class DocumentRepository extends EntityRepository
 {
+    public function findDistinct($field)
+    {
+        $result = $this->createQueryBuilder('d')
+            ->select("DISTINCT d.$field AS val")
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        return array_map(function($line){ return $line['val']; }, $result);
+    }
 }

@@ -2,7 +2,8 @@ $(function() {
     // Simple autocomplete
     $( "[data-autocomplete]" ).autocomplete({
         delay: 0,
-        minLength: 1
+        minLength: 1,
+        autoFocus: true
     })
     .each(function() {
         $(this).autocomplete("option", "source", $(this).attr('data-autocomplete').split(','));
@@ -35,7 +36,8 @@ $(function() {
             return false;
         },
         delay: 0,
-        minLength: 1
+        minLength: 1,
+        autoFocus: true
     })
     .bind( "keydown", function( event ) {
         if ( event.keyCode === $.ui.keyCode.TAB &&

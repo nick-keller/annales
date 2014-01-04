@@ -16,6 +16,7 @@
             <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
             {% stylesheets
                 'less/layout.less'
+                'less/typo.less'
                 'less/form.less'
                 'less/upload.less'
                 'css/custom-theme/jquery-ui-1.10.3.custom.min.css'
@@ -30,7 +31,7 @@
     <body>
         <aside id="left-menu">
             <form method="get" class="search-form" autocomplete="off">
-                <input type="search" name="s" placeholder="Rechercher" autocomplete="off">
+                <input type="search" name="s" placeholder="Rechercher" autocomplete="off" data-autocomplete-multiple="{{ metadata() }}">
             </form>
             {% if app.user %}
                 <ul class="menu">
@@ -48,14 +49,14 @@
                     </li>
                     <li>
                         <a>
-                            <i class="fa fa-copy blue"></i>
-                            Fichiers
+                            <i class="fa fa-book blue"></i>
+                            Mes documents
                         </a>
                     </li>
                     <li>
                         <a>
                             <i class="fa fa-folder-open yellow"></i>
-                            Compils
+                            Mes compils
                         </a>
                     </li>
                     <li>
@@ -69,13 +70,6 @@
             {% endif %}
         </aside>
         <nav id="nav-bar">
-            <div class="page-title">
-                {% block pageTitle %}
-                    {% if app.user %}
-                        Bonjour {{ app.user }} !
-                    {% endif %}
-                {% endblock %}
-            </div>
             <ul class="tools">
                 {% block tools %}{% endblock %}
             </ul>

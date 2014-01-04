@@ -1,22 +1,23 @@
-{% extends '::base.html.twig' %}
+{% extends 'nkDocumentBundle:Document:layout.html.twig' %}
 {% block title %}Gérer les fichiers - {{ parent() }}{% endblock %}
-{% block pageTitle %}Gérer les fichiers de "{{ document.subject }}"{% endblock %}
 
 {% block tools %}
     <li>
         <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug}) }}">
             <i class="fa fa-chevron-left"></i>
+            Annuler
         </a>
     </li>
     <li>
         <label for="{{ form.file.vars.id }}">
-            <i class="fa fa-cloud-upload"></i>
+            <i class="fa fa-plus"></i>
             Ajouter des fichiers
         </label>
     </li>
 {% endblock %}
 
 {% block body %}
+    <h1>Gérer les fichiers de "{{ document.subject }}"</h1>
     <div id="upload-manager"
          data-file-id="{{ form.file.vars.id }}"
          data-file-name="{{ form.file.vars.full_name }}"

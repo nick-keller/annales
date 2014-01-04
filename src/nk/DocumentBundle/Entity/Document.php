@@ -30,6 +30,7 @@ class Document
      *
      * @ORM\Column(name="type", type="string", length=10)
      * @Assert\NotBlank()
+     * @Assert\Choice(choices = {"Annale", "Cour", "TD", "TP"})
      */
     private $type;
 
@@ -189,7 +190,7 @@ class Document
      */
     public function setField($field)
     {
-        $this->field = ucfirst(strtolower(strip_accents($field)));
+        $this->field = ucfirst(strtolower($this->strip_accents($field)));
 
         return $this;
     }
@@ -235,7 +236,7 @@ class Document
      */
     public function setTeacher($teacher)
     {
-        $this->teacher = ucfirst(strtolower(strip_accents($teacher)));
+        $this->teacher = ucfirst(strtolower($this->strip_accents($teacher)));
 
         return $this;
     }

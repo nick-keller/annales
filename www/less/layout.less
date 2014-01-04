@@ -16,7 +16,7 @@ body{
 }
 
 @left-menu-color: #2f2f2f;
-@left-menu-width: 260px;
+@left-menu-width: 220px;
 
 @nav-bar-color: #4386ba;
 @nav-bar-height: 45px;
@@ -43,9 +43,14 @@ body{
             padding: 0 10px;
             .box-sizing();
 
-            background: darken(@left-menu-color, 6%);
+            background: darken(@left-menu-color, 4%);
             color: #ababab;
             border: none;
+            .transition(background .3s);
+
+            &:focus{
+                background: darken(@left-menu-color, 6%);
+            }
         }
     }
 
@@ -60,19 +65,6 @@ body{
             &.active{
                 margin: 1px 0;
                 background: lighten(@left-menu-color, 4%);
-
-                &:after{
-                    @size : 6px;
-
-                    content: "";
-                    position: absolute;
-                    right: 0;
-                    top: 50%;
-                    border: solid transparent @size;
-                    border-left: none;
-                    border-right-color: @body-color;
-                    margin-top: -@size;
-                }
             }
 
             a{
@@ -132,13 +124,6 @@ body{
 
     background: @nav-bar-color;
 
-    .page-title{
-        position: absolute;
-        left: 0;
-        right: 0;
-        text-align: center;
-    }
-
     .tools{
         position: absolute;
         left: 0;
@@ -179,6 +164,10 @@ body{
 
                 &:hover{
                     background: rgba(0,0,0,.05);
+                }
+
+                i{
+                    min-width: 30px;
                 }
             }
         }

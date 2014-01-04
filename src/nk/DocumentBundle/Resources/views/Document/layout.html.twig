@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block submenu %}
+    <nav class="submenu">
+        <ul>
+            <li {{ page.active('nk_document_show') }}>
+                <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug}) }}">
+                    <i class="fa fa-list"></i>
+                    Voir
+                </a>
+            </li>
+            <li {{ page.active('nk_document_edit') }}>
+                <a href="{{ path('nk_document_edit', {id:document.id}) }}">
+                    <i class="fa fa-pencil"></i>
+                    Editer
+                </a>
+            </li>
+            <li {{ page.active('nk_document_upload') }}>
+                <a href="{{ path('nk_document_upload', {id:document.id}) }}">
+                    <i class="fa fa-copy"></i>
+                    Gérer les fichiers
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
