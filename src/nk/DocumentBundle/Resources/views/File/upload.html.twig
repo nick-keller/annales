@@ -4,6 +4,11 @@
 
 {% block tools %}
     <li>
+        <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug}) }}">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+    </li>
+    <li>
         <label for="{{ form.file.vars.id }}">
             <i class="fa fa-cloud-upload"></i>
             Ajouter des fichiers
@@ -16,15 +21,16 @@
          data-file-id="{{ form.file.vars.id }}"
          data-file-name="{{ form.file.vars.full_name }}"
          data-name-name="{{ form.name.vars.full_name }}"
+         data-size-name="{{ form.size.vars.full_name }}"
          data-token-name="{{ form._token.vars.full_name }}"
          data-token-value="{{ form._token.vars.value }}"
             >
         <div class="template">
             <div class="file" id="__id__">
-                <i class="fa fa-file-text">
-                    <i class="fa fa-file-text loading-bar"></i>
+                <i class="fa fa-file-text" title="__name__">
+                    <i class="fa fa-file-text loading-bar" title="__name__"></i>
                 </i>
-                <div class="name">__name__</div>
+                <div class="name" title="__name__">__name__</div>
                 <div class="size">__size__</div>
                 <div class="status">En attente</div>
             </div>
@@ -32,6 +38,9 @@
         <div class="form">
             {{ form_widget(form.file) }}
         </div>
+        {% for file in document.files %}
+            {% include 'nkDocumentBundle:File:show.html.twig' %}
+        {% endfor %}
     </div>
 {% endblock %}
 

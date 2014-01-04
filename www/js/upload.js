@@ -20,6 +20,7 @@ $(function(){
 
         function upload(i, files){
             var file = files[i];
+            var size = file.size > 1000000 ? Math.round(file.size / 100000)/10 + 'Mo':Math.round(file.size / 1000) + 'ko';
             var $file = $('#file' + i);
             var $loadingBar = $file.find('.loading-bar');
             var $statusBar = $file.find('.status');
@@ -34,6 +35,7 @@ $(function(){
             if(file.type != 'application/pdf' && file.type != 'application/x-pdf'){
                 $loadingBar.remove();
                 $file.find('.fa-file-text').css('color', '#ca6060');
+                $file.removeAttr('id');
                 $statusBar.html("Ceci n'est pas un pdf");
 
                 if(++i < files.length)
@@ -46,6 +48,7 @@ $(function(){
             if(file.size > 64000000){
                 $loadingBar.remove();
                 $file.find('.fa-file-text').css('color', '#ca6060');
+                $file.removeAttr('id');
                 $statusBar.html("Fichier trop gros (64Mo max)");
 
                 if(++i < files.length)
@@ -56,7 +59,7 @@ $(function(){
 
             // Make loading bar blink
             $loadingBar.addClass('loading');
-            $statusBar.html('Transfère');
+            $statusBar.html('Transfère...');
 
             var xhr = new XMLHttpRequest();
 
@@ -92,6 +95,7 @@ $(function(){
                 // An error occured
                 if(xhr.status != 200 || !response.success){
                     $file.find('.fa-file-text').css('color', '#ca6060');
+                    $file.removeAttr('id');
                     $statusBar.html("Une erreur est survenue");
                 }
                 // Everything is good =)
@@ -109,6 +113,7 @@ $(function(){
 
             var form = new FormData();
             form.append($manager.data('name-name'), file.name);
+            form.append($manager.data('size-name'), size);
             form.append($manager.data('file-name'), file);
             form.append($manager.data('token-name'), $manager.data('token-value'));
 

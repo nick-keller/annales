@@ -18,6 +18,9 @@ class FileType extends AbstractType
             ->add('name', 'text', array(
                 'label' => 'Nom'
             ))
+            ->add('size', 'text', array(
+                'label' => 'Taille'
+            ))
             ->add('file', 'file', array(
                 'label' => 'Fichiers',
                 'attr' => array(
