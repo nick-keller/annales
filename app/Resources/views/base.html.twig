@@ -30,7 +30,7 @@
     </head>
     <body>
         <aside id="left-menu">
-            <form method="get" class="search-form" autocomplete="off" action="{{ path('nk_document_search') }}">
+            <form method="get" class="search-form ui-front" autocomplete="off" action="{{ path('nk_document_search') }}">
                 <input type="search" name="s" placeholder="Rechercher" autocomplete="off" data-autocomplete-multiple="{{ metadata() }}"{% if searchQuery is defined %} value="{{ searchQuery }}"{% endif %}>
             </form>
             {% if app.user %}

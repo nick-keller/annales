@@ -4,6 +4,7 @@ namespace nk\DocumentBundle\Search;
 
 
 use Doctrine\ORM\EntityManager;
+use nk\DocumentBundle\Entity\DocumentRepository;
 
 class SearchQuery
 {
@@ -29,6 +30,13 @@ class SearchQuery
      */
     private $em;
 
+    /**
+     * @var array
+     */
+    private $mappedQuery = array();
+
+    private $result = null;
+
     function __construct($query, array $metadata, EntityManager $em)
     {
         $this->query    = preg_replace('# +#', ' ', trim($query));
@@ -37,6 +45,8 @@ class SearchQuery
 
         foreach(explode(' ', $this->query) as $word)
             $this->keyWords[] = new KeyWord($word, $metadata);
+
+        $this->mapQuery();
     }
 
     public function __toString()
@@ -73,5 +83,38 @@ class SearchQuery
         }
 
         return implode(' ', $query);
+    }
+
+    private function mapQuery()
+    {
+        $mapping = array(
+            KeyWord::KEYWORD_TYPE => 'type',
+            KeyWord::KEYWORD_CLASS => 'class',
+            KeyWord::KEYWORD_FIELD => 'field',
+            KeyWord::KEYWORD_UNIT => 'unit',
+            KeyWord::KEYWORD_TEACHER => 'teacher',
+            KeyWord::KEYWORD_YEAR => 'yeas',
+            KeyWord::KEYWORD_SUBJECT => 'subject',
+        );
+
+        foreach($this->keyWords as $word){
+            if(!isset($this->mappedQuery[$mapping[$word->getType()]]))
+                $this->mappedQuery[$mapping[$word->getType()]] = array();
+            $this->mappedQuery[$mapping[$word->getType()]][] = $word->getWord();
+        }
+    }
+
+    public function getResult()
+    {
+        if($this->result === null){
+            /**
+             * @var DocumentRepository
+             */
+            $repo = $this->em->getRepository('nkDocumentBundle:Document');
+
+            $this->result = $repo->search($this->mappedQuery);
+        }
+
+        return $this->result;
     }
 }

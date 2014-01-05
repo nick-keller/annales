@@ -22,4 +22,23 @@ class DocumentRepository extends EntityRepository
 
         return array_map(function($line){ return $line['val']; }, $result);
     }
+
+    public function search(array $mappedQuery)
+    {
+        $qb = $this->createQueryBuilder('d');
+
+        foreach($mappedQuery as $field => $data){
+            if($field == 'subject'){
+                foreach($data as $id => $keyword)
+                    $qb->andWhere("d.$field LIKE :keyword$id")
+                        ->setParameter("keyword$id", "%$keyword%");
+
+            }else{
+                $qb->andWhere("d.$field IN (:$field)")
+                    ->setParameter($field, $data);
+            }
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

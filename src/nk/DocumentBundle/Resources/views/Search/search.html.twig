@@ -2,8 +2,8 @@
 {% block title %}{{ searchQuery }} - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Résultats pour "{{ searchQuery }}"</h1>
+    <h1>{{ searchQuery.result|length }} résultats pour "{{ searchQuery }}"</h1>
     {% if searchQuery.hasSuggestion %}
-        Essayez avec l'ortograph : <a href="{{ path('nk_document_search', {s:searchQuery.suggestion}) }}">{{ searchQuery.getSuggestion(true)|raw }}</a>
+        Essayez avec cette orthographe : <a href="{{ path('nk_document_search', {s:searchQuery.suggestion}) }}">{{ searchQuery.getSuggestion(true)|raw }}</a>
     {% endif %}
 {% endblock %}

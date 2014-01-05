@@ -11,6 +11,7 @@ class KeyWord
     const KEYWORD_UNIT = 4;
     const KEYWORD_TEACHER = 5;
     const KEYWORD_YEAR = 6;
+    const KEYWORD_SUBJECT = 7;
 
     /**
      * @var string
@@ -30,9 +31,9 @@ class KeyWord
     private $metadata;
 
     /**
-     * Type of data the word is representing if an exact match was found, null otherwise
+     * Type of data the word is representing if an exact match was found, KEYWORD_SUBJECT otherwise
      */
-    private $type = null;
+    private $type = KeyWord::KEYWORD_SUBJECT;
 
     public function __construct($word, array $metadata)
     {

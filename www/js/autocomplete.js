@@ -3,7 +3,12 @@ $(function() {
     $( "[data-autocomplete]" ).autocomplete({
         delay: 0,
         minLength: 1,
-        autoFocus: true
+        autoFocus: true,
+        position: {
+            my: "left top",
+            at: "left-3 bottom",
+            collision: "none"
+        }
     })
     .each(function() {
         $(this).autocomplete("option", "source", $(this).attr('data-autocomplete').split(','));

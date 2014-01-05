@@ -33,6 +33,8 @@ class SearchController extends Controller
             $this->em
         );
 
+        $searchQuery->getResult();
+
         return array(
             'searchQuery' => $searchQuery,
         );

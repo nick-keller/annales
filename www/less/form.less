@@ -75,6 +75,20 @@ input, .select{
     }
 }
 
+.ui-autocomplete.ui-widget-content{
+    background: white;
+    border: solix 1px red !important;
+    padding: 0;
+
+    .ui-menu-item a{
+        line-height: 25px;
+        font-size: 16px;
+        padding: 0 10px;
+        margin: 0;
+        font-family: Calibri, Arial;
+    }
+}
+
 .btn{
     display: inline-block;
     height: @input-height;
@@ -139,8 +153,6 @@ input, .select{
                 &:after{
                     content: "";
                     position: absolute;
-                    border: solid 7px transparent;
-                    border-top: none;
                     border-bottom-color: @error-color;
                     top: -8px;
                 }
@@ -160,5 +172,11 @@ input, .select{
     .controls{
         display: inline-block;
         vertical-align: top;
+
+        .ui-autocomplete.ui-widget-content{
+            width: 300px !important;
+            border: solid 3px rgba(0,0,0,.3);
+            border-top: none;
+        }
     }
 }
