@@ -19,6 +19,7 @@
                 'less/typo.less'
                 'less/form.less'
                 'less/upload.less'
+                'less/glyphicons.less'
                 'css/custom-theme/jquery-ui-1.10.3.custom.min.css'
                 filter='cssrewrite'
                 output='css/main.css'
@@ -43,19 +44,19 @@
                     </li>
                     <li {{ page.active('nk_document_new') }}>
                         <a href="{{ path('nk_document_new') }}">
-                            <i class="fa fa-cloud-upload green"></i>
+                            <i class="glyphicon glyphicon-cloud-upload green"></i>
                             Uploader
                         </a>
                     </li>
                     <li>
                         <a>
-                            <i class="fa fa-book blue"></i>
+                            <i class="glyphicon glyphicon-book blue"></i>
                             Mes documents
                         </a>
                     </li>
                     <li>
                         <a>
-                            <i class="fa fa-folder-open yellow"></i>
+                            <i class="glyphicon glyphicon-folder-open yellow"></i>
                             Mes compils
                         </a>
                     </li>
