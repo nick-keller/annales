@@ -21,6 +21,15 @@ body{
 @nav-bar-color: #4386ba;
 @nav-bar-height: 45px;
 
+a{
+    color: @nav-bar-color;
+    text-decoration: none;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
 #left-menu{
     position: absolute;
     left: 0;
@@ -50,6 +59,7 @@ body{
 
             &:focus{
                 background: darken(@left-menu-color, 6%);
+                box-shadow: none;
             }
         }
     }

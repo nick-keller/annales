@@ -1,3 +1,7 @@
+nk_document_search:
+    pattern:  /search
+    defaults: { _controller: nkDocumentBundle:Search:search }
+
 nk_document_new:
     pattern:  /new
     defaults: { _controller: nkDocumentBundle:Document:new }
