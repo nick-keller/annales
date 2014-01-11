@@ -1,0 +1,3 @@
+{% for doc in documents %}
+    <a href="{{ path('nk_document_show', {id:doc.id, slug:doc.slug}) }}">{{ doc }}</a><br>
+{% endfor %}

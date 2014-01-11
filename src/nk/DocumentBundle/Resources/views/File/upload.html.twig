@@ -4,13 +4,13 @@
 {% block tools %}
     <li>
         <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug}) }}">
-            <i class="glyphicon glyphicon-chevron-left"></i>
+            <i class="icon i-chevron-left"></i>
             Annuler
         </a>
     </li>
     <li>
         <label for="{{ form.file.vars.id }}">
-            <i class="glyphicon glyphicon-plus"></i>
+            <i class="icon i-circle-plus"></i>
             Ajouter des fichiers
         </label>
     </li>
@@ -28,8 +28,8 @@
             >
         <div class="template">
             <div class="file" id="__id__">
-                <i class="glyphicon glyphicon-file" title="__name__">
-                    <i class="glyphicon glyphicon-file loading-bar" title="__name__"></i>
+                <i class="icon i-file" title="__name__">
+                    <i class="icon i-file loading-bar" title="__name__"></i>
                 </i>
                 <div class="name" title="__name__">__name__</div>
                 <div class="size">__size__</div>

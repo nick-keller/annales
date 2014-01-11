@@ -27,13 +27,7 @@ class SearchController extends Controller
      */
     public function searchAction()
     {
-        $searchQuery = new SearchQuery(
-            $this->request->query->get('s'),
-            $this->get('nk.metadata_finder')->findAll(),
-            $this->em
-        );
-
-        $searchQuery->getResult();
+        $searchQuery = $this->get('nk.search_engine')->search($this->request->query->get('s'));
 
         return array(
             'searchQuery' => $searchQuery,

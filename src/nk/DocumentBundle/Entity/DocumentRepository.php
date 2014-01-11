@@ -23,7 +23,7 @@ class DocumentRepository extends EntityRepository
         return array_map(function($line){ return $line['val']; }, $result);
     }
 
-    public function search(array $mappedQuery)
+    public function searchQuery(array $mappedQuery)
     {
         $qb = $this->createQueryBuilder('d');
 
@@ -39,6 +39,11 @@ class DocumentRepository extends EntityRepository
             }
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb;
+    }
+
+    public function search(array $mappedQuery)
+    {
+        return $this->searchQuery($mappedQuery)->getQuery()->getResult();
     }
 }

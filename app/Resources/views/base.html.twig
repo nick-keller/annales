@@ -20,6 +20,7 @@
                 'less/form.less'
                 'less/upload.less'
                 'less/glyphicons.less'
+                'less/pagination.less'
                 'css/custom-theme/jquery-ui-1.10.3.custom.min.css'
                 filter='cssrewrite'
                 output='css/main.css'
@@ -38,31 +39,31 @@
                 <ul class="menu">
                     <li {{ page.active('fos_user') }}>
                         <a href="{{ path('fos_user_profile_show') }}">
-                            <i class="glyphicon glyphicon-cog"></i>
+                            <i class="icon i-cogwheels"></i>
                             Mon compte
                         </a>
                     </li>
                     <li {{ page.active('nk_document_new') }}>
                         <a href="{{ path('nk_document_new') }}">
-                            <i class="glyphicon glyphicon-cloud-upload green"></i>
+                            <i class="icon i-cloud-upload green"></i>
                             Uploader
                         </a>
                     </li>
                     <li>
                         <a>
-                            <i class="glyphicon glyphicon-book blue"></i>
+                            <i class="icon i-wallet blue"></i>
                             Mes documents
                         </a>
                     </li>
                     <li>
                         <a>
-                            <i class="glyphicon glyphicon-folder-open yellow"></i>
+                            <i class="icon i-folder-open yellow"></i>
                             Mes compils
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('fos_user_security_logout') }}">
-                            <i class="glyphicon glyphicon-off red"></i>
+                            <i class="icon i-power red"></i>
                             Déconnexion
                         </a>
                     </li>

@@ -133,6 +133,11 @@ class Document
         $this->files = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getSubject();
+    }
+
 
     /**
      * Get id

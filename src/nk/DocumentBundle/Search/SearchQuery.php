@@ -5,6 +5,7 @@ namespace nk\DocumentBundle\Search;
 
 use Doctrine\ORM\EntityManager;
 use nk\DocumentBundle\Entity\DocumentRepository;
+use Knp\Component\Pager\Paginator;
 
 class SearchQuery
 {
@@ -31,17 +32,23 @@ class SearchQuery
     private $em;
 
     /**
+     * @var Paginator
+     */
+    private $paginator;
+
+    /**
      * @var array
      */
     private $mappedQuery = array();
 
     private $result = null;
 
-    function __construct($query, array $metadata, EntityManager $em)
+    function __construct($query, array $metadata, EntityManager $em, Paginator $paginator)
     {
-        $this->query    = preg_replace('# +#', ' ', trim($query));
-        $this->metadata = $metadata;
-        $this->em       = $em;
+        $this->query     = preg_replace('# +#', ' ', trim($query));
+        $this->metadata  = $metadata;
+        $this->em        = $em;
+        $this->paginator = $paginator;
 
         foreach(explode(' ', $this->query) as $word)
             $this->keyWords[] = new KeyWord($word, $metadata);
@@ -104,15 +111,16 @@ class SearchQuery
         }
     }
 
-    public function getResult()
+    public function getResult($page = 1, $limitPerPage = 1)
     {
         if($this->result === null){
             /**
              * @var DocumentRepository
              */
             $repo = $this->em->getRepository('nkDocumentBundle:Document');
+            $query = $repo->searchQuery($this->mappedQuery);
 
-            $this->result = $repo->search($this->mappedQuery);
+            $this->result = $this->paginator->paginate($query, $page, $limitPerPage);
         }
 
         return $this->result;

@@ -71,6 +71,11 @@ class File
             $this->document = $document;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 
     /**
      * Get id

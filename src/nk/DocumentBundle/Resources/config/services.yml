@@ -1,10 +1,21 @@
 parameters:
-#    nk_document.example.class: nk\DocumentBundle\Example
+    nk.search.limitPerPage: 2
 
 services:
     nk.metadata_finder:
         class: nk\DocumentBundle\Services\MetadataFinder
         arguments: [@doctrine.orm.entity_manager]
+
+    nk.search_engine:
+        class: nk\DocumentBundle\Services\SearchEngine
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @nk.metadata_finder
+            - @knp_paginator
+            - @request
+            - %nk.search.limitPerPage%
+        public: true
+        scope: request
 
     nk.twig.metadata_extension:
         class: nk\DocumentBundle\Twig\MetadataExtension
