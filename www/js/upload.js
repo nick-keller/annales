@@ -1,4 +1,5 @@
 $(function(){
+    var fileIconClass = '.i-file';
 
     var rename = function(){
         var $name = $(this);
@@ -73,7 +74,7 @@ $(function(){
             // Make sure we have a pdf
             if(file.type != 'application/pdf' && file.type != 'application/x-pdf'){
                 $loadingBar.remove();
-                $file.find('.glyphicon-file').css('color', '#ca6060');
+                $file.find(fileIconClass).css('color', '#ca6060');
                 $file.removeAttr('id');
                 $statusBar.html("Ceci n'est pas un pdf");
 
@@ -86,7 +87,7 @@ $(function(){
             // Make sure it's under 64 Mo
             if(file.size > 64000000){
                 $loadingBar.remove();
-                $file.find('.glyphicon-file').css('color', '#ca6060');
+                $file.find(fileIconClass).css('color', '#ca6060');
                 $file.removeAttr('id');
                 $statusBar.html("Fichier trop gros (64Mo max)");
 
@@ -133,7 +134,7 @@ $(function(){
 
                 // An error occured
                 if(xhr.status != 200 || !response.success){
-                    $file.find('.glyphicon-file').css('color', '#ca6060');
+                    $file.find(fileIconClass).css('color', '#ca6060');
                     $file.removeAttr('id');
                     $statusBar.html("Une erreur est survenue");
                 }
