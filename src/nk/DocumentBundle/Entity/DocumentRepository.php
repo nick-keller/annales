@@ -17,6 +17,7 @@ class DocumentRepository extends EntityRepository
     {
         $result = $this->createQueryBuilder('d')
             ->select("DISTINCT d.$field AS val")
+            ->orderBy('val')
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
 
@@ -45,5 +46,17 @@ class DocumentRepository extends EntityRepository
     public function search(array $mappedQuery)
     {
         return $this->searchQuery($mappedQuery)->getQuery()->getResult();
+    }
+
+    public function findFieldsFromClass($class)
+    {
+        return $this->createQueryBuilder('d')
+            ->select("d.field name, COUNT(d.id) total")
+            ->orderBy('d.field')
+            ->groupBy('d.field')
+            ->where('d.class = :class')
+            ->setParameter('class', $class)
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 }

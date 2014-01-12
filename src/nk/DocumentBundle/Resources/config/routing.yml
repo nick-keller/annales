@@ -7,7 +7,7 @@ nk_document_new:
     defaults: { _controller: nkDocumentBundle:Document:new }
 
 nk_document_show:
-    pattern:  /{id}-{slug}
+    pattern:  /{class}/{field}/{id}-{slug}
     defaults: { _controller: nkDocumentBundle:Document:show }
     requirements:
         id: \d+
@@ -35,3 +35,7 @@ nk_document_file_rename:
     defaults: { _controller: nkDocumentBundle:File:rename }
     requirements:
         id: \d+
+
+nk_document_all:
+    pattern:  /{class}/{field}
+    defaults: { _controller: nkDocumentBundle:Document:all, class: null, field: null }

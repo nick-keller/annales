@@ -1,0 +1,24 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ class }} - {{ parent() }}{% endblock %}
+
+{% block tools %}
+    <li>
+        <a href="{{ path('nk_document_all') }}">
+            <i class="icon i-chevron-left"></i>
+            Tous les documents
+        </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ class }}</h1>
+    {% for field in fields %}
+        <a class="folder" href="{{ path('nk_document_all', {class:class, field:field.name}) }}">
+            <i class="icon i-folder-open"></i>
+            {{ field.name }} ({{ field.total }})
+        </a>
+    {% else %}
+        <p>Aucun document</p>
+    {% endfor %}
+{% endblock %}

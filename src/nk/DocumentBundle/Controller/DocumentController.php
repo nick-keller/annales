@@ -45,18 +45,45 @@ class DocumentController extends Controller
     /**
      * @Template
      */
-    public function showAction(Document $document, $slug)
+    public function showAction($class, $field, Document $document, $slug)
     {
-        if($slug != $document->getSlug()){
+        if($slug != $document->getSlug() || $class != $document->getClass() || $field != $document->getField()){
             return $this->redirect($this->generateUrl('nk_document_show', array(
                 'id' => $document->getId(),
                 'slug' => $document->getSlug(),
+                'class' => $document->getClass(),
+                'field' => $document->getField(),
             )), 301);
         }
 
         return array(
             'document' => $document,
         );
+    }
+
+    public function allAction($class, $field)
+    {
+        if($class === null){
+            return $this->render('nkDocumentBundle:Document:list_classes.html.twig', array(
+                'classes' => $this->get('nk.metadata_finder')->findAll()['classes'],
+            ));
+        }
+        else if($field === null){
+            return $this->render('nkDocumentBundle:Document:list_fields.html.twig', array(
+                'class' => $class,
+                'fields' => $this->em->getRepository('nkDocumentBundle:Document')->findFieldsFromClass($class),
+            ));
+        }
+        else{
+            return $this->render('nkDocumentBundle:Document:list_documents.html.twig', array(
+                'class' => $class,
+                'field' => $field,
+                'documents' => $this->em->getRepository('nkDocumentBundle:Document')->findBy(array(
+                    'class' => $class,
+                    'field' => $field
+                )),
+            ));
+        }
     }
 
     private function handleForm(Document $document, $route)
@@ -70,7 +97,12 @@ class DocumentController extends Controller
                 $this->em->persist($document);
                 $this->em->flush();
 
-                return $this->redirect($this->generateUrl($route, array('id' => $document->getId(), 'slug' => $document->getSlug())));
+                return $this->redirect($this->generateUrl($route, array(
+                    'id' => $document->getId(),
+                    'slug' => $document->getSlug(),
+                    'class' => $document->getClass(),
+                    'field' => $document->getField(),
+                )));
             }
         }
 

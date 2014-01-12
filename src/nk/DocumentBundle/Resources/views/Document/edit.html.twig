@@ -3,7 +3,7 @@
 
 {% block tools %}
     <li>
-        <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug}) }}">
+        <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug, class:document.class, field:document.field}) }}">
             <i class="icon i-chevron-left"></i>
             Annuler
         </a>

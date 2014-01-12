@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ class }} {{ field }} - {{ parent() }}{% endblock %}
+
+{% block tools %}
+    <li>
+        <a href="{{ path('nk_document_all') }}">
+            <i class="icon i-chevron-left"></i>
+            Tous les documents
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('nk_document_all', {class:class}) }}">
+            {{ class }}
+        </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ class }} {{ field }}</h1>
+    {% include 'nkDocumentBundle:Document:list.html.twig' %}
+{% endblock %}

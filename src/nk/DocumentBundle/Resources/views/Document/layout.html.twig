@@ -4,7 +4,7 @@
     <nav class="submenu">
         <ul>
             <li {{ page.active('nk_document_show') }}>
-                <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug}) }}">
+                <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug, class:document.class, field:document.field}) }}">
                     <i class="icon i-notes"></i>
                     Voir
                 </a>
