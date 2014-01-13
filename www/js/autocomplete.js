@@ -6,7 +6,7 @@ $(function() {
         autoFocus: true,
         position: {
             my: "left top",
-            at: "left-3 bottom",
+            at: "left-1 bottom",
             collision: "none"
         }
     })

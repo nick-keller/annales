@@ -1,4 +1,5 @@
 @import "mixins";
+@import 'colors';
 
 html, body{
     width: 100%;
@@ -6,23 +7,22 @@ html, body{
     margin: 0;
     padding: 0;
 }
-@body-color: #ececec;
 
 body{
-    background: @body-color;
+    background: white;
     font-family: "Calibri", "Arial";
     font-size: 16px;
-    color: #333;
+    color: @black;
 }
 
 @left-menu-color: #2f2f2f;
 @left-menu-width: 220px;
 
-@nav-bar-color: #4386ba;
+@nav-bar-color: @blue;
 @nav-bar-height: 45px;
 
 a{
-    color: @nav-bar-color;
+    color: @blue;
     text-decoration: none;
 
     &:hover{
@@ -50,6 +50,7 @@ a{
             width: 100%;
             height: 100%;
             padding: 0 10px;
+            box-shadow: none;
             .box-sizing();
 
             background: darken(@left-menu-color, 4%);
@@ -132,6 +133,7 @@ a{
     line-height: @nav-bar-height;
     color: white;
     font-size: 18px;
+    overflow: hidden;
 
     background: @nav-bar-color;
 
@@ -208,7 +210,7 @@ a{
         top: 0;
         bottom: 0;
         width: @left-menu-width;
-        border-right: solid 1px #b5b5b5;
+        border-right: solid 1px @gray;
 
         ~ .content{
             left: @left-menu-width;
@@ -225,8 +227,10 @@ a{
                 height: @nav-bar-height;
 
                 &.active{
-                    background: lighten(@nav-bar-color, 4%);
-                    margin: 1px 0;
+
+                    a{
+                        background: @blue !important;
+                    }
 
                     a, a i {
                         color: white;
@@ -241,7 +245,7 @@ a{
                         top: 50%;
                         border: solid transparent @size;
                         border-left: none;
-                        border-right-color: @body-color;
+                        border-right-color: white;
                         margin-top: -@size;
                     }
                 }
@@ -252,24 +256,20 @@ a{
                     line-height: @nav-bar-height;
                     .box-sizing();
                     padding: 0 10px;
+                    border-bottom: solid 1px @gray;
 
-                    color: #333;
+                    color: @black;
                     text-decoration: none;
 
                     &:hover{
-                        background: @nav-bar-color;
-                        color: white;
-
-                        i{
-                            color: white;
-                        }
+                        background: @gray;
                     }
 
                     i{
                         width: 30px;
                         font-size: 24px;
                         text-align: center;
-                        color: #3e3e3e;
+                        color: #cacaca;
                     }
                 }
             }

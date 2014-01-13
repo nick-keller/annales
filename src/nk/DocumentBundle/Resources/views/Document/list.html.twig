@@ -1,3 +1,49 @@
-{% for doc in documents %}
-    <a href="{{ path('nk_document_show', {id:doc.id, slug:doc.slug, class:doc.class, field:doc.field}) }}">{{ doc }}</a><br>
-{% endfor %}
+<table class="table" data-adaptive-table>
+    <tr>
+        <th></th>
+        <th>Titre</th>
+        <th data-priority="1">Promo</th>
+        <th data-priority="2">Matière</th>
+        <th data-priority="6">Unité</th>
+        <th data-priority="4">Professeur</th>
+        <th data-priority="5">Année</th>
+        <th data-priority="3">Auteur</th>
+        <th></th>
+    </tr>
+
+    {% for doc in documents %}
+        <tr>
+            <td class="nowrap">
+                <i class="icon i-file"></i>
+                {{ doc.type }}
+            </td>
+            <td class="ellipsis">
+                <a href="{{ path('nk_document_show', {id:doc.id, slug:doc.slug, class:doc.class, field:doc.field}) }}">{{ doc }}</a>
+            </td>
+            <td class="nowrap">
+                <a href="{{ path('nk_document_all', {class:doc.class}) }}">{{ doc.class }}</a>
+            </td>
+            <td class="nowrap">
+                <a href="{{ path('nk_document_all', {class:doc.class, field:doc.field}) }}">{{ doc.field }}</a>
+            </td>
+            <td class="nowrap">
+                <a href="{{ path('nk_document_search', {s:doc.unit}) }}">{{ doc.unit }}</a>
+            </td>
+            <td class="nowrap">
+                <a href="{{ path('nk_document_search', {s:doc.teacher}) }}">{{ doc.teacher }}</a>
+            </td>
+            <td class="nowrap">{{ doc.year }}</td>
+            <td class="nowrap">{{ doc.author }}</td>
+            <td class="nowrap">
+                <button class="btn-icon">
+                    <i class="icon i-resize-full"></i>
+                    Aperçu
+                </button>
+                <button class="btn-icon">
+                    <i class="icon i-download-alt"></i>
+                    Télécharger
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+</table>

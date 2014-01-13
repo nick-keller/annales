@@ -1,0 +1,31 @@
+@import 'mixins';
+@import 'colors';
+
+.table{
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    margin: 20px 0;
+
+    .ellipsis{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .nowrap{
+        white-space: nowrap;
+    }
+
+    th, td{
+        border-bottom: solid 1px @gray;
+        text-align: left;
+        padding: 5px 10px;
+    }
+
+    tr:hover{
+        td{
+            background: @gray;
+        }
+    }
+}

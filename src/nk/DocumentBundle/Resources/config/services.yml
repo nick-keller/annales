@@ -1,5 +1,5 @@
 parameters:
-    nk.search.limitPerPage: 2
+    nk.search.limitPerPage: 25
 
 services:
     nk.metadata_finder:
