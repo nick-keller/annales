@@ -21,11 +21,22 @@
         border-bottom: solid 1px @gray;
         text-align: left;
         padding: 5px 10px;
+
+        &[data-pdf]{
+            cursor: pointer;
+        }
     }
 
     tr:hover{
         td{
             background: @gray;
+        }
+    }
+
+    tr.active{
+        td, th{
+            background: @blue;
+            color: white;
         }
     }
 }

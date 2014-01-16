@@ -1,0 +1,95 @@
+@import "mixins";
+
+@menu-width: 300px;
+
+#preview-panel{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+
+    background: rgba(0,0,0,.8);
+
+    .close-panel{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 2001;
+    }
+
+    .loading{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: white;
+        line-height: 50px;
+        margin-top: -25px;
+        font-size: 30px;
+        text-shadow: 0 0 5px black;
+    }
+
+    .document{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        .pdf{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: @menu-width;
+            bottom: 0;
+
+            embed{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        .menu{
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: @menu-width;
+            background: white;
+            z-index: 2000;
+            padding: 5px;
+            .box-sizing();
+
+            h1{
+                margin-right: 20px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            .scrollable-content{
+                position: absolute;
+                top: 120px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 5px;
+                overflow: auto;
+            }
+        }
+    }
+}

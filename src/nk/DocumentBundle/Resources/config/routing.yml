@@ -24,6 +24,12 @@ nk_document_upload:
     requirements:
         id: \d+
 
+nk_document_preview:
+    pattern:  /{id}/preview
+    defaults: { _controller: nkDocumentBundle:Document:preview }
+    requirements:
+        id: \d+
+
 nk_document_file:
     pattern:  /file/{id}
     defaults: { _controller: nkDocumentBundle:File:show }

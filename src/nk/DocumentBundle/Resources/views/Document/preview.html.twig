@@ -1,0 +1,75 @@
+<div class="document" data-document-id="{{ document.id }}">
+    <div class="pdf"></div>
+    <div class="menu">
+        <h1>
+            {{ document.subject }}
+        </h1>
+        <a class="btn-icon prev-doc">
+            <i class="icon i-chevron-left"></i>
+            Précédent
+        </a>
+        <a class="btn-icon next-doc" style="float: right">
+            Suivant
+            <i class="icon i-chevron-right"></i>
+        </a>
+
+        <div class="scrollable-content">
+            <table class="table">
+                <tr>
+                    <th>Fichiers</th>
+                    <th></th>
+                </tr>
+                {% for file in document.files %}
+                    <tr>
+                        <td data-pdf="{{ asset(file.webPath) }}">
+                            {{ file.name }}
+                        </td>
+                        <td>
+                            <button class="btn-icon">
+                                <i class="icon i-download-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <table class="table">
+                <tr>
+                    <th colspan="2">Informations</th>
+                </tr>
+                <tr>
+                    <td data-priority="1">Promo</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_document_all', {class:document.class}) }}">{{ document.class }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-priority="2">Matière</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_document_all', {class:document.class, field:document.field}) }}">{{ document.field }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-priority="6">Unité</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_document_search', {s:document.unit}) }}">{{ document.unit }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-priority="4">Professeur</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_document_search', {s:document.teacher}) }}">{{ document.teacher }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-priority="5">Année</td>
+                    <td class="nowrap">{{ document.year }}</td>
+                </tr>
+                <tr>
+                    <td data-priority="3">Auteur</td>
+                    <td class="nowrap">{{ document.author }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

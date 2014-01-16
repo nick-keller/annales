@@ -23,6 +23,7 @@
                 'less/pagination.less'
                 'less/folder.less'
                 'less/table.less'
+                'less/preview.less'
                 'css/custom-theme/jquery-ui-1.10.3.custom.min.css'
                 filter='cssrewrite'
                 output='css/main.css'
@@ -84,6 +85,12 @@
                 {% block body %}{% endblock %}
             </div>
         </article>
+        <div id="preview-panel">
+            <div class="loading">Chargement...</div>
+            <div class="close-panel">
+                <i class="icon i-remove-2"></i>
+            </div>
+        </div>
         {% block javascripts %}
             <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
             <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -92,6 +99,7 @@
                 'js/autocomplete.js'
                 'js/select.js'
                 'js/adaptive-table.js'
+                'js/preview.js'
                 output='/js/script.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>

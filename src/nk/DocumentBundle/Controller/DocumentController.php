@@ -45,6 +45,16 @@ class DocumentController extends Controller
     /**
      * @Template
      */
+    public function previewAction(Document $document)
+    {
+        return array(
+            'document' => $document
+        );
+    }
+
+    /**
+     * @Template
+     */
     public function showAction($class, $field, Document $document, $slug)
     {
         if($slug != $document->getSlug() || $class != $document->getClass() || $field != $document->getField()){

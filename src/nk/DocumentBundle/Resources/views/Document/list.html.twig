@@ -35,7 +35,7 @@
             <td class="nowrap">{{ doc.year }}</td>
             <td class="nowrap">{{ doc.author }}</td>
             <td class="nowrap">
-                <button class="btn-icon">
+                <button class="btn-icon" data-preview="{{ path('nk_document_preview', {id:doc.id}) }}" data-document-id="{{ doc.id }}">
                     <i class="icon i-resize-full"></i>
                     Aperçu
                 </button>

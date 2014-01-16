@@ -18,4 +18,28 @@
 
 {% block body %}
     <h1>{{ document.subject }}</h1>
+    <table class="table">
+        <tr>
+            <th>Fichier</th>
+            <th>Poid</th>
+            <th>
+                <button class="btn-icon">
+                    <i class="icon i-cargo"></i>
+                    Télécharger archive
+                </button>
+            </th>
+        </tr>
+        {% for file in document.files %}
+            <tr>
+                <td>{{ file }}</td>
+                <td>{{ file.size }}</td>
+                <td>
+                    <button class="btn-icon">
+                        <i class="icon i-download-alt"></i>
+                        Télécharger
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
