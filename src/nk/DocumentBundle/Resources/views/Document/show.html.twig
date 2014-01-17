@@ -18,28 +18,71 @@
 
 {% block body %}
     <h1>{{ document.subject }}</h1>
-    <table class="table">
-        <tr>
-            <th>Fichier</th>
-            <th>Poid</th>
-            <th>
-                <button class="btn-icon">
-                    <i class="icon i-cargo"></i>
-                    Télécharger archive
-                </button>
-            </th>
-        </tr>
-        {% for file in document.files %}
-            <tr>
-                <td>{{ file }}</td>
-                <td>{{ file.size }}</td>
-                <td>
-                    <button class="btn-icon">
-                        <i class="icon i-download-alt"></i>
-                        Télécharger
-                    </button>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="row-gaped">
+        <div class="col5">
+            <table class="table">
+                <tr>
+                    <th colspan="2">Informations</th>
+                </tr>
+                <tr>
+                    <td data-priority="1">Promo</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_document_all', {class:document.class}) }}">{{ document.class }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-priority="2">Matière</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_document_all', {class:document.class, field:document.field}) }}">{{ document.field }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-priority="6">Unité</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_document_search', {s:document.unit}) }}">{{ document.unit }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-priority="4">Professeur</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_document_search', {s:document.teacher}) }}">{{ document.teacher }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-priority="5">Année</td>
+                    <td class="nowrap">{{ document.year }}</td>
+                </tr>
+                <tr>
+                    <td data-priority="3">Auteur</td>
+                    <td class="nowrap">{{ document.author }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col7">
+            <table class="table">
+                <tr>
+                    <th>Fichier</th>
+                    <th>Poid</th>
+                    <th>
+                        <button class="btn-icon">
+                            <i class="icon i-cargo"></i>
+                            Télécharger archive
+                        </button>
+                    </th>
+                </tr>
+                {% for file in document.files %}
+                    <tr>
+                        <td>{{ file }}</td>
+                        <td>{{ file.size }}</td>
+                        <td>
+                            <button class="btn-icon">
+                                <i class="icon i-download-alt"></i>
+                                Télécharger
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}
