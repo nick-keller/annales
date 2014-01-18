@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block submenu %}
+    <nav class="submenu">
+        <ul>
+            <li {{ page.active('nk_exam_admin') }}>
+                <a href="{{ path('nk_exam_admin') }}">
+                    <i class="icon i-calendar"></i>
+                    Ressources ADE
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

@@ -1,0 +1,3 @@
+nk_exam_admin:
+    pattern:  /admin
+    defaults: { _controller: nkExamBundle:Resource:admin }
