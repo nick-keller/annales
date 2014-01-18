@@ -39,41 +39,51 @@
             <form method="get" class="search-form ui-front" autocomplete="off" action="{{ path('nk_document_search') }}">
                 <input type="search" name="s" placeholder="Rechercher" autocomplete="off" data-autocomplete-multiple="{{ metadata() }}"{% if searchQuery is defined %} value="{{ searchQuery }}"{% endif %}>
             </form>
-            {% if app.user %}
                 <ul class="menu">
+                    {% if app.user %}
                     <li {{ page.active('fos_user') }}>
                         <a href="{{ path('fos_user_profile_show') }}">
                             <i class="icon i-cogwheels"></i>
                             Mon compte
                         </a>
                     </li>
+                    {% endif %}
                     <li {{ page.active('nk_document_new') }}>
                         <a href="{{ path('nk_document_new') }}">
                             <i class="icon i-cloud-upload green"></i>
                             Uploader
                         </a>
                     </li>
+                    {% if app.user %}
                     <li>
                         <a>
                             <i class="icon i-wallet blue"></i>
                             Mes documents
                         </a>
                     </li>
-                    <li>
-                        <a>
+                    {% endif %}
+                    <li {{ page.active('nk_document_all') }}>
+                        <a href="{{ path('nk_document_all') }}">
                             <i class="icon i-folder-open yellow"></i>
-                            Mes compils
+                            Parcourir
                         </a>
                     </li>
+                    {% if app.user %}
                     <li>
                         <a href="{{ path('fos_user_security_logout') }}">
                             <i class="icon i-power red"></i>
                             Déconnexion
                         </a>
                     </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('fos_user_security_login') }}">
+                                <i class="icon i-ok green"></i>
+                                Connexion
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
-            {% else %}
-            {% endif %}
         </aside>
         <nav id="nav-bar">
             <ul class="tools">

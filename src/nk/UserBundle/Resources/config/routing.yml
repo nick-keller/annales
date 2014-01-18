@@ -1,0 +1,5 @@
+nk_user_show:
+    pattern:  /{id}
+    defaults: { _controller: nkUserBundle:User:show }
+    requirements:
+        id: \d+
