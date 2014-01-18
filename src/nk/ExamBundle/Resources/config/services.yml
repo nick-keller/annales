@@ -1,5 +1,5 @@
 parameters:
-#    nk_exam.example.class: nk\ExamBundle\Example
+    nk_exam.ade_url: https://planif.esiee.fr:8443/jsp/custom/modules/plannings/anonymous_cal.jsp?resources={{resources}}&projectId=3&calType=ical&nbWeeks=4
 
 services:
 #    nk_exam.example:

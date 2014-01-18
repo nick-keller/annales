@@ -79,6 +79,12 @@ fos_user:
     db_driver:      orm
     firewall_name:  main
     user_class:     nk\UserBundle\Entity\User
+    profile:
+        form:
+            type: nk_user_profile
+    registration:
+        form:
+            type: nk_user_registration
 
 
 # Stof\DoctrineExtensionBundle configuration

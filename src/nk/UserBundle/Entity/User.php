@@ -4,6 +4,7 @@ namespace nk\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use nk\ExamBundle\Entity\Resource;
 
 /**
  * User
@@ -22,6 +23,13 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @var Resource
+     * @ORM\ManyToOne(targetEntity="\nk\ExamBundle\Entity\Resource", inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $resource;
+
 
     /**
      * Get id
@@ -31,5 +39,21 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param Resource $resource
+     */
+    public function setResource(Resource $resource)
+    {
+        $this->resource = $resource;
+    }
+
+    /**
+     * @return Resource
+     */
+    public function getResource()
+    {
+        return $this->resource;
     }
 }

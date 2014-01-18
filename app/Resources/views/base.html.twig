@@ -41,12 +41,20 @@
             </form>
                 <ul class="menu">
                     {% if app.user %}
-                    <li {{ page.active('fos_user') }}>
-                        <a href="{{ path('fos_user_profile_show') }}">
-                            <i class="icon i-cogwheels"></i>
-                            Mon compte
-                        </a>
-                    </li>
+                        <li {{ page.active('fos_user') }}>
+                            <a href="{{ path('fos_user_profile_show') }}">
+                                <i class="icon i-cogwheels"></i>
+                                Mon compte
+                            </a>
+                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li {{ page.active('admin') }}>
+                                <a href="{{ path('nk_exam_admin') }}">
+                                    <i class="icon i-settings"></i>
+                                    Administration
+                                </a>
+                            </li>
+                        {% endif %}
                     {% endif %}
                     <li {{ page.active('nk_document_new') }}>
                         <a href="{{ path('nk_document_new') }}">

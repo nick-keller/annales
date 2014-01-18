@@ -1,0 +1,16 @@
+{% extends '::admin.html.twig' %}
+{% block title %}Editer la ressource ADE - {{ parent() }}{% endblock %}
+
+{% block tools %}
+    <li>
+        <a href="{{ path('nk_exam_admin') }}">
+            <i class="icon i-chevron-left"></i>
+            Annuler
+        </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <h1>Editer la ressource ADE</h1>
+    {% include 'nkExamBundle:Resource:form.html.twig' %}
+{% endblock %}
