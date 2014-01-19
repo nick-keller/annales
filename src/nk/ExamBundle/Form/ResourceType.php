@@ -16,7 +16,7 @@ class ResourceType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
-                'label' => 'Nom',
+                'label' => 'Promo',
                 'attr' => array(
                     'placeholder' => 'E1, E3FI, MOTIS...'
                 )

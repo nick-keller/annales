@@ -59,4 +59,20 @@ class DocumentRepository extends EntityRepository
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
     }
+
+    public function getNumberOfDocByUnit()
+    {
+        $units = array();
+
+        $result = $this->createQueryBuilder('d')
+            ->select("d.unit, COUNT(d.id) total")
+            ->groupBy('d.unit')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        foreach($result as $unit)
+            $units[$unit['unit']] = $unit['total'];
+
+        return$units;
+    }
 }

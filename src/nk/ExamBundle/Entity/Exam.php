@@ -21,6 +21,8 @@ class Exam
 
     private $groups;
 
+    private $documents = array();
+
     /**
      * @param \DateTime $endAt
      */
@@ -42,6 +44,23 @@ class Exam
      */
     public function setGroups($groups)
     {
+        $groups = str_replace(
+            '\n',
+            ', ',
+            substr(
+                $groups,
+                2,
+                -4 + strpos(
+                    $groups,
+                    preg_match('#^[A-Z]{2,3}-[0-9]{4}:#', $this->unit) ?
+                        substr($this->unit, 0, strpos($this->unit, ':')):
+                        $this->unit
+                )
+            )
+        );
+
+        $groups = preg_replace('#, \(Exported.+#', '', $groups);
+
         $this->groups = $groups;
     }
 
@@ -58,6 +77,7 @@ class Exam
      */
     public function setLocation($location)
     {
+        $location = str_replace('\,', ', ', $location);
         $this->location = $location;
     }
 
@@ -90,6 +110,14 @@ class Exam
      */
     public function setUnit($unit)
     {
+        $unit = substr(
+            $unit,
+            0,
+            strpos($unit, ':CTR') === false ?
+                100:
+                strpos($unit, ':CTR')
+        );
+
         $this->unit = $unit;
     }
 
@@ -101,5 +129,26 @@ class Exam
         return $this->unit;
     }
 
-    
+    /**
+     * @param array $documents
+     */
+    public function setDocuments($documents)
+    {
+        $this->documents = $documents;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
+    public function getLength()
+    {
+        $diff = $this->startAt->diff($this->endAt);
+
+        return ($diff->h ? $diff->h.'h ' : '').($diff->i ? $diff->i.'m' : '');
+    }
 }

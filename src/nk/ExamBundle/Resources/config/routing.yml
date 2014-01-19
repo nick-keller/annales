@@ -11,3 +11,8 @@ nk_exam_admin_edit:
     defaults: { _controller: nkExamBundle:Resource:edit }
     requirements:
         id: \d+
+
+
+nk_exam_next_exam:
+    pattern:  /next
+    defaults: { _controller: nkExamBundle:Exam:next }

@@ -4,7 +4,9 @@
 {% block body %}
     <h1>{{ searchQuery.result.totalItemCount }} {{ 'résultat|résultats'|transchoice(searchQuery.result.totalItemCount ) }} pour "{{ searchQuery }}"</h1>
     {% if searchQuery.hasSuggestion %}
-        Essayez avec cette orthographe : <a href="{{ path('nk_document_search', {s:searchQuery.suggestion}) }}">{{ searchQuery.getSuggestion(true)|raw }}</a>
+        <p class="gray-bg">
+            Essayez avec cette orthographe : <a href="{{ path('nk_document_search', {s:searchQuery.suggestion}) }}">{{ searchQuery.getSuggestion(true)|raw }}</a>
+        </p>
     {% endif %}
     {% set documents = searchQuery.result %}
     {% include 'nkDocumentBundle:Document:list.html.twig' %}

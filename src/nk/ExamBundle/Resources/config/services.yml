@@ -1,7 +1,18 @@
 parameters:
-    nk_exam.ade_url: https://planif.esiee.fr:8443/jsp/custom/modules/plannings/anonymous_cal.jsp?resources={{resources}}&projectId=3&calType=ical&nbWeeks=4
+#    nk_exam.ade.url: https://planif.esiee.fr:8443/jsp/custom/modules/plannings/anonymous_cal.jsp?resources={{resources}}&projectId=3&calType=ical&nbWeeks=4
+    nk_exam.ade.url: http://www.nicolas-keller.com/ADECal.ics
 
 services:
-#    nk_exam.example:
-#        class: %nk_exam.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    nk_exam.ade.explorer:
+        class: nk\ExamBundle\Services\AdeExplorer
+        arguments:
+            - %nk_exam.ade.url%
+            - @security.context
+            - @doctrine.orm.entity_manager
+
+    nk.twig.date_extension:
+        class: nk\ExamBundle\Twig\DateExtension
+        arguments:
+            - @translator
+        tags:
+            - { name: twig.extension }

@@ -4,7 +4,7 @@ namespace nk\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use nk\ExamBundle\Entity\Resource;
+use nk\ExamBundle\Entity\Resource as Resource;
 
 /**
  * User
@@ -26,7 +26,7 @@ class User extends BaseUser
     /**
      * @var Resource
      * @ORM\ManyToOne(targetEntity="\nk\ExamBundle\Entity\Resource", inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $resource;
 
@@ -42,7 +42,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param Resource $resource
+     * @param $resource
      */
     public function setResource(Resource $resource)
     {

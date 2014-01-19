@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+{% block title %}Prochains contrôles - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Prochains contrôles</h1>
+    {% if exams|length %}
+        <p class="gray-bg">
+            Liste des prochains contrôles pour les <b>{{ app.user.resource }}</b> des 4 prochaines semaines.
+        </p>
+    {% else %}
+        <p class="gray-bg">
+            Aucun contrôle pour les <b>{{ app.user.resource }}</b> pour les 4 prochaines semaines.
+        </p>
+    {% endif %}
+
+    {% for exam in exams %}
+        <div class="event">
+            <h2>
+                {{ exam.unit }}
+            </h2>
+            <div class="row">
+                <div class="col3">
+                    <h3>Informations</h3>
+                    <p class="info">
+                        <i class="icon i-calendar"></i>
+                        {{ exam.startAt|countdown }}
+                        <br>
+                        <i class="icon i-stopwatch"></i>
+                        {{ exam.length }}
+                        <br>
+                        <i class="icon i-group"></i>
+                        {{ exam.groups }}
+                        <br>
+                        <i class="icon i-google-maps"></i>
+                        {{ exam.location }}
+                        <br>
+                        <i class="icon i-file"></i>
+                        {{ exam.documents|length }} {{ 'Document|Documents'|transchoice(exam.documents|length) }}
+                        <br>
+                        <i class="icon i-folder-open"></i>
+                        1 compilation
+                    </p>
+                </div>
+                <div class="col9">
+                    {% set documents = exam.documents|slice(0,3) %}
+                    {% include 'nkDocumentBundle:Document:list.html.twig' %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

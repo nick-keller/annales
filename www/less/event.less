@@ -1,0 +1,18 @@
+@import "mixins";
+@import "colors";
+
+.event{
+    border-bottom: solid 1px @gray;
+
+    @icon-width: 40px;
+    .info{
+        padding-left: @icon-width;
+
+        i{
+            position: absolute;
+            width: @icon-width;
+            text-align: center;
+            margin-left: -@icon-width;
+        }
+    }
+}
