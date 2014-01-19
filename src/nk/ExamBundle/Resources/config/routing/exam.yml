@@ -1,0 +1,3 @@
+nk_exam_next_exam:
+    pattern:  /next
+    defaults: { _controller: nkExamBundle:Exam:next }

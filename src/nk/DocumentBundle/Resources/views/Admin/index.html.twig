@@ -1,0 +1,42 @@
+{% extends "::admin.html.twig" %}
+{% block title %}Uniformiser les champs - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Uniformiser les métadonnées</h1>
+    <p>
+        Champ :
+        <a href="{{ path('nk_document_admin', {f:'class'}) }}">Promo</a>,
+        <a href="{{ path('nk_document_admin', {f:'field'}) }}">Matière</a>,
+        <a href="{{ path('nk_document_admin', {f:'unit'}) }}">Unité</a>,
+        <a href="{{ path('nk_document_admin', {f:'teacher'}) }}">Professeur</a>
+    </p>
+    <form method="post">
+        {{ form_widget(form.from) }}
+        <i class="icon i-right-arrow big-ass-icon"></i>
+        {{ form_widget(form.to) }}
+        {{ form_rest(form) }}
+        <button class="btn blue">
+            <i class="fa fa-code-fork"></i>
+            Uniformiser
+        </button>
+    </form>
+
+    {% if suggestions|length %}
+        {% set fields = {classes:'Promo', fields:'Matière', units:'Unité', teachers:'Professeur'} %}
+        <h1>Suggestions</h1>
+        <table class="table">
+            <tr>
+                <th>Champ</th>
+                <th>Donnés similaires</th>
+            </tr>
+            {% for field, suggestion in suggestions %}
+                {% for s in suggestion %}
+                    <tr>
+                        <td>{{ fields[field] }}</td>
+                        <td>{{ s }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

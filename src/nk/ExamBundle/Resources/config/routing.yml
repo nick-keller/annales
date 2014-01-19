@@ -1,18 +1,9 @@
-nk_exam_admin:
-    pattern:  /admin
-    defaults: { _controller: nkExamBundle:Resource:admin }
+nk_exam_exam:
+    resource: "routing/exam.yml"
+    prefix:   /
 
-nk_exam_admin_new:
-    pattern:  /admin/new
-    defaults: { _controller: nkExamBundle:Resource:new }
-
-nk_exam_admin_edit:
-    pattern:  /admin/{id}/edit
-    defaults: { _controller: nkExamBundle:Resource:edit }
-    requirements:
-        id: \d+
+nk_exam_resource:
+    resource: "routing/resource.yml"
+    prefix:   /admin
 
 
-nk_exam_next_exam:
-    pattern:  /next
-    defaults: { _controller: nkExamBundle:Exam:next }

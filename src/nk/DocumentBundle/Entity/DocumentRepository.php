@@ -75,4 +75,16 @@ class DocumentRepository extends EntityRepository
 
         return$units;
     }
+
+    public function standardize(Standardize $s)
+    {
+        $this->createQueryBuilder('d')
+            ->update()
+            ->set("d.".$s->getField(), ':to')
+            ->where("d.".$s->getField().' = :from')
+            ->setParameter('from', $s->getFrom())
+            ->setParameter('to', $s->getTo())
+            ->getQuery()
+            ->execute();
+    }
 }

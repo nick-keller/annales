@@ -1,0 +1,3 @@
+nk_document_search:
+    pattern:  /
+    defaults: { _controller: nkDocumentBundle:Search:search }

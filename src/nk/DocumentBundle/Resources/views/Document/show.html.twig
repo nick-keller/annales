@@ -25,36 +25,38 @@
                     <th colspan="2">Informations</th>
                 </tr>
                 <tr>
-                    <td data-priority="1">Promo</td>
+                    <td>Promo</td>
                     <td class="nowrap">
                         <a href="{{ path('nk_document_all', {class:document.class}) }}">{{ document.class }}</a>
                     </td>
                 </tr>
                 <tr>
-                    <td data-priority="2">Matière</td>
+                    <td>Matière</td>
                     <td class="nowrap">
                         <a href="{{ path('nk_document_all', {class:document.class, field:document.field}) }}">{{ document.field }}</a>
                     </td>
                 </tr>
                 <tr>
-                    <td data-priority="6">Unité</td>
+                    <td>Unité</td>
                     <td class="nowrap">
                         <a href="{{ path('nk_document_search', {s:document.unit}) }}">{{ document.unit }}</a>
                     </td>
                 </tr>
                 <tr>
-                    <td data-priority="4">Professeur</td>
+                    <td>Professeur</td>
                     <td class="nowrap">
                         <a href="{{ path('nk_document_search', {s:document.teacher}) }}">{{ document.teacher }}</a>
                     </td>
                 </tr>
                 <tr>
-                    <td data-priority="5">Année</td>
+                    <td>Année</td>
                     <td class="nowrap">{{ document.year }}</td>
                 </tr>
                 <tr>
-                    <td data-priority="3">Auteur</td>
-                    <td class="nowrap">{{ document.author }}</td>
+                    <td>Auteur</td>
+                    <td class="nowrap">
+                        <a href="{{ path('nk_user_show', {id:document.author.id}) }}">{{ document.author }}</a>
+                    </td>
                 </tr>
             </table>
         </div>

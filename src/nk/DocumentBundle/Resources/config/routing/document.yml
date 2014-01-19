@@ -1,0 +1,31 @@
+nk_document_new:
+    pattern:  /new
+    defaults: { _controller: nkDocumentBundle:Document:new }
+
+nk_document_show:
+    pattern:  /{class}/{field}/{id}-{slug}
+    defaults: { _controller: nkDocumentBundle:Document:show }
+    requirements:
+        id: \d+
+
+nk_document_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: nkDocumentBundle:Document:edit }
+    requirements:
+        id: \d+
+
+nk_document_upload:
+    pattern:  /{id}/upload
+    defaults: { _controller: nkDocumentBundle:File:upload }
+    requirements:
+        id: \d+
+
+nk_document_preview:
+    pattern:  /{id}/preview
+    defaults: { _controller: nkDocumentBundle:Document:preview }
+    requirements:
+        id: \d+
+
+nk_document_all:
+    pattern:  /{class}/{field}
+    defaults: { _controller: nkDocumentBundle:Document:all, class: null, field: null }

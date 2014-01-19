@@ -4,7 +4,7 @@ nk_exam:
 
 nk_document:
     resource: "@nkDocumentBundle/Resources/config/routing.yml"
-    prefix:   /doc
+    prefix:   /
 
 nk_user:
     resource: "@nkUserBundle/Resources/config/routing.yml"

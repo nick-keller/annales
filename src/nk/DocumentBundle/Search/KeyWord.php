@@ -38,7 +38,7 @@ class KeyWord
     public function __construct($word, array $metadata)
     {
         $this->metadata = $metadata;
-        $this->word     = $this->strip_accents($word);
+        $this->word     = KeyWord::strip_accents($word);
 
         $this->findType();
     }
@@ -58,7 +58,7 @@ class KeyWord
         return $this->suggestion;
     }
 
-    private function strip_accents($string)
+    public static function strip_accents($string)
     {
         return strtr($string,
             'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
@@ -104,9 +104,9 @@ class KeyWord
 
     private function checkMetaphone($field)
     {
-        $temp = $this->metaphone($this->word);
+        $temp = KeyWord::metaphone($this->word);
         foreach($this->metadata[$field] as $match)
-            if($temp == $this->metaphone($match)){
+            if($temp == KeyWord::metaphone($match)){
                 $this->suggestion = $match;
                 return true;
             }
@@ -126,14 +126,14 @@ class KeyWord
         return false;
     }
 
-    public function metaphone($str)
+    public static function metaphone($str)
     {
         if(!strlen($str)) return '';
 
         $metaphone = '';
         $pos = 0;
         $voyels = str_split('AEIOUY');
-        $str = strtoupper($this->strip_accents($str));
+        $str = strtoupper(KeyWord::strip_accents($str));
 
         while($pos < strlen($str)){
             while($pos < strlen($str) && in_array($str[$pos], $voyels))

@@ -12,6 +12,8 @@ input, .select{
     height: @input-height;
     line-height: @input-height;
     padding: 0 10px;
+    display: inline-block;
+    vertical-align: middle;
     .box-sizing();
 
     border: none;
@@ -69,7 +71,7 @@ input, .select{
             line-height: 25px;
 
             &:hover, &.active{
-                background: #4386ba;
+                background: @blue;
                 color: white;
             }
         }
@@ -99,9 +101,10 @@ input, .select{
 
 .btn{
     display: inline-block;
-    height: @input-height;
-    line-height: @input-height;
+    height: @input-height + 2px;
+    line-height: @input-height + 2px;
     padding: 0 10px;
+    vertical-align: middle;
     .box-sizing();
 
     border: none;
@@ -116,17 +119,17 @@ input, .select{
     }
 
     i{
-        vertical-align: bottom;
+        font-size: 1.2em;
     }
 
     &.blue{
-        background: #4386ba;
+        background: @blue;
         color: white;
         box-shadow: none;
 
         &:hover{
             color: white;
-            background: #407cad;
+            background: darken(@blue, 5%);
         }
     }
 

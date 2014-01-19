@@ -1,0 +1,13 @@
+nk_exam_admin:
+    pattern:  /
+    defaults: { _controller: nkExamBundle:Resource:admin }
+
+nk_exam_admin_new:
+    pattern:  /new
+    defaults: { _controller: nkExamBundle:Resource:new }
+
+nk_exam_admin_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: nkExamBundle:Resource:edit }
+    requirements:
+        id: \d+

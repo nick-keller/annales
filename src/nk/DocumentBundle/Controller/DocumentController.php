@@ -121,4 +121,12 @@ class DocumentController extends Controller
             'document' => $document,
         );
     }
+
+    /**
+     * @Template
+     */
+    public function adminAction()
+    {
+        return array();
+    }
 }

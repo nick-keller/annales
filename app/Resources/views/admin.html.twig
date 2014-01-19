@@ -3,6 +3,12 @@
 {% block submenu %}
     <nav class="submenu">
         <ul>
+            <li {{ page.active('nk_document_admin') }}>
+                <a href="{{ path('nk_document_admin') }}">
+                    <i class="fa fa-code-fork"></i>
+                    Uniformiser
+                </a>
+            </li>
             <li {{ page.active('nk_exam_admin') }}>
                 <a href="{{ path('nk_exam_admin') }}">
                     <i class="icon i-calendar"></i>
