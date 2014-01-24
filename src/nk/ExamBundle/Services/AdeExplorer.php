@@ -4,6 +4,8 @@ namespace nk\ExamBundle\Services;
 
 
 use nk\ExamBundle\Entity\Exam;
+use nk\ExamBundle\Entity\ExamRepository;
+use nk\ExamBundle\Entity\ResourceRepository;
 use nk\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\SecurityContext;
 use Doctrine\ORM\EntityManager;
@@ -21,7 +23,19 @@ class AdeExplorer
      */
     private $docRepo;
 
+    /**
+     * @var ResourceRepository
+     */
+    private $resourceRepo;
+
+    /**
+     * @var ExamRepository
+     */
+    private $examRepo;
+
     private $AdeUrl;
+
+    private $numberOfDocByUnit = null;
 
     /**
      * @var User
@@ -33,23 +47,46 @@ class AdeExplorer
         $this->user = $context->getToken()->getUser();
         $this->em = $em;
         $this->docRepo = $this->em->getRepository('nkDocumentBundle:Document');
-        $this->AdeUrl = str_replace('{{resources}}', $this->user->getResource()->getCode(), $AdeUrl);
+        $this->resourceRepo = $this->em->getRepository('nkExamBundle:Resource');
+        $this->examRepo = $this->em->getRepository('nkExamBundle:Exam');
+        $this->AdeUrl = $AdeUrl;
     }
 
-    public function find()
+    public function updateDatabase()
     {
-        $data = $this->getCalendar();
+        $this->examRepo->truncate();
+
+        $resources = $this->resourceRepo->findAll();
+        foreach($resources as $resource){
+            $exams = $this->find($resource->getCode());
+
+            foreach($exams as $i => $exam){
+                $exam->setResource($resource);
+                $this->em->persist($exam);
+            }
+        }
+        $this->em->flush();
+        $this->em->clear();
+    }
+
+    public function find($resource = null)
+    {
+        if($resource === null)
+            $resource = $this->user->getResource()->getCode();
+        $url = str_replace('{{resources}}', $resource, $this->AdeUrl);
+        $data = $this->getCalendar($url);
 
         return $this->parseCalendar($data);
     }
 
-    private function getCalendar()
+    private function getCalendar($url)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->AdeUrl);
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
         curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $data = curl_exec($ch);
         curl_close($ch);
 
@@ -61,7 +98,7 @@ class AdeExplorer
     private function parseCalendar($cal)
     {
         $events = array();
-        $numberOfDocByUnit = $this->docRepo->getNumberOfDocByUnit();
+        $numberOfDocByUnit = $this->getNumberOfDocByUnit();
 
         $separator = "\r\n";
         strtok($cal, $separator);
@@ -84,13 +121,13 @@ class AdeExplorer
                     else if($this->isData($line, 'SUMMARY')){
                         $event->setUnit($this->getData($line));
 
-                        if(isset($numberOfDocByUnit[$event->getUnit()])){
-                            $event->setDocuments($this->docRepo->findByUnit(
-                                preg_match('#^[A-Z]{2,3}-[0-9]{4}:#', $event->getUnit()) ?
-                                    substr($event->getUnit(), 0, strpos($event->getUnit(), ':')):
-                                    $event->getUnit()
-                            ));
-                        }
+//                        if(isset($numberOfDocByUnit[$event->getUnit()])){
+//                            $event->setDocuments($this->docRepo->findByUnit(
+//                                preg_match('#^[A-Z]{2,3}-[0-9]{4}:#', $event->getUnit()) ?
+//                                    substr($event->getUnit(), 0, strpos($event->getUnit(), ':')):
+//                                    $event->getUnit()
+//                            ));
+//                        }
                     }
                     else if($this->isData($line, 'LOCATION')){
                         $event->setLocation($this->getData($line));
@@ -109,6 +146,13 @@ class AdeExplorer
         });
 
         return $events;
+    }
+
+    private function getNumberOfDocByUnit()
+    {
+        if($this->numberOfDocByUnit === null)
+            $this->numberOfDocByUnit = $this->docRepo->getNumberOfDocByUnit();
+        return $this->numberOfDocByUnit;
     }
 
     private function isData($line, $id){

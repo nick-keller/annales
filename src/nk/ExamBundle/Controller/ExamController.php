@@ -28,7 +28,17 @@ class ExamController extends Controller
     public function nextAction()
     {
         return array(
-            'exams' => $this->get('nk_exam.ade.explorer')->find(),
+            'exams' => $this->em->getRepository('nkExamBundle:Exam')->findNext($this->getUser()),
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function updateAction()
+    {
+        $this->get('nk_exam.ade.explorer')->updateDatabase();
+        return array(
         );
     }
 }

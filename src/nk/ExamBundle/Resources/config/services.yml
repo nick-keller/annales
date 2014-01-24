@@ -1,6 +1,5 @@
 parameters:
-#    nk_exam.ade.url: https://planif.esiee.fr:8443/jsp/custom/modules/plannings/anonymous_cal.jsp?resources={{resources}}&projectId=3&calType=ical&nbWeeks=4
-    nk_exam.ade.url: http://www.nicolas-keller.com/ADECal.ics
+    nk_exam.ade.url: https://planif.esiee.fr:8443/jsp/custom/modules/plannings/anonymous_cal.jsp?resources={{resources}}&projectId=3&calType=ical&nbWeeks=4
 
 services:
     nk_exam.ade.explorer:

@@ -2,26 +2,84 @@
 
 namespace nk\ExamBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Exam
+ *
+ * @ORM\Table(name="nk_exam")
+ * @ORM\Entity(repositoryClass="nk\ExamBundle\Entity\ExamRepository")
+ */
 class Exam
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="start_at", type="datetime")
      */
     private $startAt;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="end_at", type="datetime")
      */
     private $endAt;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unit", type="string", length=20)
+     */
     private $unit;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="location", type="string", length=20)
+     */
     private $location;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="groups", type="string", length=255)
+     */
     private $groups;
 
+    /**
+     * @var Resource
+     * @ORM\ManyToOne(targetEntity="Resource", inversedBy="exams")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $resource;
+
     private $documents = array();
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @param \DateTime $endAt
@@ -52,7 +110,7 @@ class Exam
                 2,
                 -4 + strpos(
                     $groups,
-                    preg_match('#^[A-Z]{2,3}-[0-9]{4}:#', $this->unit) ?
+                    preg_match('#^[A-Z]{2,4}-[0-9]{4}:#', $this->unit) ?
                         substr($this->unit, 0, strpos($this->unit, ':')):
                         $this->unit
                 )
@@ -60,6 +118,7 @@ class Exam
         );
 
         $groups = preg_replace('#, \(Exported.+#', '', $groups);
+        $groups = preg_replace('#, AURION.+#', '', $groups);
 
         $this->groups = $groups;
     }
@@ -150,5 +209,21 @@ class Exam
         $diff = $this->startAt->diff($this->endAt);
 
         return ($diff->h ? $diff->h.'h ' : '').($diff->i ? $diff->i.'m' : '');
+    }
+
+    /**
+     * @param Resource $resource
+     */
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+    }
+
+    /**
+     * @return Resource
+     */
+    public function getResource()
+    {
+        return $this->resource;
     }
 }

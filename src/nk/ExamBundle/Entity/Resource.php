@@ -45,6 +45,12 @@ class Resource
      */
     protected $users;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Exam", mappedBy="resource")
+     */
+    protected $exams;
+
     public function __toString()
     {
         return $this->getName();
