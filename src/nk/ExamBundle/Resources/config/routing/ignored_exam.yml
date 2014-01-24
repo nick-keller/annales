@@ -1,0 +1,7 @@
+nk_exam_ignore_exam:
+    pattern:  /ignore/{unit}
+    defaults: { _controller: nkExamBundle:IgnoredExam:ignore }
+
+nk_exam_unignore_exam:
+    pattern:  /unignore/{unit}
+    defaults: { _controller: nkExamBundle:IgnoredExam:unignore }

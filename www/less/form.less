@@ -176,6 +176,36 @@ input, .select{
     }
 }
 
+.label-icon{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    border: none;
+    background: @gray;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 2px;
+    .transition(padding .3s);
+    .box-sizing();
+
+    i{
+        position: absolute;
+        left: 5px;
+        color: @dark;
+        opacity: 0;
+        .transition(opacity .3s);
+    }
+
+    &:hover{
+        padding: 0 3px 0 17px;
+
+        i{
+            opacity: 1;
+        }
+    }
+}
+
 .control-group{
     min-height: @input-height;
     padding-bottom: 10px;

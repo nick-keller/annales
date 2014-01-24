@@ -17,7 +17,12 @@
         <div class="event">
             <h2>
                 {{ exam.unit }}
+                <button class="btn-icon" data-ignore-exam="{{ path('nk_exam_ignore_exam', {unit:exam.unit}) }}">
+                    <i class="fa fa-trash-o"></i>
+                    Ignorer
+                </button>
             </h2>
+
             <div class="row">
                 <div class="col3">
                     <p class="info">

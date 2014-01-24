@@ -11,10 +11,22 @@ class ProfileFormType extends BaseType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('resource', 'entity', array(
-            'class' => 'nk\ExamBundle\Entity\Resource',
-            'label' => 'Promo',
-        ));
+        $builder
+            ->add('resource', 'entity', array(
+                'class' => 'nk\ExamBundle\Entity\Resource',
+                'label' => 'Promo',
+            ))
+            ->add('weekBeforeExam', 'choice', array(
+                'label' => 'Rappels examens',
+                'choices' => array(
+                    'Jamais',
+                    "Le vendredi d'avant",
+                    '2 semaines avant',
+                    '3 semaines avant',
+                    '1 mois avant'
+                )
+            ))
+        ;
     }
 
     public function getName()

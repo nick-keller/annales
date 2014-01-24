@@ -2,6 +2,10 @@ nk_exam_exam:
     resource: "routing/exam.yml"
     prefix:   /
 
+nk_exam_ignored_exam:
+    resource: "routing/ignored_exam.yml"
+    prefix:   /
+
 nk_exam_resource:
     resource: "routing/resource.yml"
     prefix:   /admin

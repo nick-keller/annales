@@ -3,6 +3,20 @@
 
 <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST">
     {{ form_widget(form) }}
+    {% if app.user.ignoredExams|length %}
+        <div class="control-group">
+            <label class="control-label">Unités ignorées</label>
+            <div class="controls" style="width: 300px">
+                {% for exam in app.user.ignoredExams %}
+                    <button class="label-icon" data-unignore-exam="{{ path('nk_exam_unignore_exam', {unit:exam.unit}) }}">
+                        <i class="icon i-remove-2"></i>
+                        {{ exam }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
     <div class="control-group actions">
         <div class="controls">
             <button class="btn" type="submit">
