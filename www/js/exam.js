@@ -17,4 +17,18 @@ $(function(){
             $(this).remove();
         });
     });
+
+    $('.full-size-event').click(function(){
+        var $this = $(this);
+        var $icon = $this.find('i');
+        var $event = $this.parents('.event');
+
+        $icon.toggleClass('i-resize-full').toggleClass('i-resize-small');
+        $event.toggleClass('active');
+        if($event.hasClass('active')){
+            $event.animate({width:$event.parent().width()}, 500, function(){
+                $event.css('width', '100%');
+            })
+        }
+    })
 });

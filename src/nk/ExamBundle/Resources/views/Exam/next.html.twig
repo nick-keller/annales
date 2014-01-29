@@ -19,37 +19,33 @@
                 {{ exam.unit }}
                 <button class="btn-icon" data-ignore-exam="{{ path('nk_exam_ignore_exam', {unit:exam.unit}) }}">
                     <i class="fa fa-trash-o"></i>
-                    Ignorer
+                </button>
+                <button class="btn-icon full-size-event">
+                    <i class="icon i-resize-full"></i>
                 </button>
             </h2>
 
-            <div class="row">
-                <div class="col3">
-                    <p class="info">
-                        <i class="icon i-calendar"></i>
-                        {{ exam.startAt|countdown }}
-                        <br>
-                        <i class="icon i-stopwatch"></i>
-                        {{ exam.length }}
-                        <br>
-                        <i class="icon i-group"></i>
-                        {{ exam.groups }}
-                        <br>
-                        <i class="icon i-google-maps"></i>
-                        {{ exam.location }}
-                        <br>
-                        <i class="icon i-file"></i>
-                        {{ exam.documents|length }} {{ 'Document|Documents'|transchoice(exam.documents|length) }}
-                        <br>
-                        <i class="icon i-folder-open"></i>
-                        1 compilation
-                    </p>
-                </div>
-                <div class="col9">
-                    {% set documents = exam.documents|slice(0,3) %}
-                    {% include 'nkDocumentBundle:Document:list.html.twig' %}
-                </div>
-            </div>
+            <p class="info">
+                <i class="icon i-calendar"></i>
+                {{ exam.startAt|countdown }}
+                <br>
+                <i class="icon i-stopwatch"></i>
+                {{ exam.length }}
+                <br>
+                <i class="icon i-group"></i>
+                {{ exam.groups }}
+                <br>
+                <i class="icon i-google-maps"></i>
+                {{ exam.location }}
+                <br>
+                <i class="icon i-file"></i>
+                {{ exam.documents|length }} {{ 'Document|Documents'|transchoice(exam.documents|length) }}
+                <br>
+                <i class="icon i-folder-open"></i>
+                1 compilation
+            </p>
+            {#{% set documents = exam.documents|slice(0,3) %}#}
+            {#{% include 'nkDocumentBundle:Document:list.html.twig' %}#}
         </div>
     {% endfor %}
 {% endblock %}
