@@ -17,7 +17,13 @@
             <table class="table">
                 <tr>
                     <th>Fichiers</th>
-                    <th></th>
+                    <th>
+                        {% if document.files|length > 1 %}
+                            <a class="btn-icon" href="{{ path('nk_document_download_all', {id:document.id}) }}">
+                                <i class="icon i-cargo"></i>
+                            </a>
+                        {% endif %}
+                    </th>
                 </tr>
                 {% for file in document.files %}
                     <tr>
@@ -25,9 +31,9 @@
                             {{ file.name }}
                         </td>
                         <td>
-                            <button class="btn-icon">
+                            <a class="btn-icon" href="{{ path('nk_document_file_download', {id:file.id}) }}">
                                 <i class="icon i-download-alt"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

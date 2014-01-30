@@ -24,6 +24,7 @@ class ExamController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
     public function nextAction()
     {

@@ -41,10 +41,10 @@
                     <i class="icon i-resize-full"></i>
                     Aperçu
                 </button>
-                <button class="btn-icon">
+                <a class="btn-icon" href="{{ path('nk_document_download_all', {id:doc.id}) }}">
                     <i class="icon i-download-alt"></i>
                     Télécharger
-                </button>
+                </a>
             </td>
         </tr>
     {% else %}

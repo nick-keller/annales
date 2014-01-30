@@ -86,6 +86,19 @@ class FileController extends Controller
         return $response;
     }
 
+    public function downloadAction(File $file)
+    {
+        $response = new Response();
+        $response->headers->set('Content-Type', "application/pdf");
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$file->getName().'"');
+        $response->headers->set('Content-Transfer-Encoding', 'binary');
+        $response->headers->set('Content-Length', filesize($file->getPath()));
+        $response->setStatusCode(200);
+        $response->setContent(file_get_contents($file->getPath()));
+
+        return $response;
+    }
+
     /**
      * @Template
      */

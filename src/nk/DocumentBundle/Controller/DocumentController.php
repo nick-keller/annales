@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Response;
 
 class DocumentController extends Controller
 {
@@ -50,6 +51,38 @@ class DocumentController extends Controller
         return array(
             'document' => $document
         );
+    }
+
+    public function downloadAction(Document $document)
+    {
+        if(count($document->getFiles()) === 0)
+            return $this->redirect($this->generateUrl('nk_document_show', array(
+                'class' => $document->getClass(),
+                'field' => $document->getField(),
+                'id' => $document->getId(),
+                'slug' => $document->getSlug(),
+            )));
+
+        if(count($document->getFiles()) === 1)
+            return $this->forward('nkDocumentBundle:File:download', array(
+                'file'  => $document->getFiles()[0],
+            ));
+
+        $file = $this->get('nk.zip_factory')->create($document->getFiles());
+
+        $response = new Response();
+        $response->headers->set('Content-Type', "application/zip");
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$document->getSlug().'.zip"');
+        $response->headers->set('Content-Transfer-Encoding', 'binary');
+        $response->headers->set('Content-Length', filesize($file));
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
+        $response->setStatusCode(200);
+        $response->setContent(file_get_contents($file));
+
+        $this->get('nk.zip_factory')->remove($file);
+
+        return $response;
     }
 
     /**

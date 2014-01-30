@@ -2,7 +2,7 @@
 {% block title %}{{ document.subject }} - {{ parent() }}{% endblock %}
 
 {% block tools %}
-    <li>
+    <li xmlns="http://www.w3.org/1999/html">
         <a href="{{ path('nk_document_edit', {id:document.id}) }}">
             <i class="icon i-pencil"></i>
             Editer
@@ -66,21 +66,27 @@
                     <th>Fichier</th>
                     <th>Poid</th>
                     <th>
-                        <button class="btn-icon">
-                            <i class="icon i-cargo"></i>
-                            Télécharger archive
-                        </button>
+                        {% if document.files|length > 1 %}
+                            <a class="btn-icon" href="{{ path('nk_document_download_all', {id:document.id}) }}">
+                                <i class="icon i-cargo"></i>
+                                Télécharger archive
+                            </a>
+                        {% endif %}
                     </th>
                 </tr>
                 {% for file in document.files %}
                     <tr>
-                        <td>{{ file }}</td>
+                        <td>
+                            <a href="{{ asset(file.webPath) }}">
+                                {{ file }}
+                            </a>
+                        </td>
                         <td>{{ file.size }}</td>
                         <td>
-                            <button class="btn-icon">
+                            <a class="btn-icon" href="{{ path('nk_document_file_download', {id:file.id}) }}">
                                 <i class="icon i-download-alt"></i>
                                 Télécharger
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

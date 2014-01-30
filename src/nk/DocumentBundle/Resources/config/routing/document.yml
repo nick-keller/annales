@@ -26,6 +26,12 @@ nk_document_preview:
     requirements:
         id: \d+
 
+nk_document_download_all:
+    pattern:  /{id}/download
+    defaults: { _controller: nkDocumentBundle:Document:download }
+    requirements:
+        id: \d+
+
 nk_document_all:
     pattern:  /{class}/{field}
     defaults: { _controller: nkDocumentBundle:Document:all, class: null, field: null }

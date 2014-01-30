@@ -438,6 +438,20 @@ class Document
         return $this->files;
     }
 
+    /**
+     * Get file list
+     *
+     * @return array
+     */
+    public function getFileList()
+    {
+        $list = array();
+        foreach($this->files as $file)
+            $list[] = $file->getPath();
+
+        return $list;
+    }
+
     function strip_accents($string)
     {
         return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',

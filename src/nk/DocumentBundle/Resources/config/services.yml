@@ -6,6 +6,9 @@ services:
         class: nk\DocumentBundle\Services\MetadataFinder
         arguments: [@doctrine.orm.entity_manager]
 
+    nk.zip_factory:
+        class: nk\DocumentBundle\Services\ZipFactory
+
     nk.search_engine:
         class: nk\DocumentBundle\Services\SearchEngine
         arguments:
