@@ -4,9 +4,12 @@ namespace nk\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use nk\DocumentBundle\Entity\Document;
 use nk\ExamBundle\Entity\IgnoredExam;
+use nk\FolderBundle\Entity\Folder;
 use Symfony\Component\Validator\Constraints as Assert;
 use nk\ExamBundle\Entity\Resource as Resource;
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -46,11 +49,23 @@ class User extends BaseUser
     protected $ignoredExams;
 
     /**
+     * @ORM\OneToMany(targetEntity="nk\DocumentBundle\Entity\Document", mappedBy="author")
+     */
+    protected $documents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="nk\FolderBundle\Entity\Folder", mappedBy="users")
+     **/
+    private $folderCollection;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->ignoredExams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ignoredExams = new ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->folderCollection = new ArrayCollection();
     }
 
 
@@ -135,5 +150,71 @@ class User extends BaseUser
         foreach($this->ignoredExams as $exam)
             $units[] = $exam->getUnit();
         return $units;
+    }
+
+    /**
+     * Add documents
+     *
+     * @param Document $documents
+     * @return User
+     */
+    public function addDocument(Document $documents)
+    {
+        $this->documents[] = $documents;
+
+        return $this;
+    }
+
+    /**
+     * Remove documents
+     *
+     * @param Document $documents
+     */
+    public function removeDocument(Document $documents)
+    {
+        $this->documents->removeElement($documents);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
+    /**
+     * Add folderCollection
+     *
+     * @param Folder $folderCollection
+     * @return User
+     */
+    public function addFolderCollection(Folder $folderCollection)
+    {
+        $this->folderCollection[] = $folderCollection;
+
+        return $this;
+    }
+
+    /**
+     * Remove folderCollection
+     *
+     * @param Folder $folderCollection
+     */
+    public function removeFolderCollection(Folder $folderCollection)
+    {
+        $this->folderCollection->removeElement($folderCollection);
+    }
+
+    /**
+     * Get folderCollection
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFolderCollection()
+    {
+        return $this->folderCollection;
     }
 }

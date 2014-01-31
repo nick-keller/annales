@@ -25,6 +25,12 @@
                     <th colspan="2">Informations</th>
                 </tr>
                 <tr>
+                    <td style="width: 100px">Titre</td>
+                    <td class="nowrap">
+                        {{ document }}
+                    </td>
+                </tr>
+                <tr>
                     <td>Promo</td>
                     <td class="nowrap">
                         <a href="{{ path('nk_document_all', {class:document.class}) }}">{{ document.class }}</a>
@@ -77,6 +83,7 @@
                 {% for file in document.files %}
                     <tr>
                         <td>
+                            <i class="icon i-file icon-dark"></i>
                             <a href="{{ asset(file.webPath) }}">
                                 {{ file }}
                             </a>
@@ -93,4 +100,5 @@
             </table>
         </div>
     </div>
+    <h1>Documents en rapport</h1>
 {% endblock %}

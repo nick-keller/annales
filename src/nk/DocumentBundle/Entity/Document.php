@@ -103,7 +103,7 @@ class Document
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="nk\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="nk\UserBundle\Entity\User", inversedBy="documents")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      * @Gedmo\Blameable(on="create")
      */

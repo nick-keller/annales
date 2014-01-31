@@ -1,3 +1,7 @@
+nk_folder:
+    resource: "@nkFolderBundle/Resources/config/routing.yml"
+    prefix:   /folder
+
 nk_exam:
     resource: "@nkExamBundle/Resources/config/routing.yml"
     prefix:   /exam

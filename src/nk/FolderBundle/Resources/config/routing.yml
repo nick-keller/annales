@@ -1,0 +1,3 @@
+nk_folder_homepage:
+    pattern:  /
+    defaults: { _controller: nkFolderBundle:Folder:index }
