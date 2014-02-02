@@ -18,7 +18,7 @@ $(function(){
             $input.remove();
             $name.show();
 
-            if(newName != $name.text()){
+            if(newName != $name.text() && newName != ""){
                 $name.html(newName);
                 $name.attr('title', newName);
                 $name.prev().attr('title', newName);

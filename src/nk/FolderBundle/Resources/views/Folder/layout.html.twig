@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block submenu %}
+    <nav class="submenu">
+        <ul>
+            <li {{ page.active('nk_document_all') }}>
+                <a href="{{ path('nk_document_all') }}">
+                    <i class="icon i-compass"></i>
+                    Explorer
+                </a>
+            </li>
+            <li {{ page.active('nk_folder_my_folders') }}>
+                <a href="{{ path('nk_folder_my_folders') }}">
+                    <i class="icon i-folder-open"></i>
+                    Mes compils
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

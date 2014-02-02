@@ -29,6 +29,7 @@ class DocumentType extends AbstractType
                     'Cour' => 'Cour',
                     'TD' => 'TD',
                     'TP' => 'TP',
+                    'Projet' => 'Projet',
                 )
             ))
             ->add('class', 'text', array(

@@ -5,6 +5,7 @@ namespace nk\DocumentBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use nk\FolderBundle\Entity\Folder;
 use Symfony\Component\Validator\Constraints as Assert;
 use nk\UserBundle\Entity\User as User;
 
@@ -30,7 +31,7 @@ class Document
      *
      * @ORM\Column(name="type", type="string", length=10)
      * @Assert\NotBlank()
-     * @Assert\Choice(choices = {"Annale", "Cour", "TD", "TP"})
+     * @Assert\Choice(choices = {"Annale", "Cour", "TD", "TP", "Projet"})
      */
     private $type;
 
@@ -129,9 +130,15 @@ class Document
      */
     protected $files;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="nk\FolderBundle\Entity\Folder", mappedBy="documents")
+     **/
+    private $folders;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
+        $this->folders = new ArrayCollection();
     }
 
     public function __toString()
@@ -456,5 +463,38 @@ class Document
     {
         return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
             'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+    }
+
+    /**
+     * Add folders
+     *
+     * @param Folder $folders
+     * @return Document
+     */
+    public function addFolder(Folder $folders)
+    {
+        $this->folders[] = $folders;
+
+        return $this;
+    }
+
+    /**
+     * Remove folders
+     *
+     * @param Folder $folders
+     */
+    public function removeFolder(Folder $folders)
+    {
+        $this->folders->removeElement($folders);
+    }
+
+    /**
+     * Get folders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFolders()
+    {
+        return $this->folders;
     }
 }

@@ -2,7 +2,7 @@
 {% block title %}{{ document.subject }} - {{ parent() }}{% endblock %}
 
 {% block tools %}
-    <li xmlns="http://www.w3.org/1999/html">
+    <li>
         <a href="{{ path('nk_document_edit', {id:document.id}) }}">
             <i class="icon i-pencil"></i>
             Editer
@@ -100,5 +100,10 @@
             </table>
         </div>
     </div>
+    {% if document.folders|length %}
+        <h1>Ce document fait partie des comils suivantes</h1>
+        {% set folders = document.folders %}
+        {% include 'nkFolderBundle:Folder:list.html.twig' %}
+    {% endif %}
     <h1>Documents en rapport</h1>
 {% endblock %}

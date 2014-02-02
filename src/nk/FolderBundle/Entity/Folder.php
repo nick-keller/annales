@@ -5,6 +5,7 @@ namespace nk\FolderBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use nk\DocumentBundle\Entity\Document;
 use Symfony\Component\Validator\Constraints as Assert;
 use nk\UserBundle\Entity\User as User;
 
@@ -64,11 +65,24 @@ class Folder
     private $users;
 
     /**
+     * @ORM\ManyToMany(targetEntity="nk\DocumentBundle\Entity\Document", inversedBy="folders", cascade={"persist"})
+     * @ORM\JoinTable(name="nk_document_folder")
+     */
+    private $documents;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->name = "Nouvelle compil";
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**
@@ -183,5 +197,38 @@ class Folder
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Add documents
+     *
+     * @param Document $documents
+     * @return Folder
+     */
+    public function addDocument(Document $documents)
+    {
+        $this->documents[] = $documents;
+
+        return $this;
+    }
+
+    /**
+     * Remove documents
+     *
+     * @param Document $documents
+     */
+    public function removeDocument(Document $documents)
+    {
+        $this->documents->removeElement($documents);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 }

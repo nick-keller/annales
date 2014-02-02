@@ -7,6 +7,8 @@
     min-height: 110px;
     text-align: center;
     color: #333333;
+    vertical-align: top;
+    position: relative;
 
     i{
         font-size: 50px;
@@ -18,5 +20,42 @@
     &:hover{
         text-decoration: none;
         background: @gray;
+    }
+
+    .name{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0 5px;
+
+        &[data-rename]{
+            cursor: text;
+            
+            &:hover{
+                background: white;
+                box-shadow: 0 0 0 1px rgba(0,0,0,.4);
+            }
+
+            + input{
+                display: block;
+                background: white;
+                box-shadow: 0 0 0 1px rgba(0,0,0,.4);
+                width: auto;
+                height: 21px;
+                line-height: 21px;
+                padding: 0;
+                margin: 0 5px;
+            }
+        }
+    }
+
+    .count{
+        position: absolute;
+        top: 30px;
+        left: 61px;
+        right: 48px;
+        line-height: 31px;
+        font-size: 28px;
+        color: white;
     }
 }

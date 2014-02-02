@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends 'nkFolderBundle:Folder:layout.html.twig' %}
 
 {% block title %}Tous les documents - {{ parent() }}{% endblock %}
 
@@ -7,7 +7,7 @@
     {% for class in classes %}
         <a class="folder" href="{{ path('nk_document_all', {class:class}) }}">
             <i class="icon i-folder-open"></i>
-            {{ class }}
+            <div class="name">{{ class }}</div>
         </a>
     {% endfor %}
 {% endblock %}

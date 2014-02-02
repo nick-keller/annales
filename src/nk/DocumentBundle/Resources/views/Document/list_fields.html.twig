@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends 'nkFolderBundle:Folder:layout.html.twig' %}
 
 {% block title %}{{ class }} - {{ parent() }}{% endblock %}
 
@@ -16,7 +16,8 @@
     {% for field in fields %}
         <a class="folder" href="{{ path('nk_document_all', {class:class, field:field.name}) }}">
             <i class="icon i-folder-open"></i>
-            {{ field.name }} ({{ field.total }})
+            <div class="count">{{ field.total }}</div>
+            <div class="name">{{ field.name }}</div>
         </a>
     {% else %}
         <p>Aucun document</p>

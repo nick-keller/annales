@@ -54,6 +54,11 @@ class User extends BaseUser
     protected $documents;
 
     /**
+     * @ORM\OneToMany(targetEntity="nk\FolderBundle\Entity\Folder", mappedBy="author")
+     */
+    protected $folders;
+
+    /**
      * @ORM\ManyToMany(targetEntity="nk\FolderBundle\Entity\Folder", mappedBy="users")
      **/
     private $folderCollection;
@@ -65,6 +70,7 @@ class User extends BaseUser
     {
         $this->ignoredExams = new ArrayCollection();
         $this->documents = new ArrayCollection();
+        $this->folders = new ArrayCollection();
         $this->folderCollection = new ArrayCollection();
     }
 
@@ -216,5 +222,38 @@ class User extends BaseUser
     public function getFolderCollection()
     {
         return $this->folderCollection;
+    }
+
+    /**
+     * Add folders
+     *
+     * @param Folder $folders
+     * @return User
+     */
+    public function addFolder(Folder $folders)
+    {
+        $this->folders[] = $folders;
+
+        return $this;
+    }
+
+    /**
+     * Remove folders
+     *
+     * @param Folder $folders
+     */
+    public function removeFolder(Folder $folders)
+    {
+        $this->folders->removeElement($folders);
+    }
+
+    /**
+     * Get folders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFolders()
+    {
+        return $this->folders;
     }
 }

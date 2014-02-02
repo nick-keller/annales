@@ -70,8 +70,8 @@
                         </a>
                     </li>
                     {% if app.user %}
-                    <li>
-                        <a>
+                    <li {{ page.active('nk_user_my_docs') }}>
+                        <a href="{{ path('nk_user_my_docs') }}">
                             <i class="icon i-wallet blue"></i>
                             Mes documents
                         </a>
@@ -127,6 +127,7 @@
                 'js/adaptive-table.js'
                 'js/preview.js'
                 'js/exam.js'
+                'js/folder.js'
                 output='/js/script.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>

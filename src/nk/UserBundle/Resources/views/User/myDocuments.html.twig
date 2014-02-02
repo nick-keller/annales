@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+{% block title %}Mes documents - {{ parent() }}{% endblock %}
+
+{% block tools %}
+    <li>
+        <a href="{{ path('nk_document_new') }}">
+            <i class="icon i-cloud-upload"></i>
+            Uploader
+        </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <h1>Mes documents</h1>
+    {% include 'nkDocumentBundle:Document:list.html.twig' %}
+    {{ knp_pagination_render(documents) }}
+{% endblock %}

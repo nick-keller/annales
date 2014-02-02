@@ -1,3 +1,20 @@
-nk_folder_homepage:
-    pattern:  /
-    defaults: { _controller: nkFolderBundle:Folder:index }
+
+nk_folder_my_folders:
+    pattern:  /my-folders
+    defaults: { _controller: nkFolderBundle:Folder:myFolders }
+
+nk_folder_new:
+    pattern:  /new
+    defaults: { _controller: nkFolderBundle:Folder:new }
+
+nk_folder_rename:
+    pattern:  /{id}/rename
+    defaults: { _controller: nkFolderBundle:Folder:rename }
+    requirements:
+        id: \d+
+
+nk_folder_show:
+    pattern:  /{id}
+    defaults: { _controller: nkFolderBundle:Folder:show }
+    requirements:
+        id: \d+

@@ -4,6 +4,7 @@ namespace nk\DocumentBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use nk\UserBundle\Entity\User;
 
 /**
  * DocumentRepository
@@ -86,5 +87,13 @@ class DocumentRepository extends EntityRepository
             ->setParameter('to', $s->getTo())
             ->getQuery()
             ->execute();
+    }
+
+    public function queryLatestOfUser(User $user)
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.author = :user')
+            ->setParameter('user', $user)
+            ->orderBy('d.createdAt');
     }
 }

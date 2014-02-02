@@ -1,0 +1,30 @@
+{% extends 'nkFolderBundle:Folder:layout.html.twig' %}
+
+{% block title %}Tous les documents - {{ parent() }}{% endblock %}
+
+{% block tools %}
+    <li>
+        <a data-new-folder="{{ path('nk_folder_new') }}" data-target="folder-list">
+            <i class="icon i-folder-plus"></i>
+            Nouveau
+        </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <h1>Mes compils</h1>
+    <div id="folder-list">
+        <div class="template" style="display: none">
+            <a class="folder" href="__link__">
+                <i class="icon i-folder-open"></i>
+                <div class="name" data-rename="__rename__">__name__</div>
+            </a>
+        </div>
+        {% set folders = app.user.folders %}
+        {% include 'nkFolderBundle:Folder:list.html.twig' %}
+    </div>
+
+    <h1>Compils externes</h1>
+    {% set folders = app.user.folderCollection %}
+    {% include 'nkFolderBundle:Folder:list.html.twig' %}
+{% endblock %}

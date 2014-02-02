@@ -20,6 +20,21 @@
     font-style: normal;
 }
 
+.ul-icon{
+    @icon-width: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: @icon-width;
+
+    li i:first-child{
+        position: absolute;
+        width: @icon-width;
+        text-align: center;
+        margin-left: -@icon-width;
+    }
+}
+
 // FONT ICONS
 .icon{
     font-family: 'Glyphicons';
