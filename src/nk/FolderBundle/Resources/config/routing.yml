@@ -13,6 +13,13 @@ nk_folder_rename:
     requirements:
         id: \d+
 
+nk_folder_add:
+    pattern:  /{id}/add/{docId}
+    defaults: { _controller: nkFolderBundle:Folder:add }
+    requirements:
+        id: \d+
+        docId: \d+
+
 nk_folder_show:
     pattern:  /{id}
     defaults: { _controller: nkFolderBundle:Folder:show }

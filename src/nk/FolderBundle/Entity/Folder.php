@@ -14,6 +14,7 @@ use nk\UserBundle\Entity\User as User;
  *
  * @ORM\Table(name="nk_folder")
  * @ORM\Entity(repositoryClass="nk\FolderBundle\Entity\FolderRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Folder
 {
@@ -40,6 +41,48 @@ class Folder
      * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=10, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="class", type="string", length=10, nullable=true)
+     */
+    private $class;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="field", type="string", length=30, nullable=true)
+     */
+    private $field;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unit", type="string", length=10, nullable=true)
+     */
+    private $unit;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="year", type="string", length=10, nullable=true)
+     */
+    private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="teacher", type="string", length=100, nullable=true)
+     */
+    private $teacher;
 
     /**
      * @var \DateTime
@@ -230,5 +273,126 @@ class Folder
     public function getDocuments()
     {
         return $this->documents;
+    }
+
+    /**
+     * @param string $class
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
+     * @param string $field
+     */
+    public function setField($field)
+    {
+        $this->field = $field;
+    }
+
+    /**
+     * @return string
+     */
+    public function getField()
+    {
+        return $this->field;
+    }
+
+    /**
+     * @param string $teacher
+     */
+    public function setTeacher($teacher)
+    {
+        $this->teacher = $teacher;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTeacher()
+    {
+        return $this->teacher;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $unit
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * @param string $year
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+    }
+
+    /**
+     * @return string
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function checkCommonData()
+    {
+        $fields = array('type', 'class', 'field', 'unit', 'year', 'teacher');
+
+        foreach($fields as $field){
+            $data = null;
+
+            foreach($this->documents as $document){
+                $value = $document->{'get'.ucfirst($field)}();
+
+                if($data === null || $data === $value)
+                    $data = $value;
+                else{
+                    $data = null;
+                    break;
+                }
+            }
+
+            $this->$field = $data;
+        }
     }
 }

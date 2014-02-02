@@ -24,6 +24,15 @@
                         <i class="icon i-file"></i>
                         {{ folder.documents|length }} {{ "document|documents"|transchoice(folder.documents|length) }}
                     </li>
+                    <li>
+                        <i class="icon i-tags"></i>
+                        {{ folder.type }}
+                        <a href="{{ path('nk_document_all', {class:folder.class}) }}">{{ folder.class }}</a>
+                        <a href="{{ path('nk_document_search', {s:folder.field}) }}">{{ folder.field }}</a>
+                        <a href="{{ path('nk_document_search', {s:folder.unit}) }}">{{ folder.unit }}</a>
+                        {{ folder.year }}
+                        <a href="{{ path('nk_document_search', {s:folder.teacher}) }}">{{ folder.teacher }}</a>
+                    </li>
                 </ul>
             </div>
             <div class="col8">

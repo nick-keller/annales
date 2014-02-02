@@ -71,6 +71,22 @@ class FolderController extends Controller
         return $response;
     }
 
+    public function addAction(Folder $folder, $docId)
+    {
+        $document = $this->em->getRepository('nkDocumentBundle:Document')->findOneById($docId);
+        $folder->addDocument($document);
+
+        $this->em->persist($folder);
+        $this->em->flush();
+
+
+        $response = array('success' => 1);
+        $response = new Response(json_encode( $response ));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
     /**
      * @Template
      */
