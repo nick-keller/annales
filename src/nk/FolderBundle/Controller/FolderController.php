@@ -87,6 +87,35 @@ class FolderController extends Controller
         return $response;
     }
 
+    public function downloadAction(Folder $folder)
+    {
+        if(count($folder->getDocuments()) === 0)
+            return $this->redirect($this->generateUrl('nk_folder_show', array(
+                'id' => $folder->getId(),
+            )));
+
+        if(count($folder->getDocuments()) === 1)
+            return $this->forward('nkDocumentBundle:Document:download', array(
+                'document'  => $folder->getDocuments()[0],
+            ));
+
+        $file = $this->get('nk.zip_factory')->createMultiple($folder->getDocuments());
+
+        $response = new Response();
+        $response->headers->set('Content-Type', "application/zip");
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$folder->getSlug().'.zip"');
+        $response->headers->set('Content-Transfer-Encoding', 'binary');
+        $response->headers->set('Content-Length', filesize($file));
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
+        $response->setStatusCode(200);
+        $response->setContent(file_get_contents($file));
+
+        $this->get('nk.zip_factory')->remove($file);
+
+        return $response;
+    }
+
     /**
      * @Template
      */

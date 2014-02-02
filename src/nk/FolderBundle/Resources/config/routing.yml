@@ -1,27 +1,33 @@
 
 nk_folder_my_folders:
-    pattern:  /my-folders
+    pattern: /my-folders
     defaults: { _controller: nkFolderBundle:Folder:myFolders }
 
 nk_folder_new:
-    pattern:  /new
+    pattern: /new
     defaults: { _controller: nkFolderBundle:Folder:new }
 
 nk_folder_rename:
-    pattern:  /{id}/rename
+    pattern: /{id}/rename
     defaults: { _controller: nkFolderBundle:Folder:rename }
     requirements:
         id: \d+
 
+nk_folder_download:
+    pattern: /{id}/download
+    defaults: { _controller: nkFolderBundle:Folder:download }
+    requirements:
+        id: \d+
+
 nk_folder_add:
-    pattern:  /{id}/add/{docId}
+    pattern: /{id}/add/{docId}
     defaults: { _controller: nkFolderBundle:Folder:add }
     requirements:
         id: \d+
         docId: \d+
 
 nk_folder_show:
-    pattern:  /{id}
+    pattern: /{id}
     defaults: { _controller: nkFolderBundle:Folder:show }
     requirements:
         id: \d+
