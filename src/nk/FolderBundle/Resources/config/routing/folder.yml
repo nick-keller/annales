@@ -1,0 +1,10 @@
+
+nk_folder_my_folders:
+    pattern: /my-folders
+    defaults: { _controller: nkFolderBundle:Folder:myFolders }
+
+nk_folder_show:
+    pattern: /{id}
+    defaults: { _controller: nkFolderBundle:Folder:show }
+    requirements:
+        id: \d+

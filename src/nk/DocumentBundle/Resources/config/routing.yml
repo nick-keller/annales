@@ -14,3 +14,7 @@ nk_document_document:
     resource: "routing/document.yml"
     prefix:   /documents
 
+nk_document_api:
+    resource: "routing/api.yml"
+    prefix:   /documents/api
+

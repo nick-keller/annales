@@ -36,15 +36,15 @@
                 </ul>
             </div>
             <div class="col8">
-                <a class="btn-icon">
+                <a class="btn-icon" data-action="{{ path('nk_folder_add_to_collection', {id:folder.id}) }}">
                     <i class="fa fa-plus"></i>
                     Ajouter
                 </a>
-                <a class="btn-icon">
+                <a class="btn-icon" data-action="{{ path('nk_folder_copy', {id:folder.id}) }}">
                     <i class="icon i-more-items"></i>
                     Copier
                 </a>
-                <a class="btn-icon">
+                <a class="btn-icon" href="{{ path('nk_folder_download', {id:folder.id}) }}">
                     <i class="icon i-download-alt"></i>
                     Télécharger
                 </a>

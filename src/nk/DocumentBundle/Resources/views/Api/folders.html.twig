@@ -1,0 +1,6 @@
+{% for folder in app.user.folders %}
+    {% if folder.documents.contains(document) %}
+        yes
+    {% endif %}
+    {{ folder }}<br>
+{% endfor %}

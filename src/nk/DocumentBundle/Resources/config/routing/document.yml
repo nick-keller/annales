@@ -20,12 +20,6 @@ nk_document_upload:
     requirements:
         id: \d+
 
-nk_document_preview:
-    pattern:  /{id}/preview
-    defaults: { _controller: nkDocumentBundle:Document:preview }
-    requirements:
-        id: \d+
-
 nk_document_download_all:
     pattern:  /{id}/download
     defaults: { _controller: nkDocumentBundle:Document:download }

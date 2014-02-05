@@ -4,12 +4,6 @@ nk_document_file:
     requirements:
         id: \d+
 
-nk_document_file_rename:
-    pattern:  /{id}/rename
-    defaults: { _controller: nkDocumentBundle:File:rename }
-    requirements:
-        id: \d+
-
 nk_document_file_download:
     pattern:  /{id}/download
     defaults: { _controller: nkDocumentBundle:File:download }

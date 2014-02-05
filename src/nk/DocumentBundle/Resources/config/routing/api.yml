@@ -1,0 +1,17 @@
+nk_document_preview:
+    pattern:  /{id}/preview
+    defaults: { _controller: nkDocumentBundle:Api:preview }
+    requirements:
+        id: \d+
+
+nk_document_file_rename:
+    pattern:  /{id}/rename
+    defaults: { _controller: nkDocumentBundle:Api:rename }
+    requirements:
+        id: \d+
+
+nk_document_folders_for_document:
+    pattern:  /{id}/folders-for-documents
+    defaults: { _controller: nkDocumentBundle:Api:folders }
+    requirements:
+        id: \d+

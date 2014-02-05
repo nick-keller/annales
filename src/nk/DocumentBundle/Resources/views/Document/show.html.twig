@@ -100,9 +100,8 @@
             </table>
         </div>
     </div>
-    {% if document.folders|length %}
-        <h1>Ce document fait partie des comils suivantes</h1>
-        {% set folders = document.folders %}
+    {% if folders|length %}
+        <h1>Ce document fait partie des compils suivantes</h1>
         {% include 'nkFolderBundle:Folder:list.html.twig' %}
     {% endif %}
     <h1>Documents en rapport</h1>

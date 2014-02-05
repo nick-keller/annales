@@ -43,16 +43,6 @@ class DocumentController extends Controller
         return $this->handleForm($document, 'nk_document_show');
     }
 
-    /**
-     * @Template
-     */
-    public function previewAction(Document $document)
-    {
-        return array(
-            'document' => $document
-        );
-    }
-
     public function downloadAction(Document $document)
     {
         if(count($document->getFiles()) === 0)
@@ -101,6 +91,7 @@ class DocumentController extends Controller
 
         return array(
             'document' => $document,
+            'folders' => $this->em->getRepository('nkFolderBundle:Folder')->getFolders($document),
         );
     }
 

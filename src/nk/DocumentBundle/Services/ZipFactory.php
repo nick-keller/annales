@@ -46,7 +46,7 @@ class ZipFactory
         foreach($documents as $document){
             $valid_files = array();
 
-            foreach($document->getFiles as $file)
+            foreach($document->getFiles() as $file)
                 if(file_exists($file->getPath()))
                     $valid_files[] = $file;
 

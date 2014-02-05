@@ -1,11 +1,17 @@
 {% for folder in folders %}
     <a class="folder" href="{{ path('nk_folder_show', {id:folder.id}) }}">
         <i class="icon i-folder-open"></i>
-        <div class="count">{{ folder.documents|length }}</div>
-        {% if folder.author == app.user %}
-            <div class="name" data-rename="{{ path('nk_folder_rename', {id:folder.id}) }}">{{ folder }}</div>
+        <div class="count">
+            {% if folder.total is defined %}
+                {{ folder.total }}
+            {% else %}
+                {{ folder.documents|length }}
+            {% endif %}
+        </div>
+        {% if folder.author == app.user.id or folder.author == app.user %}
+            <div class="name" data-rename="{{ path('nk_folder_rename', {id:folder.id}) }}">{{ folder.name }}</div>
         {% else %}
-            <div class="name">{{ folder }}</div>
+            <div class="name">{{ folder.name }}</div>
         {% endif %}
     </a>
 {% endfor %}

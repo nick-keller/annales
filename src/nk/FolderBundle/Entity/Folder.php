@@ -373,6 +373,7 @@ class Folder
 
     /**
      * @ORM\PreUpdate
+     * @ORM\PrePersist
      */
     public function checkCommonData()
     {
