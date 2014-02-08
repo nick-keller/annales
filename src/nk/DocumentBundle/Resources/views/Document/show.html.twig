@@ -65,6 +65,10 @@
                     </td>
                 </tr>
             </table>
+            <a class="btn-icon" data-add-to-folder="{{ path('nk_document_folders_for_document', {id:document.id}) }}">
+                <i class="fa fa-plus"></i>
+                Ajouter
+            </a>
         </div>
         <div class="col7">
             <table class="table">
@@ -100,9 +104,13 @@
             </table>
         </div>
     </div>
+
+    <h1>Ce document fait partie des compils suivantes</h1>
     {% if folders|length %}
-        <h1>Ce document fait partie des compils suivantes</h1>
         {% include 'nkFolderBundle:Folder:list.html.twig' %}
+    {% else %}
+        <p>Ce document ne fait partie d'aucune compil.</p>
     {% endif %}
+
     <h1>Documents en rapport</h1>
 {% endblock %}

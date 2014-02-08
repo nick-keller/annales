@@ -59,3 +59,61 @@
         color: white;
     }
 }
+
+.add-to-folder{
+    position: absolute;
+    width: 300px;
+    min-height: 100px;
+    max-height: 200px;
+    padding: 5px 0;
+    z-index: 1000;
+    background: white;
+    border: solid 1px @dark;
+
+    i{
+        display: inline-block;
+        width: 25px;
+        text-align: center;
+
+        &.i-ok-2{
+            opacity: 0;
+        }
+
+        &.fa-spinner{
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: auto;
+            line-height: 110px;
+            font-size: 40px;
+        }
+    }
+
+    .f{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        i.i-ok-2{
+            opacity: 0;
+        }
+
+        &:hover{
+            background: @blue;
+            color: white;
+
+            i.i-ok-2{
+                opacity: 1;
+            }
+        }
+
+        &.active{
+            i.i-ok-2{
+                opacity: 1;
+            }
+        }
+    }
+}

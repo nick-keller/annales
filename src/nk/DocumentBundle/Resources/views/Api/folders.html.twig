@@ -1,6 +1,11 @@
 {% for folder in app.user.folders %}
     {% if folder.documents.contains(document) %}
-        yes
+        <div class="f active" data-add-doc-to-folder="{{ path('nk_folder_add', {id:folder.id, docId:document.id}) }}">
+    {% else %}
+        <div class="f">
     {% endif %}
-    {{ folder }}<br>
+        <i class="icon i-ok-2"></i>
+        <i class="icon i-folder-open"></i>
+        {{ folder }}
+    </div>
 {% endfor %}

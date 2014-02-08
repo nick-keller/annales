@@ -37,6 +37,9 @@
                 <a href="{{ path('nk_user_show', {id:doc.author.id}) }}">{{ doc.author }}</a>
             </td>
             <td class="nowrap">
+                <a class="btn-icon" data-add-to-folder="{{ path('nk_document_folders_for_document', {id:doc.id}) }}">
+                    <i class="fa fa-plus"></i>
+                </a>
                 <button class="btn-icon" data-preview="{{ path('nk_document_preview', {id:doc.id}) }}" data-document-id="{{ doc.id }}">
                     <i class="icon i-resize-full"></i>
                     Aperçu

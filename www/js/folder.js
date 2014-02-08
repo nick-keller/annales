@@ -62,4 +62,38 @@ $(function(){
             $name.click();
         });
     });
+
+    $('[data-add-to-folder]').click(function(e){
+        var $this = $(this);
+        var $menu;
+        var position = {
+            of: $this,
+            my: "left top",
+            at: "left bottom+7",
+            collision: "flip fit"
+        };
+
+        e.stopPropagation();
+
+        if($this.next().is('.add-to-folder')){
+            $menu = $this.next();
+            $menu.toggle();
+            $('.add-to-folder').not($menu).hide();
+            $menu.position(position);
+        }else{
+            $menu = $('<div class="add-to-folder"><i class="fa fa-spin fa-spinner icon-dark"></i></div>');
+            $this.after($menu);
+            $('.add-to-folder').not($menu).hide();
+            $menu.position(position);
+
+            $.get($this.data('add-to-folder'), function(data){
+                $menu.html(data);
+                $menu.position(position);
+            });
+        }
+    });
+
+    $(document).click(function(){
+        $('.add-to-folder').hide();
+    });
 });
