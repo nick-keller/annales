@@ -1,11 +1,17 @@
-{% for folder in app.user.folders %}
-    {% if folder.documents.contains(document) %}
-        <div class="f active" data-add-doc-to-folder="{{ path('nk_folder_add', {id:folder.id, docId:document.id}) }}">
-    {% else %}
-        <div class="f">
-    {% endif %}
-        <i class="icon i-ok-2"></i>
-        <i class="icon i-folder-open"></i>
-        {{ folder }}
-    </div>
-{% endfor %}
+<div class="arrow"></div>
+<div class="collection">
+    {% for folder in app.user.folders %}
+            {% if folder.documents.contains(document) %}
+                <div class="f active">
+            {% else %}
+                <div class="f" data-add-doc-to-folder="{{ path('nk_folder_add', {id:folder.id, docId:document.id}) }}">
+            {% endif %}
+                    <i class="icon i-ok-2"></i>
+                    <i class="icon i-folder-open"></i>
+                    {{ folder }}
+                </div>
+    {% endfor %}
+</div>
+<form>
+    <input placeholder="Nouvelle compil" data-new-folder="{{ path('nk_folder_new') }}">
+</form>

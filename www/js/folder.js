@@ -63,14 +63,29 @@ $(function(){
         });
     });
 
+    function activateAddToFolderLink($link){
+        $link.click(function(){
+            var $this = $(this);
+            $this.addClass('active');
+            $this.unbind("click");
+
+            $.get($this.data('add-doc-to-folder'));
+        });
+    }
+
     $('[data-add-to-folder]').click(function(e){
         var $this = $(this);
         var $menu;
         var position = {
             of: $this,
             my: "left top",
-            at: "left bottom+7",
+            at: "left bottom+14",
             collision: "flip fit"
+        };
+        var arrowPosition = {
+            of: $this,
+            my: "center top",
+            at: "center bottom+7"
         };
 
         e.stopPropagation();
@@ -81,14 +96,37 @@ $(function(){
             $('.add-to-folder').not($menu).hide();
             $menu.position(position);
         }else{
-            $menu = $('<div class="add-to-folder"><i class="fa fa-spin fa-spinner icon-dark"></i></div>');
+            $menu = $('<div class="add-to-folder"><div class="arrow"></div><i class="fa fa-spin fa-spinner icon-dark"></i></div>');
             $this.after($menu);
             $('.add-to-folder').not($menu).hide();
             $menu.position(position);
+            $menu.find('.arrow').position(arrowPosition);
+            $menu.click(function(e){
+                e.stopPropagation();
+            });
 
             $.get($this.data('add-to-folder'), function(data){
                 $menu.html(data);
                 $menu.position(position);
+                $menu.find('.arrow').position(arrowPosition);
+                activateAddToFolderLink($menu.find('[data-add-doc-to-folder]'));
+
+                var $input = $menu.find('input');
+
+                $input.keypress(function(e){
+                    if(e.which == 13) {
+                        e.preventDefault();
+                        if($input.val() != ""){
+                            $.get($input.data('new-folder'), {name:$input.val()}, function(data){
+                                $('.add-to-folder').remove();
+                                $this.click();
+                            })
+                            $input.val('');
+                            $input.attr('placeholder', 'Création...');
+                            $input.blur();
+                        }
+                    }
+                });
             });
         }
     });

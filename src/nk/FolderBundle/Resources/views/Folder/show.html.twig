@@ -2,6 +2,27 @@
 
 {% block title %}{{ folder }} - {{ parent() }}{% endblock %}
 
+{% block tools %}
+    <li>
+        <a data-action="{{ path('nk_folder_add_to_collection', {id:folder.id}) }}">
+            <i class="fa fa-plus"></i>
+            Ajouter
+        </a>
+    </li>
+    <li>
+        <a data-action="{{ path('nk_folder_copy', {id:folder.id}) }}">
+            <i class="icon i-more-items"></i>
+            Copier
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('nk_folder_download', {id:folder.id}) }}">
+            <i class="icon i-download-alt"></i>
+            Télécharger
+        </a>
+    </li>
+{% endblock %}
+
 {% block body %}
     <h1>{{ folder }}</h1>
     <div class="gray-bg">
@@ -36,18 +57,6 @@
                 </ul>
             </div>
             <div class="col8">
-                <a class="btn-icon" data-action="{{ path('nk_folder_add_to_collection', {id:folder.id}) }}">
-                    <i class="fa fa-plus"></i>
-                    Ajouter
-                </a>
-                <a class="btn-icon" data-action="{{ path('nk_folder_copy', {id:folder.id}) }}">
-                    <i class="icon i-more-items"></i>
-                    Copier
-                </a>
-                <a class="btn-icon" href="{{ path('nk_folder_download', {id:folder.id}) }}">
-                    <i class="icon i-download-alt"></i>
-                    Télécharger
-                </a>
                 <p>
                     <b>Ajoutez</b> cette compil à votre collection pour y accéder rapidement. Toutes les modification apportées par l'auteur serrons automatiquement répercutées.<br>
                     <b>Copiez</b> cette compil dans votre collection pour pouvoir la modifier.

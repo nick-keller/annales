@@ -64,16 +64,16 @@
     position: absolute;
     width: 300px;
     min-height: 100px;
-    max-height: 200px;
     padding: 5px 0;
     z-index: 1000;
-    background: white;
-    border: solid 1px @dark;
+    background: @gray;
+    color: #333333;
 
     i{
         display: inline-block;
         width: 25px;
         text-align: center;
+        color: @dark;
 
         &.i-ok-2{
             opacity: 0;
@@ -96,6 +96,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        line-height: 25px;
 
         i.i-ok-2{
             opacity: 0;
@@ -104,9 +105,10 @@
         &:hover{
             background: @blue;
             color: white;
+            cursor: pointer;
 
-            i.i-ok-2{
-                opacity: 1;
+            i{
+                color: white;
             }
         }
 
@@ -114,6 +116,30 @@
             i.i-ok-2{
                 opacity: 1;
             }
+        }
+    }
+
+    .arrow{
+        position: absolute;
+        z-index: 980;
+        border: solid 7px transparent;
+        border-top: none;
+        border-bottom-color: @gray;
+    }
+
+    .collection{
+        max-height: 200px;
+        overflow-y: auto;
+        padding-bottom: 5px;
+    }
+
+    form{
+        margin: 0 5px;
+
+        input{
+            background: white;
+            width: 100%;
+            display: block;
         }
     }
 }

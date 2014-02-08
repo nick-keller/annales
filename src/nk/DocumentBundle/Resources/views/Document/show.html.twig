@@ -1,17 +1,23 @@
-{% extends '::base.html.twig' %}
+{% if document.author == app.user %}
+    {% set layout = 'nkDocumentBundle:Document:layout.html.twig' %}
+{% else %}
+    {% set layout = '::base.html.twig' %}
+{% endif %}
+{% extends layout %}
+
 {% block title %}{{ document.subject }} - {{ parent() }}{% endblock %}
 
 {% block tools %}
     <li>
-        <a href="{{ path('nk_document_edit', {id:document.id}) }}">
-            <i class="icon i-pencil"></i>
-            Editer
+        <a href="{{ path('nk_document_download_all', {id:document.id}) }}">
+            <i class="icon i-download-alt"></i>
+            Télécharger
         </a>
     </li>
     <li>
-        <a href="{{ path('nk_document_upload', {id:document.id}) }}">
-            <i class="icon i-sort"></i>
-            Fichiers
+        <a data-add-to-folder="{{ path('nk_document_folders_for_document', {id:document.id}) }}">
+            <i class="fa fa-plus"></i>
+            Ajouter
         </a>
     </li>
 {% endblock %}
@@ -65,10 +71,6 @@
                     </td>
                 </tr>
             </table>
-            <a class="btn-icon" data-add-to-folder="{{ path('nk_document_folders_for_document', {id:document.id}) }}">
-                <i class="fa fa-plus"></i>
-                Ajouter
-            </a>
         </div>
         <div class="col7">
             <table class="table">

@@ -46,6 +46,8 @@ class ApiController extends Controller
     public function newAction()
     {
         $folder = new Folder;
+        if(($name = $this->request->query->get('name', null)) !== null)
+            $folder->setName($name);
         $this->em->persist($folder);
         $this->em->flush();
 
@@ -55,6 +57,7 @@ class ApiController extends Controller
             'name' => $folder->getName(),
             'rename' => $this->generateUrl('nk_folder_rename', array('id' => $folder->getId())),
             'link' => $this->generateUrl('nk_folder_show', array('id' => $folder->getId())),
+            'addDoc' => str_replace('777', '__id__', $this->generateUrl('nk_folder_add', array('id' => $folder->getId(), 'docId' => 777))),
         );
 
         return $this->getResponse($response);

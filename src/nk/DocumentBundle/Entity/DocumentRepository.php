@@ -94,6 +94,6 @@ class DocumentRepository extends EntityRepository
         return $this->createQueryBuilder('d')
             ->where('d.author = :user')
             ->setParameter('user', $user)
-            ->orderBy('d.createdAt');
+            ->orderBy('d.createdAt', 'DESC');
     }
 }

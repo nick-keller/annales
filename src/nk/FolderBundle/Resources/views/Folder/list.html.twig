@@ -8,7 +8,7 @@
                 {{ folder.documents|length }}
             {% endif %}
         </div>
-        {% if folder.author == app.user.id or folder.author == app.user %}
+        {% if folder.author.id is defined and folder.author == app.user or folder.author == app.user.id %}
             <div class="name" data-rename="{{ path('nk_folder_rename', {id:folder.id}) }}">{{ folder.name }}</div>
         {% else %}
             <div class="name">{{ folder.name }}</div>
