@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DocumentController extends Controller
 {
@@ -40,6 +41,9 @@ class DocumentController extends Controller
      */
     public function editAction(Document $document)
     {
+        if($this->getUser() != $document->getAuthor())
+            throw new AccessDeniedException();
+
         return $this->handleForm($document, 'nk_document_show');
     }
 
@@ -72,6 +76,10 @@ class DocumentController extends Controller
 
         $this->get('nk.zip_factory')->remove($file);
 
+        $document->setDownloaded($document->getDownloaded() + 1);
+        $this->em->persist($document);
+        $this->em->flush();
+
         return $response;
     }
 
@@ -91,6 +99,10 @@ class DocumentController extends Controller
 
         $suggestions = $this->em->getRepository('nkDocumentBundle:Document')->findSuggestionsFromDocument($document);
 
+        $document->setViewed($document->getViewed() + 1);
+        $this->em->persist($document);
+        $this->em->flush();
+
         return array(
             'document' => $document,
             'folders' => $this->em->getRepository('nkFolderBundle:Folder')->getFolders($document),
@@ -98,6 +110,9 @@ class DocumentController extends Controller
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function allAction($class, $field)
     {
         if($class === null){
@@ -151,6 +166,7 @@ class DocumentController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function adminAction()
     {

@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class FileController extends Controller
 {
@@ -37,6 +38,9 @@ class FileController extends Controller
      */
     public function uploadAction(Document $document)
     {
+        if($this->getUser() != $document->getAuthor())
+            throw new AccessDeniedException();
+
         $file = new File($document);
         $form = $this->createForm(new FileType, $file);
 
@@ -78,6 +82,11 @@ class FileController extends Controller
         $response->headers->set('Content-Length', filesize($file->getPath()));
         $response->setStatusCode(200);
         $response->setContent(file_get_contents($file->getPath()));
+
+        $document = $file->getDocument();
+        $document->setDownloaded($document->getDownloaded() + 1);
+        $this->em->persist($document);
+        $this->em->flush();
 
         return $response;
     }

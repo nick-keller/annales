@@ -109,6 +109,12 @@ class ApiController extends Controller
 
         $this->get('nk.zip_factory')->remove($file);
 
+        foreach($folder->getDocuments() as $document){
+            $document->setDownloaded($document->getDownloaded() + 1);
+            $this->em->persist($document);
+        }
+        $this->em->flush();
+
         return $response;
     }
 

@@ -9,18 +9,20 @@
                     Voir
                 </a>
             </li>
-            <li {{ page.active('nk_document_edit') }}>
-                <a href="{{ path('nk_document_edit', {id:document.id}) }}">
-                    <i class="icon i-pencil"></i>
-                    Editer
-                </a>
-            </li>
-            <li {{ page.active('nk_document_upload') }}>
-                <a href="{{ path('nk_document_upload', {id:document.id}) }}">
-                    <i class="icon i-sort"></i>
-                    Gérer les fichiers
-                </a>
-            </li>
+            {% if document.author == app.user %}
+                <li {{ page.active('nk_document_edit') }}>
+                    <a href="{{ path('nk_document_edit', {id:document.id}) }}">
+                        <i class="icon i-pencil"></i>
+                        Editer
+                    </a>
+                </li>
+                <li {{ page.active('nk_document_upload') }}>
+                    <a href="{{ path('nk_document_upload', {id:document.id}) }}">
+                        <i class="icon i-sort"></i>
+                        Gérer les fichiers
+                    </a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 {% endblock %}

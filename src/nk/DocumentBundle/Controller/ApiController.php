@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiController extends Controller
 {
@@ -27,6 +28,10 @@ class ApiController extends Controller
      */
     public function previewAction(Document $document)
     {
+        $document->setViewed($document->getViewed() + 1);
+        $this->em->persist($document);
+        $this->em->flush();
+
         return array(
             'document' => $document
         );
@@ -37,7 +42,21 @@ class ApiController extends Controller
      */
     public function renameAction(File $file)
     {
-        $file->setName($this->request->query->get('name'));
+        if($this->getUser() != $file->getDocument()->getAuthor())
+            return $this->getResponse(array(
+                'success' => 0,
+                'error' => "Ce fichier ne vous appartiens pas",
+            ));
+
+        $name = $this->request->query->get('name', null);
+
+        if($name === null || trim($name) == "")
+            return $this->getResponse(array(
+                'success' => 0,
+                'error' => "Vous devez spécifier un nom",
+            ));
+
+        $file->setName($name);
         $this->em->persist($file);
         $this->em->flush();
 
@@ -46,6 +65,7 @@ class ApiController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
     public function foldersAction(Document $document)
     {

@@ -24,6 +24,7 @@ class AdminController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function indexAction()
     {
