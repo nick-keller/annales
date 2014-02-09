@@ -1,5 +1,7 @@
 $(function(){
-
+    /*
+     * Rename folder ====================================================
+     */
     var rename = function(e){
         e.preventDefault();
 
@@ -42,16 +44,23 @@ $(function(){
 
     $('.folder .name').click(rename);
 
+    /*
+     * New folder ===================================================
+     */
     $('[data-new-folder]').click(function(){
         var $this = $(this);
+        var $container = $('#'+$this.data('target'));
+        var $loading = $('<i class="fa fa-spin fa-spinner fa-3x"></i>');
+        $container.append($loading);
 
         $.get($this.data('new-folder'), function(data){
-            var $container = $('#'+$this.data('target'));
             var template = $container.find('.template').html();
+            $loading.remove();
 
             template = template.replace('__link__', data.link);
             template = template.replace('__rename__', data.rename);
             template = template.replace('__name__', data.name);
+            template = template.replace('__id__', data.id);
             template = template.replace(/^\s+|\s+$/g, '');
 
             var $folder = $(template);
@@ -63,6 +72,9 @@ $(function(){
         });
     });
 
+    /*
+     * Add to folder ================================================
+     */
     function activateAddToFolderLink($link){
         $link.click(function(){
             var $this = $(this);
@@ -133,5 +145,28 @@ $(function(){
 
     $(document).click(function(){
         $('.add-to-folder').hide();
+    });
+
+    /*
+     * Remove folder =========================================
+     */
+    $('[data-remove-folders]').click(function(){
+        var $this = $(this);
+        var $folders = $('.folder');
+        $this.toggleClass('active');
+
+        if($this.hasClass('active')){
+            $folders.addClass('remove');
+            $folders.click(function(e){
+                e.preventDefault();
+                $.get($(this).data('remove-folder'));
+                $(this).animate({opacity:0}, 500, function(){
+                    $(this).remove();
+                })
+            });
+        }else{
+            $folders.removeClass('remove');
+            $folders.unbind("click");
+        }
     });
 });

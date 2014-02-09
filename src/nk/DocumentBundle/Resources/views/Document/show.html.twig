@@ -73,37 +73,45 @@
             </table>
         </div>
         <div class="col7">
-            <table class="table">
-                <tr>
-                    <th>Fichier</th>
-                    <th>Poid</th>
-                    <th>
-                        {% if document.files|length > 1 %}
-                            <a class="btn-icon" href="{{ path('nk_document_download_all', {id:document.id}) }}">
-                                <i class="icon i-cargo"></i>
-                                Télécharger archive
-                            </a>
-                        {% endif %}
-                    </th>
-                </tr>
-                {% for file in document.files %}
+            {% if document.files|length %}
+                <table class="table">
                     <tr>
-                        <td>
-                            <i class="icon i-file icon-dark"></i>
-                            <a href="{{ asset(file.webPath) }}">
-                                {{ file }}
-                            </a>
-                        </td>
-                        <td>{{ file.size }}</td>
-                        <td>
-                            <a class="btn-icon" href="{{ path('nk_document_file_download', {id:file.id}) }}">
-                                <i class="icon i-download-alt"></i>
-                                Télécharger
-                            </a>
-                        </td>
+                        <th>Fichier</th>
+                        <th>Poid</th>
+                        <th>
+                            {% if document.files|length > 1 %}
+                                <a class="btn-icon" href="{{ path('nk_document_download_all', {id:document.id}) }}">
+                                    <i class="icon i-cargo"></i>
+                                    Télécharger archive
+                                </a>
+                            {% endif %}
+                        </th>
                     </tr>
-                {% endfor %}
-            </table>
+                    {% for file in document.files %}
+                        <tr>
+                            <td>
+                                <i class="icon i-file icon-dark"></i>
+                                <a href="{{ asset(file.webPath) }}">
+                                    {{ file }}
+                                </a>
+                            </td>
+                            <td>{{ file.size }}</td>
+                            <td>
+                                <a class="btn-icon" href="{{ path('nk_document_file_download', {id:file.id}) }}">
+                                    <i class="icon i-download-alt"></i>
+                                    Télécharger
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p class="txt-large" style="text-align: center; margin-top: 60px">
+                    <i class="icon i-fishes icon-dark fa-4x"></i>
+                    <br>
+                    L'auteur n'a pas encore ajouté de fichiers.
+                </p>
+            {% endif %}
         </div>
     </div>
 
@@ -114,5 +122,9 @@
         <p>Ce document ne fait partie d'aucune compil.</p>
     {% endif %}
 
-    <h1>Documents en rapport</h1>
+    {% if suggestions|length %}
+        <h1 style="margin-top: 40px">Documents en rapport</h1>
+        {% set documents = suggestions %}
+        {% include 'nkDocumentBundle:Document:list.html.twig' %}
+    {% endif %}
 {% endblock %}

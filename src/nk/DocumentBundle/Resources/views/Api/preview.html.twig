@@ -14,30 +14,38 @@
         </a>
 
         <div class="scrollable-content">
-            <table class="table">
-                <tr>
-                    <th>Fichiers</th>
-                    <th>
-                        {% if document.files|length > 1 %}
-                            <a class="btn-icon" href="{{ path('nk_document_download_all', {id:document.id}) }}">
-                                <i class="icon i-cargo"></i>
-                            </a>
-                        {% endif %}
-                    </th>
-                </tr>
-                {% for file in document.files %}
+            {% if document.files|length %}
+                <table class="table">
                     <tr>
-                        <td data-pdf="{{ asset(file.webPath) }}">
-                            {{ file.name }}
-                        </td>
-                        <td>
-                            <a class="btn-icon" href="{{ path('nk_document_file_download', {id:file.id}) }}">
-                                <i class="icon i-download-alt"></i>
-                            </a>
-                        </td>
+                        <th>Fichiers</th>
+                        <th>
+                            {% if document.files|length > 1 %}
+                                <a class="btn-icon" href="{{ path('nk_document_download_all', {id:document.id}) }}">
+                                    <i class="icon i-cargo"></i>
+                                </a>
+                            {% endif %}
+                        </th>
                     </tr>
-                {% endfor %}
-            </table>
+                    {% for file in document.files %}
+                        <tr>
+                            <td data-pdf="{{ asset(file.webPath) }}">
+                                {{ file.name }}
+                            </td>
+                            <td>
+                                <a class="btn-icon" href="{{ path('nk_document_file_download', {id:file.id}) }}">
+                                    <i class="icon i-download-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p class="txt-large" style="text-align: center">
+                    <i class="icon i-fishes icon-dark fa-3x"></i>
+                    <br>
+                    L'auteur n'a pas encore ajouté de fichiers.
+                </p>
+            {% endif %}
 
             <table class="table">
                 <tr>

@@ -9,14 +9,21 @@
             Nouveau
         </a>
     </li>
+    <li>
+        <a data-remove-folders>
+            <i class="icon i-folder-minus"></i>
+            Supprimer
+        </a>
+    </li>
 {% endblock %}
 
 {% block body %}
     <h1>Mes compils</h1>
     <div id="folder-list">
         <div class="template" style="display: none">
-            <a class="folder" href="__link__">
+            <a class="folder" href="__link__" data-remove-folder="{{ path('nk_folder_remove', {id:777})|replace({777:"__id__"}) }}">
                 <i class="icon i-folder-open"></i>
+                <div class="count">0</div>
                 <div class="name" data-rename="__rename__">__name__</div>
             </a>
         </div>
@@ -25,6 +32,17 @@
     </div>
 
     <h1>Compils externes</h1>
-    {% set folders = app.user.folderCollection %}
-    {% include 'nkFolderBundle:Folder:list.html.twig' %}
+    {% if app.user.folderCollection|length %}
+        {% set folders = app.user.folderCollection %}
+        {% include 'nkFolderBundle:Folder:list.html.twig' %}
+    {% else %}
+        <div class="row-gaped">
+            <div class="col2" style="text-align: center">
+                <i class="icon icon-dark i-beer fa-4x"></i>
+            </div>
+            <div class="col10">
+                <p class="txt-large">Vous pouvez ajouter des compils crées par d'autres utilisateurs à votre collection. Vous ne pourrez pas les modifier mais les mises à jours serrons automatiquement reportées ici.</p>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

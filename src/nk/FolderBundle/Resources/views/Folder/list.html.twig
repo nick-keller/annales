@@ -1,5 +1,12 @@
 {% for folder in folders %}
-    <a class="folder" href="{{ path('nk_folder_show', {id:folder.id}) }}">
+    {% set isAuthor = folder.author.id is defined and folder.author == app.user or folder.author == app.user.id %}
+    <a class="folder" href="{{ path('nk_folder_show', {id:folder.id}) }}" {% spaceless %}
+        {% if isAuthor %}
+            data-remove-folder="{{ path('nk_folder_remove', {id:folder.id}) }}"
+        {% else %}
+            data-remove-folder="{{ path('nk_folder_remove_from_collection', {id:folder.id}) }}"
+        {% endif %}
+    {% endspaceless %}>
         <i class="icon i-folder-open"></i>
         <div class="count">
             {% if folder.total is defined %}
@@ -8,7 +15,7 @@
                 {{ folder.documents|length }}
             {% endif %}
         </div>
-        {% if folder.author.id is defined and folder.author == app.user or folder.author == app.user.id %}
+        {% if isAuthor %}
             <div class="name" data-rename="{{ path('nk_folder_rename', {id:folder.id}) }}">{{ folder.name }}</div>
         {% else %}
             <div class="name">{{ folder.name }}</div>

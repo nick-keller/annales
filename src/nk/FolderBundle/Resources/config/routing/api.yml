@@ -27,6 +27,18 @@ nk_folder_add_to_collection:
     requirements:
         id: \d+
 
+nk_folder_remove_from_collection:
+    pattern: /{id}/remove-from-collection
+    defaults: { _controller: nkFolderBundle:Api:removeFromCollection }
+    requirements:
+        id: \d+
+
+nk_folder_remove:
+    pattern: /{id}/remove
+    defaults: { _controller: nkFolderBundle:Api:remove }
+    requirements:
+        id: \d+
+
 nk_folder_copy:
     pattern: /{id}/copy
     defaults: { _controller: nkFolderBundle:Api:copy }

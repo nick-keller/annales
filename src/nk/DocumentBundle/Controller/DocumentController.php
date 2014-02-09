@@ -89,9 +89,12 @@ class DocumentController extends Controller
             )), 301);
         }
 
+        $suggestions = $this->em->getRepository('nkDocumentBundle:Document')->findSuggestionsFromDocument($document);
+
         return array(
             'document' => $document,
             'folders' => $this->em->getRepository('nkFolderBundle:Folder')->getFolders($document),
+            'suggestions' => $suggestions,
         );
     }
 

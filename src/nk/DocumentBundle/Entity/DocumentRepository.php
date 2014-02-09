@@ -121,4 +121,18 @@ class DocumentRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findSuggestionsFromDocument(Document $document)
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d != :document')
+            ->setParameter('document', $document)
+            ->andWhere('d.unit = :unit')
+            ->setParameter('unit', $document->getUnit())
+            ->orderBy('d.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

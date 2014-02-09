@@ -133,6 +133,49 @@ class ApiController extends Controller
     /**
      * @Secure(roles="ROLE_USER")
      */
+    public function removeFromCollectionAction(Folder $folder)
+    {
+        if(!$this->getUser()->getFolderCollection()->contains($folder))
+            return $this->getResponse(array(
+                'success' => 0,
+                'error' => "Cette compil n'est pas dans votre collection",
+            ));
+
+        $folder->removeUser($this->getUser());
+        $this->em->persist($folder);
+        $this->em->flush();
+
+        return $this->getResponse(array('success' => 1));
+    }
+
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
+    public function removeAction(Folder $folder)
+    {
+        if($this->getUser() != $folder->getAuthor())
+            return $this->getResponse(array(
+                'success' => 0,
+                'error' => "Cette compil ne vous appartiens pas",
+            ));
+
+        if(count($folder->getUsers())){
+            $newAuthor = $folder->getUsers()[0];
+            $folder->setAuthor($newAuthor);
+            $folder->removeUser($newAuthor);
+            $this->em->persist($folder);
+        }else{
+            $this->em->remove($folder);
+        }
+
+        $this->em->flush();
+
+        return $this->getResponse(array('success' => 1));
+    }
+
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function copyAction(Folder $f)
     {
         $folder = new Folder();
