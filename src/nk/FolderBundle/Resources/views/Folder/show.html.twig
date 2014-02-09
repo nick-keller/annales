@@ -3,12 +3,14 @@
 {% block title %}{{ folder }} - {{ parent() }}{% endblock %}
 
 {% block tools %}
-    <li>
-        <a data-action="{{ path('nk_folder_add_to_collection', {id:folder.id}) }}">
-            <i class="fa fa-plus"></i>
-            Ajouter
-        </a>
-    </li>
+    {% if app.user != folder.author %}
+        <li>
+            <a data-action="{{ path('nk_folder_add_to_collection', {id:folder.id}) }}">
+                <i class="fa fa-plus"></i>
+                Ajouter
+            </a>
+        </li>
+    {% endif %}
     <li>
         <a data-action="{{ path('nk_folder_copy', {id:folder.id}) }}">
             <i class="icon i-more-items"></i>
@@ -56,9 +58,13 @@
                     </li>
                 </ul>
             </div>
-            <div class="col8">
+            <div class="col4">
                 <p>
-                    <b><i class="fa fa-plus"></i> Ajoutez</b> cette compil à votre collection pour y accéder rapidement. Toutes les modification apportées par l'auteur serrons automatiquement répercutées.<br>
+                    <b><i class="fa fa-plus"></i> Ajoutez</b> cette compil à votre collection pour y accéder rapidement. Toutes les modification apportées par l'auteur serrons automatiquement répercutées.
+                </p>
+            </div>
+            <div class="col4">
+                <p>
                     <b><i class="icon i-more-items"></i> Copiez</b> cette compil dans votre collection pour pouvoir la modifier.
                 </p>
             </div>

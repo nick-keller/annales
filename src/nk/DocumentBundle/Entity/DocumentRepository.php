@@ -28,7 +28,8 @@ class DocumentRepository extends EntityRepository
 
     public function searchQuery(array $mappedQuery)
     {
-        $qb = $this->createQueryBuilder('d');
+        $qb = $this->createQueryBuilder('d')
+            ->orderBy('d.createdAt', 'DESC');
 
         foreach($mappedQuery as $field => $data){
             if($field == 'subject'){

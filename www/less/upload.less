@@ -1,3 +1,6 @@
+@import "colors";
+@import "mixins";
+
 #upload-manager{
 
     .template, .form{
@@ -16,13 +19,12 @@
             position: relative;
             display: block;
             font-size: 80px;
-            color: #4386ba;
+            color: @blue;
             cursor: default;
             margin-bottom: 5px;
 
             &.loading-bar{
                 position: absolute;
-                color: red;
                 left: 0;
                 right: 0;
                 top: 0;
@@ -55,6 +57,36 @@
                 height: 21px;
                 line-height: 21px;
                 padding: 0;
+            }
+        }
+
+        &.remove{
+            cursor: pointer;
+
+            &:hover{
+                background: @gray;
+
+                .i-file{
+                    color: @red;
+                    cursor: pointer;
+                }
+
+                &:before{
+                    content:"×";
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    color: white;
+                    background: @red;
+                    .border-radius(20px);
+                    line-height: 20px;
+                    text-align: center;
+                    font-size: 20px;
+                    font-weight: bold;
+                    border: solid 3px @gray;
+                    z-index: 150;
+                    margin: 10px 0 0 -40px;
+                }
             }
         }
     }

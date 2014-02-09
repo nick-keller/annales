@@ -1,5 +1,5 @@
 {% spaceless %}
-    <div class="file" data-id="{{ file.id }}" data-path="{{ asset(file.webPath) }}">
+    <div class="file" data-id="{{ file.id }}" data-path="{{ asset(file.webPath) }}" data-remove-file="{{ path('nk_document_file_remove', {id:file.id}) }}">
         <i class="icon i-file" title="{{ file.name }}"></i>
         <div class="name" title="{{ file.name }}" data-rename="{{ path('nk_document_file_rename', {id:file.id}) }}">{{ file.name }}</div>
         <div class="size">{{ file.size }}</div>

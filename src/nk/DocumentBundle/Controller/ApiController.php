@@ -64,6 +64,23 @@ class ApiController extends Controller
     }
 
     /**
+     * @Secure(roles="ROLE_USER")
+     */
+    public function removeAction(File $file)
+    {
+        if($this->getUser() != $file->getDocument()->getAuthor())
+            return $this->getResponse(array(
+                'success' => 0,
+                'error' => "Ce fichier ne vous appartiens pas",
+            ));
+
+        $this->em->remove($file);
+        $this->em->flush();
+
+        return $this->getResponse(array('success' => 1));
+    }
+
+    /**
      * @Template
      * @Secure(roles="ROLE_USER")
      */

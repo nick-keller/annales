@@ -163,4 +163,25 @@ $(function(){
 
         upload(0, $this[0].files);
     });
+
+
+    $('[data-remove-files]').click(function(){
+        var $this = $(this);
+        var $files = $('.file[data-remove-file]');
+        $this.toggleClass('active');
+
+        if($this.hasClass('active')){
+            $files.addClass('remove');
+            $files.click(function(e){
+                e.preventDefault();
+                $.get($(this).data('remove-file'));
+                $(this).animate({opacity:0}, 500, function(){
+                    $(this).remove();
+                })
+            });
+        }else{
+            $files.removeClass('remove');
+            $files.unbind("click");
+        }
+    });
 });
