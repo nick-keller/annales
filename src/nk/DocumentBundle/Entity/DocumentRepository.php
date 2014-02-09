@@ -4,6 +4,7 @@ namespace nk\DocumentBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use nk\FolderBundle\Entity\Folder;
 use nk\UserBundle\Entity\User;
 
 /**
@@ -95,5 +96,29 @@ class DocumentRepository extends EntityRepository
             ->where('d.author = :user')
             ->setParameter('user', $user)
             ->orderBy('d.createdAt', 'DESC');
+    }
+
+    public function findSuggestionsFromFolder(Folder $folder)
+    {
+        $fields = array('type', 'class', 'field', 'unit', 'year', 'teacher');
+        $isFiltered = false;
+
+        $qb = $this->createQueryBuilder('d')
+            ->where('d NOT IN (:folder)')
+            ->setParameter('folder', $folder->getDocuments()->toArray())
+            ->setMaxResults(10)
+        ;
+
+        foreach($fields as $field){
+            if($folder->{'get'.ucfirst($field)}() !== null){
+                $isFiltered = true;
+                $qb->andWhere("d.$field = :$field")
+                    ->setParameter($field, $folder->{'get'.ucfirst($field)}());
+            }
+        }
+
+        if(!$isFiltered) return array();
+
+        return $qb->getQuery()->getResult();
     }
 }

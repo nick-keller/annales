@@ -68,6 +68,11 @@
 
     </div>
     {% set documents = folder.documents %}
-
     {% include 'nkDocumentBundle:Document:list.html.twig' %}
+
+    {% if suggestions|length %}
+        <h1 style="margin-top: 60px">Suggestions de documents</h1>
+        {% set documents = suggestions %}
+        {% include 'nkDocumentBundle:Document:list.html.twig' %}
+    {% endif %}
 {% endblock %}

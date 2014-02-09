@@ -38,6 +38,7 @@ class FolderController extends Controller
     {
         return array(
             'folder' => $folder,
+            'suggestions' => $this->em->getRepository('nkDocumentBundle:Document')->findSuggestionsFromFolder($folder),
         );
     }
 }
