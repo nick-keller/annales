@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block submenu %}
+    <nav class="submenu">
+        <ul>
+            <li {{ page.active('nk_user_show') }}>
+                <a href="{{ path('nk_user_show', {id:user.id}) }}">
+                    <i class="icon i-user"></i>
+                    Profil
+                </a>
+            </li>
+            <li {{ page.active('nk_user_documents') }}>
+                <a href="{{ path('nk_user_documents', {id:user.id}) }}">
+                    <i class="icon i-file"></i>
+                    Documents
+                </a>
+            </li>
+            <li {{ page.active('nk_user_folders') }}>
+                <a href="{{ path('nk_user_folders', {id:user.id}) }}">
+                    <i class="icon i-folder-open"></i>
+                    Compils
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

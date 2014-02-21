@@ -136,4 +136,14 @@ class DocumentRepository extends EntityRepository
             ->getResult()
         ;
     }
+
+    public function getStatFromUser(User $user)
+    {
+        return $this->createQueryBuilder('d')
+            ->select('COUNT(d.id) total, SUM(d.viewed) viewed, SUM(d.downloaded) downloaded')
+            ->where('d.author = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+    }
 }

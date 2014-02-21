@@ -2,5 +2,7 @@
 {% block title %}{{ user }} - {{ parent() }}{% endblock %}
 
 {% block body %}
-    {% include 'nkUserBundle:Profile:show_content.html.twig' %}
+    <h1>Documents de {{ user }}</h1>
+    {% include 'nkDocumentBundle:Document:list.html.twig' %}
+    {{ knp_pagination_render(documents) }}
 {% endblock %}

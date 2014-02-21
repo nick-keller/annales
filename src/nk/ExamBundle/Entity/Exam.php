@@ -188,6 +188,11 @@ class Exam
         return $this->unit;
     }
 
+    public function getRealUnit()
+    {
+        return preg_replace('#^([A-Z]{2,3}-[0-9]{4}).*$#', '$1', $this->unit);
+    }
+
     /**
      * @param array $documents
      */

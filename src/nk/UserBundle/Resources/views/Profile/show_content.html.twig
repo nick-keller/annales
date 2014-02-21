@@ -1,6 +1,57 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<h1>Mon profil</h1>
+{% if user == app.user %}
+    <h1>Mon profil</h1>
+{% else %}
+    <h1>Profil de {{ user }}</h1>
+{% endif %}
 
-<p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-<p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+<div class="row-gaped">
+    <div class="col4">
+        <h2>
+            <i class="icon i-vcard"></i>
+            Informations
+        </h2>
+
+        <ul class="ul-icon">
+            <li>
+                <i class="icon i-user"></i>
+                {{ 'profile.show.username'|trans }} : <b>{{ user.username }}</b>
+            </li>
+            <li>
+                <i class="icon i-message-full"></i>
+                {{ 'profile.show.email'|trans }} : <b>{{ user.email }}</b>
+            </li>
+            <li>
+                <i class="icon i-bank"></i>
+                Promo : <b>{{ user.resource }}</b>
+            </li>
+        </ul>
+    </div>
+    <div class="col4">
+        {% if stat is defined %}
+            <h2>
+                <i class="icon i-charts"></i>
+                Statistiques
+            </h2>
+
+            <ul class="ul-icon">
+                <li>
+                    <i class="icon i-file"></i>
+                    <b>{{ stat.total }}</b> documents
+                </li>
+                <li>
+                    <i class="icon i-eye-open"></i>
+                    <b>{{ stat.viewed|number_format(0, '.', ' ') }}</b> vues
+                </li>
+                <li>
+                    <i class="icon i-download-alt"></i>
+                    <b>{{ stat.downloaded|number_format(0, '.', ' ') }}</b> téléchargements
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+    <div class="col4">
+
+    </div>
+</div>

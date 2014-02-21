@@ -70,6 +70,13 @@
                         <a href="{{ path('nk_user_show', {id:document.author.id}) }}">{{ document.author }}</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>Statistiques</td>
+                    <td class="nowrap">
+                        <i class="icon i-eye-open icon-dark" style="margin-right: 3px"></i> {{ document.viewed }}
+                        <i class="icon i-download-alt icon-dark" style="margin-left: 15px"></i> {{ document.downloaded }}
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="col7">

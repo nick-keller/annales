@@ -34,6 +34,34 @@ class UserController extends Controller
     {
         return array(
             'user' => $user,
+            'stat' => $this->em->getRepository('nkDocumentBundle:Document')->getStatFromUser($user)[0],
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function documentsAction(User $user)
+    {
+        $documents = $this->get('knp_paginator')->paginate(
+            $this->em->getRepository('nkDocumentBundle:Document')->queryLatestOfUser($this->getUser()),
+            $this->request->query->get('page', 1),
+            20
+        );
+
+        return array(
+            'user' => $user,
+            'documents' => $documents,
+        );
+    }
+
+    /**
+     * @Template
+     */
+    public function foldersAction(User $user)
+    {
+        return array(
+            'user' => $user,
         );
     }
 

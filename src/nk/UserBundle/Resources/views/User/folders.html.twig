@@ -1,0 +1,14 @@
+{% extends 'nkUserBundle:User:layout.html.twig' %}
+{% block title %}{{ user }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Compils de {{ user }}</h1>
+    {% set folders = user.folders %}
+    {% include 'nkFolderBundle:Folder:list.html.twig' %}
+
+    {% if user.folderCollection|length %}
+        <h1>Autres compils de sa collection<h1>
+        {% set folders = user.folderCollection %}
+        {% include 'nkFolderBundle:Folder:list.html.twig' %}
+    {% endif %}
+{% endblock %}

@@ -23,7 +23,7 @@ class ExamRepository extends EntityRepository
     public function findNext(User $user = null)
     {
         $qb = $this->createQueryBuilder('e')
-            ->where('e.startAt > CURRENT_TIMESTAMP()')
+//            ->where('e.startAt > CURRENT_TIMESTAMP()')
             ->orderBy('e.startAt');
 
         if($user !== null){

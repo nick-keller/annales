@@ -1,51 +1,68 @@
 {% extends '::base.html.twig' %}
-{% block title %}Prochains contrôles - {{ parent() }}{% endblock %}
+{% block title %}Prochains examens - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Prochains contrôles</h1>
+    <h1>Prochains examens</h1>
     {% if exams|length %}
         <p class="gray-bg">
-            Liste des prochains contrôles pour les <b>{{ app.user.resource }}</b> des 4 prochaines semaines.
+            Liste des prochains examens pour les <b>{{ app.user.resource }}</b> des 4 prochaines semaines.
         </p>
     {% else %}
         <p class="gray-bg">
-            Aucun contrôle pour les <b>{{ app.user.resource }}</b> pour les 4 prochaines semaines.
+            Aucun examen pour les <b>{{ app.user.resource }}</b> pour les 4 prochaines semaines.
         </p>
     {% endif %}
 
-    {% for exam in exams %}
-        <div class="event">
-            <h2>
-                {{ exam.unit }}
-                <button class="btn-icon" data-ignore-exam="{{ path('nk_exam_ignore_exam', {unit:exam.unit}) }}">
-                    <i class="fa fa-trash-o"></i>
-                </button>
-                <button class="btn-icon full-size-event">
-                    <i class="icon i-resize-full"></i>
-                </button>
-            </h2>
-
-            <p class="info">
+    <table class="table" data-adaptive-table>
+        <tr>
+            <th class="nowrap">
+                <i class="icon i-book"></i>
+                Unitée
+            </th>
+            <th class="nowrap">
                 <i class="icon i-calendar"></i>
-                {{ exam.startAt|countdown }}
-                <br>
+                Date
+            </th>
+            <th data-priority="3" class="nowrap">
                 <i class="icon i-stopwatch"></i>
-                {{ exam.length }}
-                <br>
+                Durée
+            </th>
+            <th data-priority="1" class="nowrap">
                 <i class="icon i-group"></i>
-                {{ exam.groups }}
-                <br>
+                Groupes
+            </th>
+            <th data-priority="2" class="nowrap">
                 <i class="icon i-google-maps"></i>
-                {{ exam.location }}
-                <br>
-                <i class="icon i-file"></i>
-                {{ exam.documents|length }} {{ 'Document|Documents'|transchoice(exam.documents|length) }}
-                <br>
-                <i class="icon i-folder-open"></i>
-                1 compilation
-            </p>
-            {#{% set documents = exam.documents|slice(0,3) %}#}
-            {#{% include 'nkDocumentBundle:Document:list.html.twig' %}#}
-        </div>
-    {% endfor %}
+                Salle
+            </th>
+            <th></th>
+        </tr>
+        {% for exam in exams %}
+            <tr>
+                <td class="nowrap">
+                    <a href="{{ path('nk_exam_show', {id:exam.id}) }}">
+                        {{ exam.unit }}
+                    </a>
+                </td>
+                <td>
+                    {{ exam.startAt|countdown }}
+                </td>
+                <td>
+                    {{ exam.length }}
+                </td>
+                <td>
+                    {{ exam.groups }}
+                </td>
+                <td>
+                    {{ exam.location }}
+                </td>
+                <td class="nowrap">
+                    <button class="btn-icon" data-ignore-exam="{{ path('nk_exam_ignore_exam', {unit:exam.unit}) }}">
+                        <i class="icon i-bin"></i>
+                        Ignorer
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

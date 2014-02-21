@@ -50,7 +50,7 @@ $(function(){
     $('[data-new-folder]').click(function(){
         var $this = $(this);
         var $container = $('#'+$this.data('target'));
-        var $loading = $('<i class="fa fa-spin fa-spinner fa-3x"></i>');
+        var $loading = $('<i class="fa fa-spin fa-spinner fa-3x" style="margin-top: 30px"></i>');
         $container.append($loading);
 
         $.get($this.data('new-folder'), function(data){

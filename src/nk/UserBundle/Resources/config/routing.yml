@@ -4,6 +4,18 @@ nk_user_show:
     requirements:
         id: \d+
 
+nk_user_documents:
+    pattern:  /{id}/documents
+    defaults: { _controller: nkUserBundle:User:documents }
+    requirements:
+        id: \d+
+
+nk_user_folders:
+    pattern:  /{id}/folders
+    defaults: { _controller: nkUserBundle:User:folders }
+    requirements:
+        id: \d+
+
 nk_user_my_docs:
     pattern:  /my-documents
     defaults: { _controller: nkUserBundle:User:myDocuments }

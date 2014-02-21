@@ -2,6 +2,12 @@ nk_exam_next_exam:
     pattern:  /next
     defaults: { _controller: nkExamBundle:Exam:next }
 
+nk_exam_show:
+    pattern:  /{id}
+    defaults: { _controller: nkExamBundle:Exam:show }
+    requirements:
+        id: \d+
+
 nk_exam_update_database:
     pattern:  /update-database
     defaults: { _controller: nkExamBundle:Exam:update }
