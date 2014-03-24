@@ -23,6 +23,11 @@ class AdminController extends Controller
     private $request;
 
     /**
+     * @var Paginator
+     */
+    private $paginator;
+
+    /**
      * @Template
      * @Secure(roles="ROLE_ADMIN")
      */
@@ -49,6 +54,21 @@ class AdminController extends Controller
         return array(
             'form' => $form->createView(),
             'suggestions' => $this->get('nk.metadata_finder')->getStandardizeSuggestions(),
+        );
+    }
+
+    /**
+     * @Template
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function allAction()
+    {
+        return array(
+            'documents' => $this->get('knp_paginator')->paginate(
+                $this->em->getRepository('nkDocumentBundle:Document')->queryAll(),
+                $this->get('request')->query->get('page', 1),
+                25
+            ),
         );
     }
 }

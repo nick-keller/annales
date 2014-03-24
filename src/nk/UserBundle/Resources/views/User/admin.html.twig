@@ -1,0 +1,63 @@
+{% extends '::admin.html.twig' %}
+{% block title %}Tous les utilisateurs{% endblock %}
+
+{% block body %}
+
+    <div class="row-gaped">
+        <div class="col6">
+            <h1>Administrateurs</h1>
+
+            {% for user in admins %}
+                <button class="label-icon" data-unignore-exam="{{ path("nk_user_unset_admin", {username:user}) }}">
+                    <i class="icon i-remove-2"></i>
+                    {{ user }}
+                </button>
+            {% endfor %}
+        </div>
+        <div class="col6">
+            <h1>Ajouter un administrateur</h1>
+            <form method="post" action="{{ path('nk_user_set_admin') }}">
+                <input data-autocomplete="{{ userList }}" name="username">
+                <button class="btn">ok</button>
+            </form>
+        </div>
+    </div>
+
+    <h1>Derniers utilisateurs</h1>
+    <table class="table">
+        <tr>
+            <th>Pseudo</th>
+            <th>Email</th>
+            <th>Activé</th>
+            <th>Admin</th>
+            <th>Dernière connexion</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>
+                    <a href="{{ path('nk_user_show', {id:user.id}) }}">
+                        {{ user }}
+                    </a>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.enabled %}
+                        <i class="icon i-circle-ok"></i>
+                    {% else %}
+                        <i class="icon i-circle-remove"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if 'ROLE_ADMIN' in user.roles %}
+                        <i class="icon i-circle-ok"></i>
+                    {% else %}
+                        <i class="icon i-circle-remove"></i>
+                    {% endif %}
+                </td>
+                <td>{{ user.lastLogin|countdown }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {{ knp_pagination_render(users) }}
+
+{% endblock %}

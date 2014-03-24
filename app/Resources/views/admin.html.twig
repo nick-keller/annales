@@ -15,6 +15,18 @@
                     Ressources ADE
                 </a>
             </li>
+            <li {{ page.active('nk_user_admin') }}>
+                <a href="{{ path('nk_user_admin') }}">
+                    <i class="icon i-group"></i>
+                    Utilisateurs
+                </a>
+            </li>
+            <li {{ page.active('nk_documents_admin') }}>
+                <a href="{{ path('nk_documents_admin') }}">
+                    <i class="icon i-file"></i>
+                    Documents
+                </a>
+            </li>
         </ul>
     </nav>
 {% endblock %}

@@ -15,6 +15,12 @@ use nk\UserBundle\Entity\User;
  */
 class DocumentRepository extends EntityRepository
 {
+    function queryAll()
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.createdAt', 'DESC');
+    }
+
     public function findDistinct($field)
     {
         $result = $this->createQueryBuilder('d')

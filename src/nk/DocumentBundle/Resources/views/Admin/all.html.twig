@@ -1,0 +1,8 @@
+{% extends '::admin.html.twig' %}
+{% block title %}Tous les utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Derniers documents</h1>
+    {% include 'nkDocumentBundle:Document:list.html.twig' %}
+    {{ knp_pagination_render(documents) }}
+{% endblock %}

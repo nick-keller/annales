@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -26,6 +27,23 @@ class UserController extends Controller
      * @var Paginator
      */
     private $paginator;
+
+    /**
+     * @Template
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function adminAction()
+    {
+        return array(
+            'users' => $this->paginator->paginate(
+                $this->em->getRepository('nkUserBundle:User')->queryAll(),
+                $this->get('request')->query->get('page', 1),
+                25
+            ),
+            'admins' => $this->em->getRepository('nkUserBundle:User')->findAdmins(),
+            'userList' => implode(',', $this->em->getRepository('nkUserBundle:User')->findAllUsernames()),
+        );
+    }
 
     /**
      * @Template
@@ -79,5 +97,39 @@ class UserController extends Controller
         return array(
             'documents' => $documents,
         );
+    }
+
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function setAdminAction()
+    {
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($this->request->request->get('username'));
+        $roles = $user->getRoles();
+        $roles[] = 'ROLE_ADMIN';
+        $user->setRoles($roles);
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $this->redirect($this->generateUrl('nk_user_admin'));
+    }
+
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function unsetAdminAction($username)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
+        $roles = $user->getRoles();
+        unset($roles[array_search('ROLE_TEST', $roles)]);
+        $user->setRoles($roles);
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return new Response();
     }
 }

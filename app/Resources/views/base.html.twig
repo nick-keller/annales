@@ -33,6 +33,10 @@
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
             {% endstylesheets %}
         {% endblock %}
+
+        {% block opengraph %}
+        {% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
     </head>
     <body>
@@ -41,6 +45,12 @@
                 <input type="search" name="s" placeholder="Rechercher" autocomplete="off" data-autocomplete-multiple="{{ metadata() }}"{% if searchQuery is defined %} value="{{ searchQuery }}"{% endif %}>
             </form>
                 <ul class="menu">
+                    <li {{ page.active('nk_home') }}>
+                        <a href="{{ path('nk_home') }}">
+                            <i class="icon i-home blue"></i>
+                            Accueil
+                        </a>
+                    </li>
                     {% if app.user %}
                         <li {{ page.active('fos_user') }}>
                             <a href="{{ path('fos_user_profile_show') }}">
@@ -99,6 +109,9 @@
                         </li>
                     {% endif %}
                 </ul>
+            <div class="watermark">
+                Créé par <a href="http://nicolas-keller.com">Nicolas Keller</a>
+            </div>
         </aside>
         <nav id="nav-bar">
             <ul class="tools">
@@ -132,7 +145,7 @@
                 'js/exam.js'
                 'js/folder.js'
                 'js/global.js'
-                output='/js/script.js'
+                output='js/script.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}

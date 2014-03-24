@@ -19,3 +19,15 @@ nk_user_folders:
 nk_user_my_docs:
     pattern:  /my-documents
     defaults: { _controller: nkUserBundle:User:myDocuments }
+
+nk_user_admin:
+    pattern:  /admin
+    defaults: { _controller: nkUserBundle:User:admin }
+
+nk_user_set_admin:
+    pattern:  /admin/set-admin
+    defaults: { _controller: nkUserBundle:User:setAdmin }
+
+nk_user_unset_admin:
+    pattern:  /admin/{username}/unset-admin
+    defaults: { _controller: nkUserBundle:User:unsetAdmin }

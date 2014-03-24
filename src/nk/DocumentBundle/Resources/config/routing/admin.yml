@@ -1,3 +1,7 @@
 nk_document_admin:
     pattern:  /
     defaults: { _controller: nkDocumentBundle:Admin:index }
+
+nk_documents_admin:
+    pattern:  /all
+    defaults: { _controller: nkDocumentBundle:Admin:all }

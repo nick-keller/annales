@@ -15,7 +15,7 @@ use \Doctrine\Common\Collections\ArrayCollection;
  * User
  *
  * @ORM\Table(name="nk_user")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="nk\UserBundle\Entity\UserRepository")
  */
 class User extends BaseUser
 {
@@ -27,6 +27,17 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern="/^[a-z\.-]+@edu\.esiee\.fr$/",
+     *      message="Vous devez avoir un mail @edu.esiee.fr"
+     *      )
+     */
+    protected $email;
 
     /**
      * @var integer
@@ -68,6 +79,7 @@ class User extends BaseUser
      */
     public function __construct()
     {
+        parent::__construct();
         $this->ignoredExams = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->folders = new ArrayCollection();

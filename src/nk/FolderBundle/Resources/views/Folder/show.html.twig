@@ -2,6 +2,15 @@
 
 {% block title %}{{ folder }} - {{ parent() }}{% endblock %}
 
+{% block opengraph %}
+    <meta property="og:type"            content="article" />
+    <meta property="og:url"             content="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
+    <meta property="og:title"           content="{{ folder }}" />
+    <meta property="og:image"           content="{{ asset('img/folder.png') }}" />
+    <meta property="og:locale"          content="fr_FR" />
+    <meta property="og:description"     content="{{ folder.type }} {{ folder.class }} {{ folder.field }} {{ folder.unit }} {{ folder.year }} {{ folder.teacher }}" />
+{% endblock %}
+
 {% block tools %}
     {% if app.user != folder.author %}
         <li>

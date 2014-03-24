@@ -5,6 +5,15 @@
 {% endif %}
 {% extends layout %}
 
+{% block opengraph %}
+    <meta property="og:type"            content="article" />
+    <meta property="og:url"             content="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
+    <meta property="og:title"           content="{{ document.subject }}" />
+    <meta property="og:image"           content="{{ asset('img/file.png') }}" />
+    <meta property="og:locale"          content="fr_FR" />
+    <meta property="og:description"     content="{{ document.type }} {{ document.field }} {{ document.class }} {{ document.teacher }} {{ document.year }} {{ document.unit }}" />
+{% endblock %}
+
 {% block title %}{{ document.subject }} - {{ parent() }}{% endblock %}
 
 {% block tools %}

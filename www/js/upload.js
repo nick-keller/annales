@@ -72,11 +72,11 @@ $(function(){
             var speed = 0;
 
             // Make sure we have a pdf
-            if(file.type != 'application/pdf' && file.type != 'application/x-pdf'){
+            if(file.type != 'application/pdf' && file.type != 'application/x-pdf' && file.type != 'application/x-download'){
                 $loadingBar.remove();
                 $file.find(fileIconClass).css('color', '#ca6060');
                 $file.removeAttr('id');
-                $statusBar.html("Ceci n'est pas un pdf");
+                $statusBar.html("Ceci n'est pas un pdf" + file.type);
 
                 if(++i < files.length)
                     upload(i, files);
