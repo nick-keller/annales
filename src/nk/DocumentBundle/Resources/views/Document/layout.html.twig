@@ -22,6 +22,12 @@
                         Gérer les fichiers
                     </a>
                 </li>
+                <li {{ page.active('nk_document_delete') }}>
+                    <a href="{{ path('nk_document_delete', {id:document.id}) }}">
+                        <i class="icon i-bin"></i>
+                        Supprimer
+                    </a>
+                </li>
             {% endif %}
         </ul>
     </nav>

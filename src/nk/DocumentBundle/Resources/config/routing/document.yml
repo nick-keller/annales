@@ -26,6 +26,12 @@ nk_document_download_all:
     requirements:
         id: \d+
 
+nk_document_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: nkDocumentBundle:Document:delete }
+    requirements:
+        id: \d+
+
 nk_document_all:
     pattern:  /{class}/{field}
     defaults: { _controller: nkDocumentBundle:Document:all, class: null, field: null }

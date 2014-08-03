@@ -1,0 +1,34 @@
+{% extends 'nkDocumentBundle:Document:layout.html.twig' %}
+{% block title %}Supprimer le document - {{ parent() }}{% endblock %}
+
+{% block tools %}
+    <li>
+        <a href="{{ path('nk_document_show', {id:document.id, slug:document.slug, class:document.class, field:document.field}) }}">
+            <i class="icon i-chevron-left"></i>
+            Annuler
+        </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <h1>Voulez-vous vraiment supprimer "{{ document.subject }}" {% if document.files|length > 1 %}et tous ses fichiers{% elseif document.files|length == 1 %}et son fichier{% endif %} ?</h1>
+    <div id="upload-manager">
+	    {% for file in document.files %}
+		    <div class="file">
+		        <i class="icon i-file" title="{{ file.name }}"></i>
+		        <div style="text-overflow: ellipsis;overflow: hidden;" title="{{ file.name }}">{{ file.name }}</div>
+		        <div class="size">{{ file.size }}</div>
+		    </div>
+	    {% endfor %}
+    </div>
+	<form method="post">
+        <button class="btn" type="submit">
+            <i class="icon i-ok-2"></i>
+            Oui
+        </button>
+        <a class="btn" style="font-size:13px;" href="{{ path('nk_document_show', {id:document.id, slug:document.slug, class:document.class, field:document.field}) }}">
+            <i class="icon i-remove-2"></i>
+            Annuler
+        </a>
+	</form>
+{% endblock %}

@@ -172,4 +172,31 @@ class DocumentController extends Controller
     {
         return array();
     }
+
+    /**
+     * @Secure(roles="ROLE_USER")
+     * @Template
+     */
+    public function deleteAction(Document $document)
+    {
+        if($this->getUser() != $document->getAuthor() && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
+            throw new AccessDeniedException();
+
+        if($this->request->isMethod('POST')){
+            foreach ($document->getFiles() as $file) {
+                unlink($file->getWebPath());
+                $this->em->remove($file);
+            }
+
+            $this->em->flush();
+            $this->em->remove($document);
+            $this->em->flush();
+
+            return $this->redirect($this->generateUrl('nk_user_my_docs'));
+        }
+
+        return array(
+            'document' => $document,
+        );
+    }
 }
