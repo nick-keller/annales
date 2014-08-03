@@ -9,7 +9,7 @@
                     Voir
                 </a>
             </li>
-            {% if document.author == app.user %}
+            {% if document.author == app.user or is_granted('ROLE_ADMIN') %}
                 <li {{ page.active('nk_document_edit') }}>
                     <a href="{{ path('nk_document_edit', {id:document.id}) }}">
                         <i class="icon i-pencil"></i>

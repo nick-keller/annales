@@ -41,7 +41,7 @@ class DocumentController extends Controller
      */
     public function editAction(Document $document)
     {
-        if($this->getUser() != $document->getAuthor())
+        if($this->getUser() != $document->getAuthor() && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             throw new AccessDeniedException();
 
         return $this->handleForm($document, 'nk_document_show');

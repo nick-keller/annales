@@ -1,4 +1,4 @@
-{% if document.author == app.user %}
+{% if document.author == app.user or is_granted('ROLE_ADMIN') %}
     {% set layout = 'nkDocumentBundle:Document:layout.html.twig' %}
 {% else %}
     {% set layout = '::base.html.twig' %}
