@@ -42,7 +42,7 @@ class ApiController extends Controller
      */
     public function renameAction(File $file)
     {
-        if($this->getUser() != $file->getDocument()->getAuthor())
+        if($this->getUser() != $file->getDocument()->getAuthor() && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             return $this->getResponse(array(
                 'success' => 0,
                 'error' => "Ce fichier ne vous appartiens pas",
@@ -68,7 +68,7 @@ class ApiController extends Controller
      */
     public function removeAction(File $file)
     {
-        if($this->getUser() != $file->getDocument()->getAuthor())
+        if($this->getUser() != $file->getDocument()->getAuthor() && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             return $this->getResponse(array(
                 'success' => 0,
                 'error' => "Ce fichier ne vous appartiens pas",
