@@ -41,8 +41,9 @@
     </head>
     <body>
         <aside id="left-menu">
-            <form method="get" class="search-form ui-front" autocomplete="off" action="{{ path('nk_document_search') }}">
+            <form method="get" class="search-form ui-front cf" autocomplete="off" action="{{ path('nk_document_search') }}">
                 <input type="search" name="s" placeholder="Rechercher" autocomplete="off" data-autocomplete-multiple="{{ metadata() }}"{% if searchQuery is defined %} value="{{ searchQuery }}"{% endif %}>
+                <button type="submit" name="submit" id="submit"><i class="icon i-search"></i></button>
             </form>
                 <ul class="menu">
                     <li {{ page.active('nk_home') }}>
