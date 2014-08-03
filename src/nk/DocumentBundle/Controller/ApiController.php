@@ -74,6 +74,7 @@ class ApiController extends Controller
                 'error' => "Ce fichier ne vous appartiens pas",
             ));
 
+        unlink($file->getWebPath());
         $this->em->remove($file);
         $this->em->flush();
 
