@@ -13,3 +13,6 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    piwik_site_id: 0
+    piwik_url: domain.tld/piwik
