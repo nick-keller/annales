@@ -23,52 +23,52 @@ class DocumentType extends AbstractType
     {
         $builder
             ->add('type', 'choice', array(
-                'label' => 'Type',
+                'label'   => 'Type',
                 'choices' => array(
                     'Annale' => 'Annale',
-                    'Cour' => 'Cour',
-                    'TD' => 'TD',
-                    'TP' => 'TP',
+                    'Cours'  => 'Cours',
+                    'TD'     => 'TD',
+                    'TP'     => 'TP',
                     'Projet' => 'Projet',
                 )
             ))
             ->add('class', 'text', array(
                 'label' => 'Promo',
-                'attr' => array(
-                    'placeholder' => 'E1, E2, E3E, ...',
+                'attr'  => array(
+                    'placeholder'       => 'E1, E2, E3E, ...',
                     'data-autocomplete' => implode(',', $this->metadata['classes']),
                 )
             ))
             ->add('field', 'text', array(
                 'label' => 'Matière',
-                'attr' => array(
-                    'placeholder' => 'Physique, Electronique, ...',
+                'attr'  => array(
+                    'placeholder'       => 'Physique, Electronique, ...',
                     'data-autocomplete' => implode(',', $this->metadata['fields']),
                 )
             ))
             ->add('unit', 'text', array(
                 'label' => 'Unité',
-                'attr' => array(
-                    'placeholder' => 'IGI-3003, ...',
+                'attr'  => array(
+                    'placeholder'       => 'IGI-3003, ...',
                     'data-autocomplete' => implode(',', $this->metadata['units']),
                 )
             ))
             ->add('teacher', 'text', array(
                 'label' => 'Professeur',
-                'attr' => array(
-                    'placeholder' => 'Douay, Exertier, ...',
+                'attr'  => array(
+                    'placeholder'       => 'Douay, Exertier, ...',
                     'data-autocomplete' => implode(',', $this->metadata['teachers']),
                 )
             ))
             ->add('subject', 'text', array(
                 'label' => 'Titre',
-                'attr' => array(
+                'attr'  => array(
                     'placeholder' => 'Description du contenu.',
                 )
             ))
             ->add('year', 'text', array(
                 'label' => 'Année',
-                'attr' => array(
+                'attr'  => array(
                     'placeholder' => '2014, 2014-2015',
                 )
             ))
