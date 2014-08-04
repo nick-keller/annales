@@ -52,10 +52,11 @@ hr{
         .box-sizing();
 
         input{
-            width: 100%;
+            width: 185px;
             height: 100%;
             padding: 0 10px;
             box-shadow: none;
+            float: left;
             .box-sizing();
 
             background: darken(@left-menu-color, 4%);
@@ -66,9 +67,72 @@ hr{
             &:focus{
                 background: darken(@left-menu-color, 6%);
                 box-shadow: none;
-            }
+                outline: 0;
+            } 
         }
+
+        button {
+            overflow: visible;
+            position: relative;
+            float: right;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+            height: 31px;
+            width: 20px;
+            color: #eaeaea;
+            text-transform: uppercase;
+            background: #393939; 
+            text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+
+            &:hover{    
+                background: #525252;
+            }  
+
+            &:active,
+            &:focus{  
+                background: #525252;
+                outline: 0;  
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                border-width: 8px 8px 8px 0;
+                border-style: solid solid solid none;
+                border-color: transparent #393939 transparent;
+                top: 8px;
+                left: -6px;
+            }
+
+            &:hover:before{
+                border-right-color: #525252;
+            }
+
+            &:focus:before,
+            &:active:before{
+                    border-right-color: #525252;
+            }     
+
+            &::-moz-focus-inner {
+                border: 0;
+                padding: 0;
+            }
+        }  
     }
+
+    .cf{
+        zoom:1;
+
+        &:before, .cf:after{
+            content:"";
+            display:table;
+        }
+
+        &:after{
+            clear:both;
+        }
+    }    
 
     .menu{
         list-style: none;

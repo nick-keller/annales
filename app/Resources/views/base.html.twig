@@ -41,8 +41,9 @@
     </head>
     <body>
         <aside id="left-menu">
-            <form method="get" class="search-form ui-front" autocomplete="off" action="{{ path('nk_document_search') }}">
+            <form method="get" class="search-form ui-front cf" autocomplete="off" action="{{ path('nk_document_search') }}">
                 <input type="search" name="s" placeholder="Rechercher" autocomplete="off" data-autocomplete-multiple="{{ metadata() }}"{% if searchQuery is defined %} value="{{ searchQuery }}"{% endif %}>
+                <button type="submit" name="submit" id="submit"><i class="icon i-search"></i></button>
             </form>
                 <ul class="menu">
                     <li {{ page.active('nk_home') }}>
@@ -149,6 +150,21 @@
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            <!-- Piwik -->
+            <script type="text/javascript">
+              var _paq = _paq || [];
+              _paq.push(['trackPageView']);
+              _paq.push(['enableLinkTracking']);
+              (function() {
+                var u=(("https:" == document.location.protocol) ? "https" : "http") + "://{{ piwik_url }}/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', {{ piwik_site_id }}]);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+                g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+              })();
+            </script>
+            <noscript><p><img src="//{{ piwik_url }}/piwik.php?idsite={{ piwik_site_id }}" style="border:0;" alt="" /></p></noscript>
+            <!-- End Piwik Code -->
         {% endblock %}
     </body>
 </html>

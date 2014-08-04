@@ -44,7 +44,8 @@ class AdeExplorer
 
     function __construct($AdeUrl, SecurityContext $context, EntityManager $em)
     {
-        $this->user = $context->getToken()->getUser();
+        if (null !== $context->getToken())
+            $this->user = $context->getToken()->getUser();
         $this->em = $em;
         $this->docRepo = $this->em->getRepository('nkDocumentBundle:Document');
         $this->resourceRepo = $this->em->getRepository('nkExamBundle:Resource');

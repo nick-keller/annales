@@ -31,7 +31,7 @@ class Document
      *
      * @ORM\Column(name="type", type="string", length=10)
      * @Assert\NotBlank()
-     * @Assert\Choice(choices = {"Annale", "Cour", "TD", "TP", "Projet"})
+     * @Assert\Choice(choices = {"Annale", "Cours", "TD", "TP", "Projet"})
      */
     private $type;
 

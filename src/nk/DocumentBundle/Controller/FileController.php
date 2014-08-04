@@ -38,7 +38,7 @@ class FileController extends Controller
      */
     public function uploadAction(Document $document)
     {
-        if($this->getUser() != $document->getAuthor())
+        if($this->getUser() != $document->getAuthor() && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             throw new AccessDeniedException();
 
         $file = new File($document);
