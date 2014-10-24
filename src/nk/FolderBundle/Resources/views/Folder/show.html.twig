@@ -49,7 +49,7 @@
                         {% for user in folder.users %}
                             <a href="{{ path('nk_user_show', {id:user.id}) }}">{{ user }}</a>{% if not loop.last %},{% endif %}
                         {% else %}
-                            Aucun utilisateur n'a ajouté cette compil à sa collection
+                            Aucun utilisateur n'a ajouté cette compile à sa collection
                         {% endfor %}
                     </li>
                     <li>
@@ -69,12 +69,12 @@
             </div>
             <div class="col4">
                 <p>
-                    <b><i class="fa fa-plus"></i> Ajoutez</b> cette compil à votre collection pour y accéder rapidement. Toutes les modification apportées par l'auteur serrons automatiquement répercutées.
+                    <b><i class="fa fa-plus"></i> Ajoutez</b> cette compile à votre collection pour y accéder rapidement. Toutes les modifications apportées par l'auteur seront automatiquement répercutées.
                 </p>
             </div>
             <div class="col4">
                 <p>
-                    <b><i class="icon i-more-items"></i> Copiez</b> cette compil dans votre collection pour pouvoir la modifier.
+                    <b><i class="icon i-more-items"></i> Copiez</b> cette compile dans votre collection pour pouvoir la modifier.
                 </p>
             </div>
         </div>
