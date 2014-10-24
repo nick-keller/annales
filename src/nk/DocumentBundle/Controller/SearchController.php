@@ -24,6 +24,7 @@ class SearchController extends Controller
 
     /**
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
     public function searchAction()
     {
