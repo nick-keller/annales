@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Mes compils</h1>
+    <h1>Mes compiles</h1>
     <div id="folder-list">
         <div class="template" style="display: none">
             <a class="folder" href="__link__" data-remove-folder="{{ path('nk_folder_remove', {id:777})|replace({777:"__id__"}) }}">
@@ -31,7 +31,7 @@
         {% include 'nkFolderBundle:Folder:list.html.twig' %}
     </div>
 
-    <h1>Compils externes</h1>
+    <h1>Compiles externes</h1>
     {% if app.user.folderCollection|length %}
         {% set folders = app.user.folderCollection %}
         {% include 'nkFolderBundle:Folder:list.html.twig' %}
